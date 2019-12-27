@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>节点操作</title>
+</head>
+
+<body>
+    <ul id="box">
+        <li>git & npm</li>
+        <li>面向对象和原型：研究插件源码自己写插件</li>
+        <li>闭包作用域：堆栈内存处理</li>
+        <li>ES6</li>
+        <li>同步异步编程及核心：微任务、宏任务、事件循环</li>
+        <div id="father">
+            <li id="dom">DOM及事件模型</li>
+        </div>
+        <li>jQuery及源码分析</li>
+        <li>设计模式：发布订阅、单例</li>
+        <li>ajax跨域解决方案</li>
+        <li>HTTP</li>
+        <li>性能安全优化</li>
+        <li>vue全家桶：vue-cli\vue\vue-router\vuex\element</li>
+        <li>vue和vuex的核心源码</li>
+        <li>react全家桶:create-react-app、antd、antd
+            pro、react、react-dom、react-native、react-router-dom、redux、react-redux、dva、redux-saga、mobx...</li>
+        <li>react核心原理</li>
+        <li>redux源码和中间件编写</li>
+        <li>webpack</li>
+        <li>node和express</li>
+        <li>type script</li>
+        <li>......</li>
+    </ul>
+</body>
+<script>
+    let box = document.getElementById('box');
+    //标准浏览器(非IE6~8)中会把空格和换行当中文本节点处理
+    /*console.log(box.childNodes); //=>NodeList(41) [text, li, text, li, text, li...]
+    //只想要元素节点（但是在IE6`8下使用children会把注释也当做元素节点）
+    console.log(box.children); //=>HTMLCollection(20) [li, li,...]*/
+
+    /*//context:指定的上下文元素信息
+    //返回所有的元素子节点集合
+    function children(context) {
+        var res = [];
+        //获取所有的子节点
+        nodeList = context.childNodes;
+        for (var i = 0; i < nodeList.length; i++) {
+            //寻找元素节点，（nodeType === 1）加入res数组末尾
+            nodeList[i].nodeType === 1 ? res.push(nodeList[i]) : null;
+        }
+        return res;
+    }
+    console.log(children(box));*/
+    /*console.log(box.firstChild); // =>#text
+    console.log(box.firstElementChild); // =><li>git & npm</li>*/
+    let dom = document.getElementById('dom');
+    console.log(dom.previousSibling); // =>#text
+    console.log(dom.previousElementSibling); //=><li>同步异步编程及核心：微任务、宏任务、事件循环</li>
+
+    console.log(dom.parentNode);
+    /* //获取上一个元素节点previousSibling方法
+     function prev(context) {
+         //先找到上一个节点
+         var pre = context.previousSibling;
+         //当找到的不是元素节点时候就一直向上找节点
+         while (pre.nodeType !== 1) {
+             pre = pre.previousSibling;
+         }
+         return pre;
+     }
+     console.log(prev(dom));*/
+</script>
+
+</html>

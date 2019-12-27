@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>回到顶部</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        height: 300%;
+        background: -webkit-linear-gradient(top left, lightblue, lightcoral, lightyellow);
+    }
+
+    .link {
+        display: none;
+        box-sizing: border-box;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: fixed;
+        right: 30px;
+        bottom: 50px;
+        line-height: 100px;
+        text-align: center;
+        color: #000;
+        text-decoration: none;
+        background-color: magenta;
+        border: 1px solid magenta;
+    }
+</style>
+
+<body>
+    <!-- javascript:; 清除a标签默认时间 -->
+    <a href="javascript:;" id="link" class="link">回到顶部</a>
+</body>
+
+<script>
+    let HTML = document.documentElement,
+        link = document.getElementById('link');
+    //当浏览器滚动条滚动的时候，去验证滚动的高度是否超过两个屏幕
+    function check() {
+        //获取一屏幕的高度
+        let winH = HTML.clientHeight,
+            //获取卷去的高度
+            scH = HTML.scrollTop;
+        //超过两屏幕高度影藏，不超过两屏幕显示
+        link.style.display = scH > winH * 2 ? 'block' : 'none'
+    }
+
+    window.onscroll = check;
+    //点击回顶部
+    link.onclick = function () {
+        //实现点击后回到顶部按钮消失
+        link.style.display = 'none';
+        //先禁止滚动check事件触发，（因为在回到顶部的过程中，如果事件一直在，会计算按钮显示和影藏的样式）
+        window.onscroll = null;
+        //动画实现
+        let step = 100;
+        let timer = setInterval(() => {
+            //每一次获取最新的scrollTop值，在现有的基础上减去步长，让其走一步
+            let curT = HTML.scrollTop;
+            if (curT === 0) {
+                clearInterval(timer);
+                //事件执行完重新绑定check事件
+                window.onscroll = check;
+                return;
+            }
+            //curT记录当前应该走到哪里
+            curT -= step;
+            //当前屏幕的滚动条滚动到当前应该走到的位置
+            HTML.scrollTop = curT;
+        }, 17);
+
+        // HTML.scrollTop = 0 //直接回顶部
+    }
+</script>
+
+</html>

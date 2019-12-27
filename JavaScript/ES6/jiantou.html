@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*function fn(n) {
+            return function (m) {
+                return n + m;
+            }
+        }*/
+
+        //箭头函数如下
+
+        //n与m只有一个形参可以省略小括号
+        let fn = n => m => n + m;
+
+        /* function sum(n, m) {
+            if (typeof n === 'undefined') {
+                n = 0;
+            }
+            if (typeof m === 'undefined') {
+                m = 0;
+            }
+            return n + m;
+        }*/
+
+        //上述函数等价于箭头函数
+
+        //形参赋值默认值:当没给形参传递实参时执行默认值(0)
+        let sum = (n = 0, m = 0) => n + m;
+
+        let a = sum(10, 20);
+        console.log(a);
+    </script>
+</body>
+
+</html>

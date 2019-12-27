@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*let ary = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+    let res = ary.splice(2, 4);
+    console.log(res, ary); //=> [30, 40, 50, 60]  [10, 20, 70, 80, 90]
+    //删除最后一项
+    ary.splice(ary.length - 1);
+    //删除第一项
+    ary.splice(0, 1);*/
+    /*let ary = [10, 20, 30, 40, 50]
+    let res = ary.splice(1, 2, 'li', 'wei'); //从索引1开始删除2项     后面可以放多个内容，也可以不放
+    console.log(res, ary); //=> [20,30]  [10, 'li','wei', 40, 50]*/
+
+    /*let ary = [10, 20, 30, 40, 50]
+    let res = ary.splice(3, 0, 'li', 'wei'); //从索引3删除0位 增加多个内容
+    console.log(res, ary); //=> []  [10, 20, 30, "li", "wei", 40, 50]
+    ary.splice(ary.length, 0, 'AAA'); //向数组末尾添加内容
+    console.log(ary);*/
+
+    /*let ary = [10, 20, 30, 40, 50]
+    let res = ary.slice(-3, -1); // =>[10, 20, 30]
+    console.log(res); // =>[30] [10, 20, 30, 40, 50]
+    //数组克隆 把原来的每一项都找到以新数组的方式返回
+    let res = ary.slice(0); //从开始找到末尾
+    console.log(res);*/
+
+    /* let ary1 = [10, 20, 30, 40, 50];
+     let ary2 = [60, 70, 80, 90, 100];
+     let res = ary1.concat('+', ary2); //如果没有值就是浅克隆
+     console.log(res); //=>[10, 20, 30, 40, 50, "+", 60, 70, 80, 90, 100]*/
+
+    /*let ary = [{
+        name: 'undefined',
+    }, 123, 456];
+    let res = ary.join('||');
+    console.log(res); //=> [object Object]||123||456*/
+
+    /*let ary = [0, 10, 20, 30, 40, 50, 40, 20, 50];
+    console.log(ary.indexOf(20)); //=>2
+    console.log(ary.lastIndexOf(20)); //=>7
+    console.log(ary.indexOf(30)); // =>3
+    console.log(ary.lastIndexOf(30)); // =>3
+    console.log(ary.lastIndexOf('')); // =>-1 null和‘’不会转化为0，是字符串
+
+    console.log(ary.includes('')); //false*/
+
+
+    /*let ary = [12, 23, 85, 91, 9, '', undefined, null, NaN];
+    //sort 方法中如果不传递参数无法处理10以上的排序，因为他是按照数字第一位来排序的
+    let res = ary.sort();
+    console.log(res); //=> ["", 12, 23, 85, 91, NaN, null, undefined]*/
+
+
+    /*let ary = [12, 85, 23, 91, '', undefined, null, NaN];
+    //a和b是相邻的两项 b是前面一项 a是后面一项
+    //a-b实现升序，b-a实现降序(冒泡排序)
+    //ary.sort(function(a,b){....});
+    ary.sort((a, b) => a - b);
+    console.log(ary); //=>["", null, 12, 23, 85, 91, NaN, undefined]*/
+
+    /* let ary = [11, 25, 754, 12, 30, 123, 0]
+
+     ary.forEach((item, index) => {
+         //数组有多少项就会执行多少次
+         //每执行一次，item是当前要操作的项，index是当前项的索引
+         console.log(index + ':' + item);
+     });*/
+
+    /*let ary = [1, 2, 3, 3, 5, 1, 1, 2, 3, 4, 8, 9, 7];
+    let newAry = [];
+    for (let i = 0; i < ary.length; i++) {
+        //循环每一项
+        let item = ary[i];
+        if (newAry.includes(item)) {
+            //验证数组中是否存在这一项
+            continue;
+            //如果有跳出当前循环，进入下一轮
+        }
+        //如果没进入下一轮执行向新数组末尾添加
+        newAry.push(ary[i]);
+    }
+    //输出并排序新数组
+    console.log(newAry.sort());
+    let newAry = [];
+    ary.forEach(item => {
+        if (newAry.includes(item)) return;
+        newAry.push(item);
+    })
+    console.log(newAry);*/
+    /*let ary = [1, 2, 3, 3, 5, 1, 1, 2, 3, 4, 8, 9, 7];
+    for (let i = 0; i < ary.length; i++) {
+        //item : 每一次循环拿出当前项
+        //i :当前项的索引
+        let item = ary[i];
+        //for循环拿出索引i后面的每一项进行比较
+        for (let j = i + 1; j < ary.length; j++) {
+            let compare = ary[j];
+            //compare 存储i后面的项中当前拿出来比较的项
+            if (compare === item) {
+                //如果相等，移除当前项j
+                ary.splice(j, 1);
+                //数组塌陷，J后面的每一项索引都提前了一位，下一次要比较的应该还是j这个索引的内容
+                j--;
+            }
+        }
+    }
+    console.log(ary);*/
+    /*let ary = [1, 8, 3, 3, 5, 1, 1, 2, 3, 8, 9, 7];
+    //创建一个新对象
+    let obj = {};
+    //循环数组中的每一项，把每一项向对象中进行存储 => item:item
+    for (let i = 0; i < ary.length; i++) {
+        let item = ary[i];
+        //每次存储之前进行判断：验证是否存在这一项 =>ary[0] == undefined
+        //!=undefined为True说明对象中已经存在这一项
+        if (obj[item] !== undefined) {
+            ary[i] = ary[ary.length - 1];
+            ary.length--;
+            i--;
+            continue;
+        }
+        //使得属性名等于属性值
+        obj[item] = item;
+    }
+    console.log(ary);*/
+    /*let ary = [1, 5, 6, 8, 1, 2, 5, 6, 3, 1];
+    ary = [...new Set(ary)];
+    console.log(ary);*/
+
+    function unique(ary) {
+        let obj = {};
+        for (let i = 0; i < ary.length; i++) {
+            let item = ary[i];
+            //每次存储之前进行判断：验证是否存在这一项 =>ary[0] == undefined
+            //!=undefined为True说明对象中已经存在这一项
+            if (obj[item] !== undefined) {
+                ary[i] = ary[ary.length - 1];
+                ary.length--;
+                i--;
+                continue;
+            }
+            //使得属性名等于属性值
+            obj[item] = item;
+        }
+        return ary.sort((a, b) => a - b);
+    }
+</script>
+
+</html>

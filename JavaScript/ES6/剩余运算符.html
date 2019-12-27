@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let obj = {};
+    let fn = (context = window, ...args) => {
+        console.log(args)
+    };
+    fn(obj, 10, 20, 30, 40); //context:obj args:[10,20,30,40]
+    fn(); //context:window arg:[]
+</script>
+
+</html>

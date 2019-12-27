@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>解构赋值</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*let ary = [10, 20, 30, 40, 50, 60]
+
+    //之前的写法
+    /!*let a = ary[0],
+        b = ary[1],
+        c = ary.slice(2)*!/
+    //ES6解构赋值
+    // let [a, b, ...c] = ary
+    // console.log(a, b, c) //=>10 20 [30, 40, 50, 60]
+
+    //不需要的值可以空出来不取，最后一个不存在的值可以赋值默认值
+    let [a, , , b, , c = 1] = ary
+    console.log(a, b, c)*/
+
+    /*
+    let ary = [10, [20, 30, [40, 50]]]
+    // let n = ary[0],
+    //     m = ary[1][2][1]
+    //相当于
+    let [n, [, , [, m]]] = ary
+    console.log(n, m)*/
+
+    //==============================================================
+
+
+    /*let obj = {
+        name: 'LW',
+        age: 21,
+        sex: '男',
+        tip: ['a', 'b', 'c', 'd']
+    }*/
+    //=>创建的变量和对象的属性名一致（默认）
+    /*let {
+        name,
+        age,
+        height
+    } = obj;
+    console.log(name, age, height) //=>LW 21 undefined*/
+    //=>冒号相当于给获取的结果设置了一个别名（变量名），原来对象中没有的值可以给他赋默认值
+    /*let {
+        name: m,
+        age: n,
+        height: h = '170CM'
+    } = obj
+    console.log(m, n, h) //=>LW 21 170CM*/
+
+    /*let {
+        name: m,
+        tip: [, second, ]
+    } = obj
+    console.log(m, second) //=>LW b*/
+
+    let data = {
+        "code": 0,
+        "data": {
+            "today": "2019-12-17",
+            "data": [{
+                    "date": "2019-11-26",
+                    "number": "22",
+                    "weekday": "星期二"
+                },
+                {
+                    "date": "2019-11-27",
+                    "number": "24",
+                    "weekday": "星期三"
+                },
+                {
+                    "date": "2019-11-28",
+                    "number": "29",
+                    "weekday": "星期四"
+                },
+            ]
+        },
+        "version": "a6abff850daabe5e3d0db84d65f0746d"
+    }
+
+    let {
+        code,
+        data: {
+            today,
+            data: eachData
+        },
+        version,
+    } = data
+    console.log(code, today, version) //=>0 "2019-12-17" "a6abff850daabe5e3d0db84d65f0746d"
+
+    /*eachData.forEach(item => {
+        let {
+            date,
+            number,
+            weekday,
+        } = item;
+        console.log(date, number, weekday)
+    });*/
+    //真实案例中应用，相当于在箭头函数item中直接解构
+    eachData.forEach(({
+        date,
+        number,
+        weekday
+    }) => {
+        console.log(date, number, weekday)
+    })
+</script>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>隔行变色</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    #newsBox {
+        box-sizing: border-box;
+        width: 300px;
+        padding: 20px;
+        text-align: center;
+        border: 1px solid slateblue;
+        margin: 0 auto;
+    }
+
+    #newsBox li {
+        line-height: 50px;
+        border-bottom: 1px solid lightsalmon;
+        cursor: pointer;
+    }
+
+    #newsBox li:nth-last-child(1) {
+        border-bottom: none;
+    }
+
+    #newsBox li:nth-child(odd) {
+        background-color: maroon;
+    }
+
+    #newsBox li:nth-child(even) {
+        background-color: mediumslateblue;
+    }
+
+    #newsBox li:hover {
+        background-color: aqua;
+    }
+</style>
+
+<body>
+    <ul id="newsBox">
+        <li>我是第1个li</li>
+        <li>我是第2个li</li>
+        <li>我是第3个li</li>
+        <li>我是第4个li</li>
+        <li>我是第5个li</li>
+        <li>我是第6个li</li>
+        <li>我是第7个li</li>
+        <li>我是第8个li</li>
+        <li>我是第9个li</li>
+        <li>我是第10个li</li>
+        <li>我是第11个li</li>
+        <li>我是第12个li</li>
+        <li>我是第13个li</li>
+        <li>我是第14个li</li>
+        <li>我是第15个li</li>
+        <li>我是第16个li</li>
+        <li>我是第17个li</li>
+        <li>我是第18个li</li>
+        <li>我是第19个li</li>
+        <li>我是第20个li</li>
+    </ul>
+</body>
+<script>
+    let newsBox = document.getElementById('newsBox');
+    let list = newsBox.getElementsByTagName('li');
+    for (var i = 0; i < list.length; i++) {
+
+        var bg = i % 2 === 0 ? 'maroon' : 'mediumslateblue';
+
+        list[i].style.backgroundColor = bg;
+        //设置自定义属性存储每个Li的背景颜色
+        list[i].myOriginBg = bg;
+
+        console.log(list[i]);
+
+        list[i].onmouseover = function () {
+            this.style.backgroundColor = 'aqua';
+        }
+        list[i].onmouseout = function () {
+            this.style.backgroundColor = this.myOriginBg;
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>居中</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .box {
+        box-sizing: border-box;
+        width: 300px;
+        height: 300px;
+        /* margin: 20px auto; */
+        border: 5px solid lightgray;
+        background-color: aqua;
+        line-height: 30px;
+        padding: 10px;
+        overflow: auto;
+    }
+
+    html,
+    body {
+        height: 100%;
+    }
+
+    /*
+    .box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /!* 1.margin负盒子一半 *!/
+        /!* margin-left: -150px;
+        margin-top: -150px; *!/
+        /!*2.不知道宽高情况下translate位移盒子的一半*!/
+        transform: translate(-50%, -50%);
+    } */
+    /* 3.上下左右设为0，margin auto
+    .box {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+    } */
+    /* 4.弹性盒子居中
+    body {
+        display: flex;
+        /!*水平轴居中*!/
+        justify-content: center;
+        /!*轴居中*!/
+        align-items: center;
+    }*/
+</style>
+
+<body>
+    <div id="box" class="box">
+        夫君子之行，静以修身，俭以养德。非澹泊无以明志，非宁静无以致远。夫学须静也，
+        才须学也。非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能冶性。
+        年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！
+    </div>
+</body>
+<script>
+    //5.js居中:(屏幕的宽度-盒子的宽度 || (盒子可视宽度+盒子左边的宽度*2))/2 ==left
+    //(屏幕的高度-盒子的高度 || (盒子可视高度+盒子左边的高度*2))/2 ==top
+    let winW = document.documentElement.clientWidth,
+        //获取窗口可视宽高
+        winH = document.documentElement.clientHeight,
+        box = document.getElementById('box'),
+        boxW = box.clientWidth,
+        //获取盒子可视宽高
+        boxH = box.clientHeight,
+        boxT = box.clientTop,
+        //获取盒子上边框宽度
+        boxL = box.clientLeft;
+    //获取盒子左边框宽度
+    box.style.position = 'absolute';
+    // 当盒子边框对称的时候可以使用此(winW - (boxW + boxL * 2))
+    // box.style.left = (winW - (boxW + boxL * 2)) / 2 + 'px';
+    // offsetWidth盒子的总高度，相当于新盒子模型的盒子高度 
+    box.style.left = (winW - box.offsetWidth) / 2 + 'px';
+    // box.style.top = (winH - (boxH + boxT * 2)) / 2 + 'px';
+    box.style.top = (winH - box.offsetHeight) / 2 + 'px';
+</script>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>正则</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let str = 'liwei1998w2010www123w'
+        /*let reg = /\d+/g
+        console.log(reg.lastIndex); //=>0
+        console.log(reg.exec(str)); //=>1998
+        console.log(reg.lastIndex); //=>9
+        console.log(reg.exec(str)); //=>2010
+        console.log(reg.lastIndex); //=>14
+        console.log(reg.exec(str)); //=>123
+        console.log(reg.lastIndex); //=>20
+        //当全部捕获完成后再次捕获捕获的值为null,lastIndex恢复默认值0
+        console.log(reg.exec(str)); //=>null
+        console.log(reg.lastIndex); //=>0
+        //再次捕获重头开始
+        console.log(reg.exec(str)); //=>1998*/
+        /*let reg = /\d+/g
+        if (reg.test(str)) {
+            console.log(reg.lastIndex); //=>9
+            //=>基于test验证以后的lastIndex值已经改变，所以下一次捕获的值不再从第一个开始了，可以改成/\d+/g.test(str)
+            console.log(reg.exec(str)); //=>["2010", ....]
+        }*/
+
+        ~ function () {
+            function execAll(str = "") {
+                //str:要匹配的字符串
+                //this:RegExp的实例（当前操作的正则）
+                //=>进来的第一件事，是验证正则是否有加g，防止死循环
+                if (!this.global) return this.exec(str)
+                //ary存储最后所有捕获的信息 ，res存储每一次捕获的内容（数组）
+                let ary = [],
+                    res = this.exec(str);
+                while (res) {
+                    //=>把每一次捕获的内容res[0]存放到ary中
+                    ary.push(res[0]);
+                    //=>只要捕获到的不是null，则继续捕获下去
+                    res = this.exec(str);
+                }
+                return ary.length === 0 ? null : ary;
+            }
+            RegExp.prototype.execAll = execAll;
+        }();
+
+    let reg = /\d+/g;
+    console.log(reg.execAll(str));
+    console.log(str.match(reg))
+</script>
+
+</html>

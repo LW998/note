@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*function sum() {
+        let total = null
+        for (let i = 0; i < arguments.length; i++) {
+            let item = Number(arguments[i]);
+            if (!isNaN(item)) {
+                total += item;
+            } else {
+                continue;
+            }
+            //传递过来的值变成类数组
+        }
+        console.log(arguments);
+        return total;
+    }*/
+
+    let sum = (...arg) => {
+        //箭头函数中没有arguments，但是可以使用剩余运算符获取到传递的实参集合(传递过来的值变成数组)
+        let total = null
+        for (let i = 0; i < arg.length; i++) {
+            let item = Number(arg[i]);
+            if (isNaN(item)) {
+                continue;
+            }
+            total += item;
+        }
+        console.log(arg);
+        return total;
+    };
+
+    // let sum = (...arg) => eval(arg.join('+'));
+
+    let total = sum(10, 20, 30, 40);
+    console.log(total);
+    total = sum(10, 20, 'aa', 1231);
+    console.log(total);
+    total = sum(10, 20, 'qq', 444);
+    console.log(total);
+</script>
+
+</html>

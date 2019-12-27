@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+</body>
+<script>
+    //1.
+    //let str = "changshangxueyuanliwei";
+    /*let obj = {};
+    [].forEach.call(str, char => {
+        if (typeof obj[char] !== "undefined") {
+            obj[char]++;
+            return
+        }
+        obj[char] = 1;
+    });
+    console.log(obj);
+
+    let max = 1,
+        res = [];
+    for (let key in obj) {
+        let item = obj[key];
+        item > max ? max = item : null;
+    }
+    for (let key in obj) {
+        let item = obj[key];
+        if (item === max) {
+            res.push(key);
+        }
+    }
+    console.log(`出现最多的字符串是${res},出现了${max}次`)*/
+
+
+    //2.
+    //let str = "changshangxueyuanliwei";
+    /*str = str.split('').sort((a, b) => a.localeCompare(b)).join('');
+    //console.log(str)//=>aaaceegghhiilnnnsuuwxy
+    let ary = str.match(/([a-zA-Z])\1+/g).sort((a, b) => b.length - a.length);
+    //console.log(ary)//=>["aaa", "nnn", "ee", "gg", "hh", "ii", "uu"]
+    let max = ary[0].length,
+        res = [ary[0].substr(0, 1)];
+    for (let i = 1; i < ary.length; i++) {
+        let item = ary[i];
+        if (item.length < max) {
+            break;
+        }
+        res.push(item.substr(0, 1));
+    }
+    console.log(`出现最多的字符串是(${res}),出现了${max}次`) //=>出现最多的字符串是a,n,出现了3次*/
+
+    //3.
+    let str = "changshangxueyuanliwei";
+    str = str.split('').sort((a, b) => a.localeCompare(b)).join('');
+    let max = 0,
+        res = [],
+        flag = false;
+    for (let i = str.length; i > 0; i--) {
+        let reg = new RegExp("([a-zA-Z])\\1{" + (i - 1) + "}", "g");
+        str.replace(reg, (content, $1) => {
+            res.push($1);
+            max = i;
+            flag = true;
+        });
+        if (flag) break;
+    }
+    console.log(`出现最多的字符串是(${res}),出现了${max}次`) //=>出现最多的字符串是(a,n),出现了3次
+</script>
+
+</html>

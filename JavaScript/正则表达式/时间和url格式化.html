@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>格式化</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    ~ function () {
+        /*
+         * formatTime:时间字符串格式化
+         *   @params
+         *       template:[String] 我们最后希望获取的日期格式
+         *       模板规则：{0~5}->年月日时分秒
+         *   @return
+         *      [String]格式化后的字符串
+         */
+        function formatTime(template = "{0}年{1}月{2}日 {3}时{4}分{5}秒") {
+            let timeAry = this.match(/\d+/g);
+            //console.log(timeAry)=>["2019", "12", "23", "16", "06", "05"]
+            //取出模板中的数字
+            return template.replace(/\{(\d+)\}/g, (...[, $1]) => {
+                //console.log($1) //=>0,1,2,3,4,5
+                let time = timeAry[$1] || "00";
+                /*
+                time.length < 2 ? time = '0' + time : null
+                return time
+                //相当于如下
+                */
+                return time.length < 2 ? '0' + time : time
+            });
+        }
+        /*
+         * queryUrlParameter:获取url的参数信息（可能包括HASH值）
+         *   @params
+         *   @return
+         *      [Object]把所有方式以键值对的方式存储并返回
+         */
+        function queryUrlParameter() {
+            let obj = {};
+            decodeURIComponent(this).replace(/\/\/([^?]+)\??/g, (...[, $1]) => obj["address"] = $1);
+            decodeURIComponent(this).replace(/([^?=&#]+)=([^?=&#]+)/g, (...[, $1, $2]) => obj[$1] = $2);
+            decodeURIComponent(this).replace(/#([^?=&#]+)/g, (...[, $1]) => obj["HASH"] = $1);
+            return obj;
+        }
+        /*
+         * millimeter:加千分位符
+         *   @params
+         *      四舍五入补零后的字符
+         *   @return
+         *      [String]千分符后的字符串
+         */
+        function millimeter() {
+            return this.replace(/(\d{1,3})(?=(\d{3})+(\.\d{2})?$)/g, content => content + ',')
+        }
+        //把函数加到String原型上
+        ["formatTime", "queryUrlParameter", "millimeter"].forEach(item => {
+            String.prototype[item] = eval(item);
+        });
+    }();
+    let time = "2019-12-23 16:06:05";
+    console.log(time.formatTime()); //=>2019年12月23日 16时06分05秒
+    console.log(time.formatTime("{1}-{2} {3}:{4}")); //=>12-23 16:06
+    let url =
+        "https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9757332313850637173%22%7D&n_type=0&p_from=1"
+    console.log(url.queryUrlParameter());
+    let num = "12345678.7"
+    console.log(parseFloat(num).toFixed(2).toString().millimeter()); //=>12,345,678.70
+</script>
+
+</html>

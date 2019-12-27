@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div class="tabBox" id="tabBox">
+        <ul>
+            <li>第1个页卡</li>
+            <li>第2个页卡</li>
+            <li>第3个页卡</li>
+        </ul>
+        <div>
+            第一个页卡
+            <ul class="news">
+                <li>新闻1</li>
+                <li>新闻2</li>
+                <li>新闻3</li>
+                <li>新闻4</li>
+                <li>新闻5</li>
+            </ul>
+        </div>
+        <div>
+            第二个页卡
+            <ul class="detail">
+                <li>内容1</li>
+                <li>内容2</li>
+                <li>内容3</li>
+                <li>内容4</li>
+                <li>内容5</li>
+            </ul>
+        </div>
+        <div>
+            第三个页卡
+        </div>
+    </div> -->
+    <div id="formBox">
+        <!-- <input type="radio" name="sex" value="男" checked>男
+        <input type="radio" name="sex" value="女">女
+        <input type="radio" name="sex" value="未知">未知 -->
+        <select name="sex" id="sex">
+            <option value="男">男</option>
+            <option value="女">女</option>
+            <option value="未知">未知</option>
+        </select>
+        <br />
+        <button id="submit">获取值</button>
+    </div>
+
+</body>
+<script>
+    //let tabBox = document.getElementById('tabBox');
+
+    /*//基于 getElementsByTagName / getElementsByClassName 获取的都是元素的集合
+    //想要操作某一个元素需要在集合中根据索引取出来
+    let tabBox = document.getElementsByClassName('tabBox')[0];
+    console.log(tabBox)*/
+
+    //let tabBox = document.querySelector("#tabBox");
+    //相当于
+    //querySelectorAll获取的是一个节点集合，就算只有一个元素也是一个集合
+    /*let tabBox = document.querySelectorAll("#tabBox")[0];
+    console.log(tabBox);*/
+    /*var $tabList = $('#tabBox li'); //获取tabBox下所有的li
+    var $divList = $('#tabBox>div'); //获取tabBox子元素中所有的div，不包括子元素下面的div*/
+
+    /*var formBox = document.querySelector('#formBox');
+    var inpList = formBox.querySelectorAll('[name=sex]');
+    //getElementsByName不支持上下文，只能document
+    //var inpList = document.getElementsByName('sex');
+    var value = formBox.querySelector('#getValue');
+
+    value.onclick = function () {
+        var result = null;
+        for (var i = 0; i < inpList.length; i++) {
+            var item = inpList[i];
+            if (item.checked) {
+                res = item.value;
+                alert(res);
+                break;
+            }
+        }
+    }*/
+
+    let formBox = document.getElementById('formBox');
+    let sex = document.getElementById('sex');
+    let sexList = sex.getElementsByTagName('option');
+    let sub = document.getElementById('submit');
+    sub.onclick = function () {
+        let res = null;
+        for (var i = 0; i < sexList.length; i++) {
+            if (sexList[i].selected) {
+                res = sexList[i].value;
+                alert(res);
+                break;
+            }
+        }
+    }
+</script>
+
+</html>

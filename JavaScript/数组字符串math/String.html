@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let str = 'hello world one two three';
+    /*console.log(str.length); //=> 字符串长度25
+    console.log(str[0]); //=>h
+    console.log(str[str.length - 1]); //=>e
+    console.log(str[10000]); //=>undefined*/
+
+    /*console.log(str.charAt(0)); //=>h
+    console.log(str.charAt(10000)); //=>'' 空字符串
+    console.log(str[10000]); //=>undefined*/
+
+    /*console.log(str.charCodeAt(0)); //=>104
+    console.log(String.fromCharCode(104)); //=>h*/
+
+    /*console.log(str.substr(3, 7)); // =>lo worl
+    console.log(str.substr(3, NaN)); //=>''
+    console.log(str.substr(3, 100)); //=> hello world one two three
+    */
+    /*console.log(str.substring(3, 7)); // =>lo w
+    console.log(str.substring(3, NaN)); //=>hel
+    console.log(str.substring(3, 100)); //=> lo world one two three*/
+
+    /*console.log(str.slice(-7, -1)); //=>o thre
+    //相当于
+    console.log(str.slice(str.length - 7, str.length - 1)); //=> console.log(str.slice(18, 24));*/
+    /* console.log(str.indexOf('o')); // =>4
+     console.log(str.indexOf('wo')); // =>5
+     console.log(str.indexOf('!')); // => -1
+     console.log(str.indexOf('o', 7)); //=>10 从7以后第一次出现字符串o的位置。
+
+
+     console.log(str.lastIndexOf('o')); // =>15
+     console.log(str.lastIndexOf('wo')); // =>14
+     console.log(str.lastIndexOf('!')); // =>-1*/
+
+    //console.log(str.includes('a')); //=>false
+    /*let str = 'hello world one two three';
+    s = str.toUpperCase();
+    console.log(s, str); //=>HELLO WORLD ONE TWO THREE hello world one two three*/
+
+    /*let str = 'Hello World One Two Three';
+    s = str.toLocaleUpperCase();
+    console.log(s, str); //=>hello world one two three HELLO WORLD ONE TWO THREE*/
+
+    /*let str = 'hello world one two three';
+    console.log(firstCase(str)); //=>Hello World One Two Three
+
+    function firstCase(str) {
+        let list = str.split(' ');
+        let arr = []
+        for (let i = 0; i < list.length; i++) {
+            arr.push(list[i][0].toUpperCase() + list[i].substr(1));
+        }
+        result = arr.join(' ');
+        return result;
+    }*/
+    /*let str = 'hello world one two three';
+    let ary = str.split(' ');
+    console.log(ary); //=> ["hello", "world", "one", "two", "three"]*/
+
+    // let str = 'hello world one two three';
+    res = str.replace(/ /g, '+');
+    console.log(res); // =>hello+world+one+two+three
+</script>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let name = 10;
+    // let name;
+    let obj = {
+        //一个对象的属性名只有两种格式：数字或者字符串（等基本类型值）可以是null,undefined,true,false等
+        name: 'liwei',
+        10: 123456,
+        //name, //es6写法的简化  和 name:name一样   name:name  等于  name:10
+        undefined: '100'
+    }
+    console.log(obj.undefined); //obj.数字不支持，后面只能加点属性名，不能加字符串符号‘’
+    console.log(obj[name]); //name存储的是变量
+    console.log(obj['name']); //name代表的是属性名
+    console.log('==============================');
+
+    for (var key in obj) {
+        //每一次循环key变量存储的值:当前对象的属性名
+        //获取属性值:obj[属性名]
+        //优先遍历所有数字属性名，按照数字由小到大
+        console.log('属性名:' + key + '属性值:' + obj[key]);
+    }
+</script>
+
+</html>

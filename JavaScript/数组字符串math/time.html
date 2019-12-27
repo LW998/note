@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+</body>
+<script>
+    /*let time = '2019-1-20 22:19:08'
+    t = time.replace('-', '年').replace('-', '月').replace(' ', '日 ').replace(':', '时').replace(':', '分') + "秒"
+    console.log(t);*/
+    /*let time = '2019-11-20 22:19:08'
+    let t = time.split(' '); //=>["2019-11-20", "22:19:08"]
+    let m = t[0].split('-'); //=>["2019", "11", "20"]
+    let n = t[1].split(':'); //=>["22", "19", "08"]
+    console.log(t, m, n);*/
+    /*let time = '2019-1-20 22:19:08'
+    let x = time.split(/(?: |-|:)/g);
+    let addZero = val => val.length < 2 ? '0' + val : val
+    time = x[0] + "年" + addZero(x[1]) + "月" + addZero(x[2]) + "日"
+    console.log(time); //=>["2019", "11", "20", "22", "19", "08"]*/
+
+    let time = new Date();
+    console.log(time.getFullYear()); //=> 2019 获取四位年份
+    console.log(time.getMonth()); //=> 10 获取0-11 10表示11月
+    console.log(time.getDay()); //=> 5 星期 获取0-6代表周日到周六 0-周日
+    console.log(time.getHours()); //=>  23 获取小时
+    console.log(time.getMinutes()); //=> 7 获取分
+    console.log(time.getSeconds()); //=> 7 获取秒
+    console.log(time.getMilliseconds()); //=>  182 获取毫秒
+    console.log(time.getTime()); //=> 获取当前日期距离1970-1-1 0:0:0 分之间的毫秒差
+    console.log(time.toLocaleString()); //=> 2019/11/22 下午11:10:44
+    console.log(time.toLocaleDateString()); //=> 2019/11/22
+    console.log(time.toLocaleTimeString()); //=> 下午11:10:44
+</script>
+
+</html>

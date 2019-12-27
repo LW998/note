@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>时间格式化</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let time = '2019-5-30 12:0:0';
+    let addZero = val => {
+        val = Number(val);
+        return val < 10 ? '0' + val : val
+    };
+
+    //=>2019年05月30日 12时00分00秒
+
+    /*function formatTime(time) {
+        time = time.replace(/-/g, '/');
+        time = new Date(time);
+        let year = time.getFullYear(),
+            month = addZero(time.getMonth() + 1),
+            day = addZero(time.getDate()),
+            hours = addZero(time.getHours()),
+            min = addZero(time.getMinutes()),
+            sec = addZero(time.getSeconds());
+        return year + '年' + month + '月' + day + '日 ' + hours + '时' + min + '分' + sec + '秒';
+    }*/
+    String.prototype.formatTime = function formatTime(template) {
+        //初始化模板
+        typeof template === 'undefined' ? template = '{0}年{1}月{2}日 {3}时{4}分{5}秒' : null;
+        //this:我们要处理的字符串
+        //获取当前字符串中的数字信息
+        let matchAry = this.match(/\d+/g);
+        //模板和数据渲染（引擎机制）
+        //x代表大正则匹配到的内容，y代表里面的数字
+        template = template.replace(/\{(\d+)\}/g, (x, y) => {
+            //如果拿到的值不存在，让他等于00
+            let val = matchAry[y] || '00';
+            //不足十补零
+            val.length < 2 ? val = '0' + val : null;
+            //用val代替这一部分的返回值
+            return val;
+        });
+        return template;
+    };
+    //0表年，1表月，2表日，3表时，4表分，5表秒
+    console.log(time.formatTime()); //=>05月30日12时00分
+</script>
+
+</html>

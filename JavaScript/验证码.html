@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    请输入:<input type="text" id="inpText" /><span style="color: green; display: none;" id="ok">√</span>
+    <br />
+    <span id="codeText"></span>
+    <button id="change">看不清，换一张</button>
+</body>
+<script>
+    let inpText = document.getElementById('inpText'),
+        codeText = document.getElementById('codeText'),
+        change = document.getElementById('change'),
+        ok = document.getElementById('ok');
+
+
+    function queryCode() {
+        let rule = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        //循环四次取出四位随机码
+        for (let i = 0; i < 4; i++) {
+            //设置随机码的索引为0-61
+            let range = Math.round(Math.random() * 61);
+            //把随机索引的值拼接进result
+            result += rule.charAt(range);
+        }
+        //把result显示在Code span中
+        codeText.innerHTML = result;
+    }
+    //首先执行一次方法，让页面有随机码
+    queryCode();
+    //点击看不清楚的时候给他绑定queryCode方法
+    //注意:不能加小括号，加了表示方法执行，要做的只是给他绑定方法
+    change.onclick = queryCode;
+    //当input框输入完成失去焦点时执行此方法
+    inpText.onblur = function () {
+        let val = inpText.value,
+            code = codeText.innerHTML;
+        //不区分大小写验证（都转成小写）
+        if (val.toLowerCase() === code.toLowerCase()) {
+            alert('验证成功！')
+        } else {
+            alert('验证失败');
+            //清空input框
+            inpText.value = '';
+            //重新生成随机码
+            queryCode();
+        }
+    }
+</script>
+
+</html>

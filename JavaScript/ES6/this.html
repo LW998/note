@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+</body>
+<script>
+    /* window.name = "window"
+    let fn = n => {
+        console.log(this.name)
+    }
+    obj = {
+        name: "obj",
+        fn: fn
+    }
+    //fn所处的执行上下文中的this是window
+    fn(10); //this：window
+    fn.call(obj, 10) //this：window 不是obj
+    document.body.onclick = fn; //this：window 不是预期的body
+    obj.fn(10); //this：window*/
+
+    /*let obj = {
+        name: 'obj',
+        fn: function () {
+            let f = () => {
+                console.log(this);
+            };
+            f(); //this:obj
+            return f;
+        }
+    };
+    let f = obj.fn*/
+
+    let obj = {
+        name: 'obj',
+        fn: function () {
+            //错误方法，改变不了obj中的this
+            setTimeout(function () {
+                console.log(this);
+                this.name = "HHHH";
+            }, 1000);
+            //原始方法，无箭头函数前,用_this记录当前上下文的this
+            let _this = this;
+            setTimeout(function () {
+                console.log(_this);
+                _this.name = "ccc";
+            }, 1000);
+            //箭头函数方法
+            setTimeout(() => {
+                console.log(this);
+                this.name = "HHHH";
+            }, 1000);
+        }
+    };
+    obj.fn();
+</script>
+
+</html>

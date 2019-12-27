@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>居中</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .outer {
+        box-sizing: border-box;
+        width: 500px;
+        height: 500px;
+        margin: 20px auto;
+        border: 10px solid lightcoral;
+        background: lightpink;
+
+        position: relative;
+    }
+
+    .box {
+        box-sizing: border-box;
+        width: 300px;
+        height: 300px;
+        border: 5px solid lightsalmon;
+        background-color: aqua;
+        line-height: 30px;
+        margin: 20px;
+        padding: 10px;
+        overflow: auto;
+    }
+
+
+
+    html,
+    body {
+        height: 100%;
+    }
+</style>
+
+<body>
+    <div class="outer" id="outer">
+        <div id="box" class="box">
+            夫君子之行，静以修身，俭以养德。非澹泊无以明志，非宁静无以致远。夫学须静也，
+            才须学也。非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能冶性。
+            年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！
+        </div>
+    </div>
+</body>
+<script>
+    //计算当前元素距离body的偏移
+    function offset(curEle) {
+        //获取当前元素的父参照物
+        let par = curEle.offsetParent,
+            //获取当前元素的左偏移
+            l = curEle.offsetLeft,
+            //获取当前元素的上偏移
+            t = curEle.offsetTop;
+        //判断当前元素是否存在，或者是否为body
+        //par.tagName !== 'BODY' 少做一次加body边框的操作
+        while (par && par.tagName !== 'BODY') {
+            //当前元素加上父参照物的边框宽度
+            if (!/MSIE 8\.0/.test(navigator.userAgent)) {
+                //IE8中偏移值自己就算了边框，不需要再加上边框的值
+                //navigator.userAgent获取当前浏览器的版本信息
+                l += par.clientLeft;
+                t += par.clientTop;
+            }
+            //当前元素加上父参照物的偏移
+            l += par.offsetLeft;
+            t += par.offsetTop;
+            //获取到父参照物的参照物
+            par = par.offsetParent;
+        }
+        return {
+            left: l,
+            top: t
+        }
+    }
+</script>
+
+</html>

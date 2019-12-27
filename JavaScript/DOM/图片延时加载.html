@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>图片加载</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    img {
+        border: none;
+    }
+
+    img [src=""] {
+        display: none;
+    }
+
+    .imgBox {
+        box-sizing: border-box;
+        margin: 1000px auto;
+        width: 135px;
+        height: 200px;
+        background: #ccc;
+    }
+
+    .imgBox img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<body>
+    <!--
+    图片延时加载（图片懒加载） 
+    1.结构中，我们用一个盒子包裹着图片（在图片不展示的时候，可以占据着这个位置，并且设置默认的背景图片或者背景颜色）
+    2.最开始，img的src中不存放地址，把图片的真实地址设置给自定义属性DATA-SRC/trueImg（最开始不展示图片，让他影藏）
+    3.当浏览器窗口完全展示到图片位置的时候，我们再去加载真实图片，
+    并且让其显示出来（第一屏幕中的图片一般都会延时加载，来等待其他资源加载完成）
+    -->
+    <div class="imgBox">
+        <img src="" alt="" trueImg="images/1.png">
+    </div>
+
+</body>
+<script>
+    /*
+    图片显示出来的条件:
+    A：盒子底边距离body顶部的距离：盒子的高度+盒子距离body的上偏移
+    B：浏览器底边距离body顶部的距离：当前一整屏的高度+卷去的高度
+    A<=B:盒子就完全显示在用户视野中
+    获取trueImg属性的值，赋值给src属性，当图片正常加载出来后，让图片显示即可
+    */
+    let imgBox = document.querySelector('.imgBox'),
+        _img = imgBox.querySelector('img');
+
+    //显示懒加载图片方法
+    function lazyImg(curImg) {
+        //给src赋值真实图片地址
+        console.log(curImg);
+        let trueImg = curImg.getAttribute("trueImg");
+        curImg.src = trueImg;
+        //校验图片是否能够正常加载出来:img.onload事件用来监听图片是否能正常加载
+        curImg.onload = function () {
+            curImg.style.display = 'block';
+        };
+        //=>设置自定义属性：isLoad存储当前属性已经加载过了
+        curImg.isLoad = true
+    }
+    //监听页面滚动事件(不论基于什么方式，只有页面滚动了，则触发事件)
+    window.onscroll = function () {
+        if (_img.isLoad) return;
+        let HTML = document.documentElement,
+            A = imgBox.clientHeight + offset(imgBox).top,
+            B = HTML.clientHeight + HTML.scrollTop;
+        if (A <= B) {
+            //符合图片显示条件
+            lazyImg(_img);
+        }
+    }
+
+    function offset(curEle) {
+        let par = curEle.offsetParent,
+            l = curEle.offsetLeft,
+            t = curEle.offsetTop;
+        while (par && par.tagName !== 'BODY') {
+            if (!/MSIE 8\.0/.test(navigator.userAgent)) {
+                l += par.clientLeft;
+                t += par.clientTop;
+            }
+            l += par.offsetLeft;
+            t += par.offsetTop;
+            par = par.offsetParent;
+        }
+        return {
+            left: l,
+            top: t
+        }
+    }
+</script>
+
+</html>
