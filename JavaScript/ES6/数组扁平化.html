@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>数组扁平化</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let arr = [
+            [1, 12, 3, 14],
+            [5, 6, 12, 7],
+            [8, 9, [10, 1, 2, [1, 2, 5],
+                [11, 13, 14], 6, 15
+            ]],
+            [7, 8],
+            [9]
+        ]
+
+        //扁平化数组的方法
+
+        //arr = arr.flat(Infinity);
+
+        //arr = arr.toString().split(',').map(item => Number(item));
+
+        //arr = arr.join(',').split(',').map(item => Number(item));
+
+        //arr = JSON.stringify(arr).replace(/(\[|\])/g, '').split(',').map(Number);
+
+
+        /*
+        let ary = [1, 2, 3, 4, 5];
+        //find返回满足条件的第一个数，不满足条件没找到则返回undefined;
+        console.log(ary.find(item => item > 2)); //=>3
+        console.log(ary.find(item => item > 6)); //=>undefined
+
+        //some循环数组返回的true和false，如果有满足条件返回true否则返回false
+        console.log(ary.some(item => item > 2)) //=>true
+        console.log(ary.some(item => item > 6)) //=>false
+        */
+
+        // while (arr.some(item => Array.isArray(item))) {
+        //     arr = [].concat(...arr);
+        // }
+
+
+        ~ function () {
+            function myFlat() {
+                let result = [],
+                    _this = this;
+                //循环数组中的每一项，取出不是数组的存储到result中
+                let fn = (arr) => {
+                    for (let i = 0; i < arr.length; i++) {
+                        let item = arr[i];
+                        //如果拿到的数是数组重新执行fn函数把当前拿到的数组传入
+                        if (Array.isArray(item)) {
+                            fn(item);
+                        } else {
+                            //如果不是数组把拿到的数push进数组
+                            result.push(item);
+                        }
+                    }
+                }
+                fn(_this);
+                return result;
+            }
+            Array.prototype.myFlat = myFlat;
+        }()
+
+    arr = arr.myFlat();
+    //数组去重排序方法
+    // arr = [...new Set(arr)].sort((a, b) => a - b);
+
+    // arr = Array.from(new Set(arr)).sort((a, b) => a - b);
+    for (let i = 0; i < arr.length; i++) {
+        let item = arr[i];
+        for (let j = i + 1; j < arr.length; j++) {
+            if (item === arr[j]) {
+                arr.splice(j, 1);
+                j--;
+            }
+        }
+    }
+    arr = arr.sort((a, b) => a - b)
+    console.log(arr);
+</script>
+
+</html>

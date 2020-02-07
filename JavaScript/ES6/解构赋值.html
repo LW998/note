@@ -39,15 +39,19 @@
         name: 'LW',
         age: 21,
         sex: '男',
-        tip: ['a', 'b', 'c', 'd']
-    }*/
+        tip: [12, 22, 33, 44]
+    }
     //=>创建的变量和对象的属性名一致（默认）
-    /*let {
+    let {
         name,
         age,
-        height
+        height,
+        tip: eachTip
     } = obj;
-    console.log(name, age, height) //=>LW 21 undefined*/
+    console.log(name, age, height) //=>LW 21 undefined
+    let [a, b, c, d] = eachTip;
+    console.log(a, b, c, d); //=>12 22 33 44*/
+
     //=>冒号相当于给获取的结果设置了一个别名（变量名），原来对象中没有的值可以给他赋默认值
     /*let {
         name: m,
@@ -61,6 +65,7 @@
         tip: [, second, ]
     } = obj
     console.log(m, second) //=>LW b*/
+
 
     let data = {
         "code": 0,

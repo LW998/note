@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="tab.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    #tabBox {
+        box-sizing: border-box;
+        margin: 20px auto;
+    }
+
+    #navBox {
+        display: flex;
+    }
+
+    #navBox li {
+        box-sizing: border-box;
+        height: 35px;
+        line-height: 35px;
+        padding: 0 10px;
+        /* border-top: 2px solid lightseagreen;
+    border-left: 2px solid lightseagreen;
+    border-right: 2px solid lightseagreen; */
+        border-bottom: 1px solid lightseagreen;
+        /* border: 2px solid lightseagreen; */
+        border-radius: 5px 5px 0 0;
+        margin-right: 20px;
+        cursor: pointer;
+        position: relative;
+        top: 1px;
+        z-index: 3;
+
+    }
+
+    #navBox li:first-child {
+        margin-left: 20%;
+    }
+
+    #tabBox>div {
+        display: none;
+        box-sizing: border-box;
+        padding: 10px;
+        border-top: 1px solid lightseagreen;
+        border-width: 70%;
+        position: relative;
+        z-index: 2;
+    }
+
+    #tabBox>div.active {
+        display: block;
+    }
+
+    #navBox li.active {
+        border-bottom-color: #fff;
+        color: rgb(50, 182, 175);
+        border-top: 2px solid lightseagreen;
+        border-left: 2px solid lightseagreen;
+        border-right: 2px solid lightseagreen;
+    }
+</style>
+
+<body>
+    <div id="tabBox">
+        <ul id="navBox">
+            <li class="active">编程</li>
+            <li>读书</li>
+            <li>运动</li>
+        </ul>
+        <div class="active">编程快乐</div>
+        <div>读书幸福</div>
+        <div>运动健康</div>
+    </div>
+    </div>
+</body>
+<script>
+    var tabBox = document.getElementById("tabBox");
+    var tabList = tabBox.getElementsByTagName("div");
+    var navBox = document.getElementById('navBox');
+    var navList = navBox.getElementsByTagName('li');
+    //循环每个li给每个li绑定点击事件
+    // ==========自定义解决方案=======
+
+    /*for (var i = 0; i < navList.length; i++) {
+
+        //在循环体内给每个Li设置自定义属性myIndex
+        navList[i].myIndex = i;
+        navList[i].onclick = function () {
+            console.log(this.myIndex);
+            //循环结束才能看到页面，所以初值为navList.length
+            //changeTab(i)    x
+            //this是当前点击这个元素LI;
+            //this.myIndex获取的是之前绑定在元素自定义属性上的索引值
+            changeTab(this.myIndex);
+        }
+    }*/
+
+    //============闭包结局方案=============
+    /*for (var i = 0; i < navList.length; i++) {
+        navList[i].onclick = (function (i) {
+            return function () {
+                changeTab(i)
+            }
+        })(i);
+    }*/
+
+    //============基于bind处理方案====================
+
+    for (var i = 0; i < navList.length; i++) {
+        navList[i].onclick = changeTab.bind(null, i);
+    }
+
+    /*for (let i = 0; i < navList.length; i++) {
+        navList[i].onclick = function () {
+            changeTab(i);
+        }
+    }*/
+    //封装一个函数实现选项卡的功能
+    //创建函数的时候还不知道点的是谁所以定义一个入口clickIndex
+    //（点击这一项的索引,执行这个方法的时候把索引传入
+    function changeTab(clickIndex) {
+        //1.先让所有的li和div都没有选中样式
+        for (var i = 0; i < navList.length; i++) {
+            navList[i].className = '';
+            tabList[i].className = '';
+        }
+        //2.点击谁就给他添加选中样式
+        navList[clickIndex].className = 'active';
+        tabList[clickIndex].className = 'active';
+    }
+</script>
+
+</html>

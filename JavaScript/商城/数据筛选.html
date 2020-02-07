@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据筛选</title>
+    <script src="jquery.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .wrap {
+            width: 50%;
+            margin: 10% auto;
+            box-shadow: 5px 5px 10px 2px #cccccc;
+        }
+
+        ul li {
+            list-style: none;
+            height: 20px;
+            border-bottom: 1px dashed lightblue;
+            width: 92%;
+            color: #999999;
+            font-size: 14px;
+            margin: auto;
+            line-height: 20px;
+            padding: 15px;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+            padding-bottom: 20px;
+        }
+
+        ul li a {
+            color: #000;
+            margin: 0px 10px;
+        }
+
+        ul li a:hover {
+            color: lightblue;
+        }
+
+        ul li a:first-child {
+            margin-left: 20px;
+        }
+
+        nav {
+            background-color: #d5f3fa;
+            height: 20px;
+            line-height: 20px;
+            font-size: 14px;
+            padding: 15px 15px 15px 25px;
+        }
+
+        nav mark {
+            box-sizing: border-box;
+            background-color: #ffffff;
+            height: 30px;
+            padding: 3px 2px 3px 5px;
+            border: 1px solid #22a9d6;
+            margin-right: 10px;
+            cursor: pointer;
+            color: #22a9d6;
+        }
+
+        nav mark a {
+            color: #ffffff;
+            background-color: #22a9d6;
+            margin-left: 10px;
+            padding: 1px 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <section id="section">
+            <nav class="choose">
+                <!-- <mark>${item.name}<a href="javascript:;" _type='${item.type}'>X</a></mark> -->
+            </nav>
+            <ul id='type'>
+
+            </ul>
+        </section>
+    </div>
+</body>
+<script>
+    let filtersModel = (function ($) {
+        let _Select = [];
+        let _DATA = [{
+                type: 1,
+                text: "品牌",
+                content: ["苹果", "小米", "华为", "魅族", "锤子", "三星", "OPPO", "VIVO", "乐视", "360", "中兴", "索尼"]
+            },
+            {
+                type: 2,
+                text: "尺寸",
+                content: ["3.0英寸以下", "3.0-3.9英寸", "4.0-4.5英寸", "5.0-5.5英寸", "5.5-6.0英寸", "6.0英寸以上"]
+            },
+            {
+                type: 3,
+                text: "系统",
+                content: ["安卓(Android)", "苹果(IOS)", "微软(WindowsPhone)", "无", "其他"]
+            },
+            {
+                type: 4,
+                text: "网络",
+                content: ["联通3G", "双卡单4G", "双卡双4G", "联通4G", "移动4G", "电信4G", "全网通4G"]
+            }
+        ]
+        let $chooseBOX = $('.choose'),
+            $typeBox = $('#type');
+        //=>数据渲染
+        function render() {
+            //待选区数据渲染
+            let str = ``;
+            _DATA.forEach(item => {
+                let {
+                    type,
+                    text,
+                    content
+                } = item;
+                str += `<li _type="${type}">
+                     ${text}:
+                     ${content.map(A=>{
+                         return `<a href="javascript:;">${A}</a>`;
+                     }).join('')}
+                </li>`
+            });
+            $typeBox.html(str);
+
+            //选择区渲染
+            str = `你的选择：`;
+            _Select.sort((A, B) => {
+                return A.type - B.type;
+            });
+            _Select.forEach(item => {
+                str += `<mark>${item.name}<a href="javascript:;" _type='${item.type}'>X</a></mark>`;
+            });
+            $chooseBOX.html(str);
+            //渲染完绑定事件
+            handler();
+            handlerSelect();
+        }
+
+        //待选择区绑定事件
+        function handler() {
+            $typeBox.find('a').click(function () {
+                let $this = $(this),
+                    obj = {};
+                //把当前点击元素的父元素上的自定义属性获取到
+                obj.type = parseFloat($this.parent().attr('_type'));
+                //获取当前选择的信息的文本内容
+                obj.name = $this.text().trim();
+                //循环已经选择的数组
+                _Select.forEach((item, index) => {
+                    //如果获取到的自定义属性的值与已选择的数组里的type属性相同则删除这个值
+                    if (obj.type === item.type) {
+                        _Select.splice(index, 1);
+                    }
+                });
+                //先删除在重新填入值完成替换
+                _Select.push(obj);
+                //绑定数据后重新渲染
+                render();
+            })
+
+        }
+
+        //选择区绑定事件
+        function handlerSelect() {
+            $chooseBOX.find('a').click(function () {
+                let $this = $(this),
+                    //attr获取自定义属性值是String类型，需要转换
+                    _type = parseFloat($this.attr('_type'));
+                //循环已经选择区数组里的数据
+                _Select.forEach((item, index) => {
+                    //如果点击X的自定义属性_type的值，如果跟_Select中的type值相等就删除这个值
+                    if (_type === item.type) {
+                        //删除匹配索引上的值
+                        _Select.splice(index, 1);
+                        //删除后不填入完成删除
+                    }
+                });
+                render();
+            });
+        }
+        return {
+            init() {
+                render();
+            }
+        }
+    })(jQuery);
+    filtersModel.init();
+
+    //$(`<li></li> `//去掉).text().replace(/(\s|\n|\t)+/g,',').split(',')
+</script>
+
+
+</html>

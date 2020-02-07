@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>延时加载</title>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 620px;
+            margin: 1200px auto;
+        }
+
+        .container .imgBox:nth-child(even) {
+            margin-top: 50px;
+        }
+
+        .imgBox {
+            width: 135px;
+            height: 200px;
+            background-color: #bbb;
+            float: left;
+            margin: 5px;
+        }
+
+        .imgBox img {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- <div class="imgBox">
+            <img src="" alt="" data-img="images/1.png">
+        </div> -->
+    </div>
+</body>
+<script>
+    //单张图片
+
+    /*let $imgBox = $('.imgBox'),
+        $img = $imgBox.children('img'),
+        $window = $(window);
+    //jQ中的事件支持多事件绑定
+    $window.on('load scroll', function () {
+        //判断是否已经加载完成，加载过就不会重新加载
+        if ($img.attr('isLoad') === "true") {
+            return;
+        }
+        //获取imgBox的高度和imgBox的上偏移
+        $A = $imgBox.outerHeight() + $imgBox.offset().top;
+        //获取窗口的高度和窗口滚动卷去的高度
+        $B = $window.outerHeight() + $window.scrollTop();
+        //当图片框完全出现在视野中
+        if ($A <= $B) {
+            //监听是否加载成功
+            $img.attr('src', $img.attr('data-img'));
+            $img.on('load', function () {
+                //加载成功
+                // $img.css('display', 'block');
+                $img.stop().fadeIn();
+            });
+            //设置自定义属性代表其已经加载过
+            $img.attr('isLoad', true); //=>attr存储的自定义属性都是字符串格式
+        }
+    });*/
+
+    //=>多张图片
+
+    let lazyModel = (function ($) {
+        let _DATA = [{
+                    'id': 1,
+                    'path': 'images/1.png'
+                },
+                {
+                    'id': 2,
+                    'path': 'images/2.png'
+                },
+                {
+                    'id': 3,
+                    'path': 'images/3.png'
+                },
+                {
+                    'id': 4,
+                    'path': 'images/4.png'
+                },
+                {
+                    'id': 5,
+                    'path': 'images/5.png'
+                },
+                {
+                    'id': 6,
+                    'path': 'images/6.png'
+                },
+                {
+                    'id': 7,
+                    'path': 'images/7.png'
+                },
+                {
+                    'id': 8,
+                    'path': 'images/8.png'
+                },
+                {
+                    'id': 9,
+                    'path': 'images/9.png'
+                },
+                {
+                    'id': 10,
+                    'path': 'images/10.png'
+                }
+            ],
+            $con = $('.container'),
+            $imgBoxs = null,
+            $window = $(window);
+
+        function lazyRender() {
+            let str = ``;
+            // _DATA.forEach(item => {
+            //     str += `<div class="imgBox">
+            // <img src="" alt="" data-img="${item.path}">
+            // </div>`
+            // });
+            for (let i = 1; i <= 250; i++) {
+                str += `<div class="imgBox">
+             <img src="" alt="" data-img="images/${i}.png">
+             </div>`
+            }
+
+            $con.html(str);
+            $imgBoxs = $con.children('.imgBox');
+            $window.on('load scroll', function () {
+                $B = $window.outerHeight() + $window.scrollTop();
+                $imgBoxs.each((index, item) => {
+                    let $item = $(item),
+                        $itemA = $item.outerHeight() * 3 / 4 + $item.offset().top,
+                        isLoad = $item.attr('isLoad');
+                    if ($itemA <= $B && isLoad !== 'true') {
+                        $item.attr('isLoad', true); //=>attr存储的自定义属性都是字符串格式
+                        let $img = $item.children('img');
+                        $img.attr('src', $img.attr('data-img'));
+                        $img.on('load', () => $img.stop().fadeIn());
+                    }
+                });
+
+            });
+        }
+        return {
+            lazy: lazyRender
+        }
+    })(jQuery)
+
+    lazyModel.lazy();
+    /*let str = ``,
+        $con = $('.container');
+    //new Array(20).fill(null)创建长度为20的数组，每一项都用null填充
+    new Array(17).fill(null).forEach(item => {
+        str += `<div class="imgBox">
+            <img src="" alt="" data-img="images/1.png">
+        </div>`
+    })
+    $con.html(str);*/
+</script>
+
+</html>
