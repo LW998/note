@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选项卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .tabBox {
+            box-sizing: border-box;
+            margin: 20px auto;
+        }
+
+        .navBox {
+            display: flex;
+        }
+
+        .navBox li {
+            box-sizing: border-box;
+            height: 35px;
+            line-height: 35px;
+            padding: 0 10px;
+            /* border-top: 2px solid lightseagreen;
+        border-left: 2px solid lightseagreen;
+        border-right: 2px solid lightseagreen; */
+            border-bottom: 1px solid lightseagreen;
+            /* border: 2px solid lightseagreen; */
+            border-radius: 5px 5px 0 0;
+            margin-right: 20px;
+            cursor: pointer;
+            position: relative;
+            top: 1px;
+            z-index: 3;
+
+        }
+
+        .navBox li:first-child {
+            margin-left: 20%;
+        }
+
+        .tabBox>div {
+            display: none;
+            box-sizing: border-box;
+            padding: 10px;
+            border-top: 1px solid lightseagreen;
+            border-width: 70%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tabBox>div.active {
+            display: block;
+        }
+
+        .navBox li.active {
+            border-bottom-color: #fff;
+            color: rgb(50, 182, 175);
+            border-top: 2px solid lightseagreen;
+            border-left: 2px solid lightseagreen;
+            border-right: 2px solid lightseagreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tabBox">
+        <ul class="navBox">
+            <li class="active">编程</li>
+            <li>读书</li>
+            <li>运动</li>
+        </ul>
+        <div class="active">编程快乐</div>
+        <div>读书幸福</div>
+        <div>运动健康</div>
+    </div>
+    </div>
+</body>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+    $('.tabBox>.navBox>li').click(function () {
+        let $this = $(this),
+            n = $this.index();
+        $this.addClass('active')
+            .siblings().removeClass('active')
+            .parent()
+            .nextAll('div').eq(n).addClass('active')
+            .siblings().removeClass('active')
+    });
+</script>
+<script>
+    /*$(function () {
+        $tabBox = $('.tabBox'),
+            $navList = $tabBox.find('.navBox>li'),
+            $divList = $tabBox.children('div');
+        //JQ特性：内置循环处理机制（基于JQ集合去操作某个方法，我们无需循环集合中的每一项单独操作，JQ内部自动帮我们循环处理了）
+        $navList.on('click', function () {
+            //this=>当前点击操作的元素=>$(this)才能调取JQ方法
+            //获取当前点击元素的索引
+            let n = $(this).index();
+            //JQ特性:链式写法
+            $(this).addClass('active').siblings().removeClass('active');
+            //根据点击LI的索引，在div集合找到对应那一项选中，然后这一项选中，他的兄弟项都移除选中
+            $divList.eq(n).addClass('active').siblings().removeClass('active');
+        });
+
+        //基于jQuery中的each遍历集合中的每一项，绑定点击事件
+        //$navList.each(function (index, $item) {
+        //参数顺序和内置foreach是相反的
+        //index:当前循环的这一项的索引
+        //$item：当前循环的这一项
+        //this===$item:当前方法中的this也是循环的这一项
+        //$item.on('click', function () {
+        //绑定点击事件
+
+        //});
+        //});
+
+        // $navList.each((index, $item) => {
+        // this不在是循环的这一项（箭头函数中没有this）
+        // });
+    });*/
+</script>
+
+</html>

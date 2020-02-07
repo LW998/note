@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>attr</title>
+</head>
+
+<body>
+    <div class="clearfix box">class="clearfix box"</div>
+    <div myIn="1">myIn="1"</div>
+    <div name="aa">name="aa"</div>
+    <a myIn="2"> myIn="2"</a>
+    <div class="box">class="box...."</div>
+    <div myIn="1">myIn="1"</div myIn="1">
+    <div class="filters box">class="filters box"</div>
+    <div myIn="2">myIn="2"</div>
+    <div class="aaa">class="aaa"</div>
+    <div myIn="aa">myIn="aa"</div>
+</body>
+<script>
+    function $attr(property, value) {
+        let elements = document.getElementsByTagName('*'),
+            arr = [];
+        elements = Array.from(elements);
+        elements.forEach(item => {
+            let itemVal = item.getAttribute(property);
+            console.log(itemVal);
+            if (property === 'class') {
+                console.log(1);
+                new RegExp("\\b" + value + "\\b").test(itemVal) ? arr.push(item) : null;
+                return;
+            }
+            if (itemVal === value) {
+                arr.push(item);
+            }
+        });
+        return arr;
+    }
+
+    console.log($attr('class', 'box'));
+</script>
+
+</html>
