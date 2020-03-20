@@ -110,6 +110,30 @@ $ nrm use xxx
 
 
 
+### 使用GIT服务器搭建静态网页
 
-
-
+> 1.创建public远程仓库
+>
+> 2.进入仓库点setting
+>
+> 3.找到GitHub Pages 点击choose a theme
+>
+> 4.随便选择一个模板点击select theme
+>
+> 5.会自动跳到创建好的仓库，点击setting 找到GitHub Pages此时上面有个网址就是刚刚创建的网页
+>
+> https://lw998.github.io/webtest/
+>
+> 6.使用Git Bash Here 克隆远程仓库到本地：git clone https://github.com/LW998/webtest.git
+>
+> 7.把静态资源复制到clone的本地仓库（不要删除里面原有的文件）
+>
+> 8.上传到远程仓库：打开Git Bash Here依次执行
+>
+> git  add -A
+>
+> git commit -m'随便写'
+>
+> git push origin master		(可能需要输入你的GitHub用户名密码)
+>
+> 9.访问你的网站后面加上静态资源的首页地址

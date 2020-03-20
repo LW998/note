@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iterator</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*  let ary = [1, 2];
+    // let iterator = ary.values();
+    let iterator=ary[Symbol.iterator]();
+    console.log(iterator.next());//{value: 1, done: false}
+    console.log(iterator.next());//{value: 2, done: false}
+    console.log(iterator.next());//{value: undefined, done: true}
+    console.log(iterator.next());//{value: undefined, done: true}
+ */
+
+    let obj = {
+        0: "AA",
+        1: "BB",
+        2: "CC",
+        length: 3
+    }
+    console.dir(obj)
+    obj.__proto__[Symbol.iterator] = Array.prototype[Symbol.iterator];
+
+    // obj.__proto__[Symbol.iterator] = function () {
+    //     let _this = this;
+    //     this.i = 0;
+    //     return {
+    //         next() {
+    //             return {
+    //                 value: _this[_this.i++],
+    //                 done: _this.i > _this.length
+    //             }
+    //         }
+    //     }
+    // }
+    //for of 遍历需要有iterator才能遍历
+    for (let item of obj) {
+        console.log(item)
+    }
+    console.log([...obj]); //=>["AA", "BB", "CC"]
+
+    // for (let key in obj) {
+    //     console.log(key, obj[key]);
+    // }
+</script>
+
+</html>

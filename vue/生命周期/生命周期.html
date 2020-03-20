@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生命周期</title>
+</head>
+
+<body>
+    <div id="app">
+        <p v-text="a"></p>
+    </div>
+    <!-- 通过这种方式设置模板页面中任然会默认渲染这些内容 -->
+    <!-- <div id="temp1">
+        <p>{{a}}</p>
+    </div> -->
+    <!-- vue自定义的标签template 防止设置模板内容被正常渲染 (dom碎片防止)-->
+    <!-- 也是遵循 template规范，只能又一个div根元素-->
+    <template id="temp1">
+        <div>
+            <h1>{{a}}</h1>
+        </div>
+    </template>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        //如果有设置template,那么app中的内容会被替换成template中的内容
+        //而且只能有一个div根元素包裹，如果要用两个div需要用v-if
+        // template: "<div><h1>{{a}}</h1></div> <div></div>",
+
+        // 可以通过id把页面中的内容作为模板
+        template: "#temp1",
+        data: {
+            a: 1,
+        },
+        beforeCreate() {
+            //几乎不用
+            //数据初始化之前 在这里获取不到data中的数据
+            console.log(this.a);
+            debugger;
+        },
+        created() {
+            //数据初始化完成 可以获取和操作data中的数据
+            //一般在这里请求ajax数据
+            console.log(this.a);
+            debugger;
+        },
+        beforeMount() {
+            //挂载之前  判断渲染模板是否正确
+            debugger;
+
+        },
+        mounted() {
+            //挂载完成 视图渲染
+            debugger;
+        },
+        beforeUpdate() {
+            //数据更新之前
+            debugger;
+        },
+        updated() {
+            //数据更新完成
+            debugger;
+        },
+        beforeDestroy() {
+            //销毁实例之前
+            debugger;
+        },
+        destroyed() {
+            //销毁实例之后 渲染好的页面不会销毁，但是后面再操作实例就不起作用了
+            debugger;
+        },
+    });
+    // 跟el: '#app',一样的效果，是在没有设置el的时候才能执行，不然直接跳过
+    // vm.$mount("#app");
+
+    //手动销毁实例
+    // vm.$destroy()
+</script>

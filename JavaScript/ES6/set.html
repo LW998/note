@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let set = new Set([NaN, NaN, {}, {}, 1, 1, 2, 3, null, null, [],
+        [], undefined, undefined
+    ])
+    console.log(set) //去重后的类数组
+
+    /* //add 增加一项，重复不增加 返回添加值后的set
+    console.log(set.add(NaN)); //数值已存在不改变数组
+    console.log(set.add(4)); //数组增加值 2 */
+
+    /* //delete 删除 返回是否删除成功，删除没有的值返回false,删除已有的值返回true
+    console.log(set.delete(2)) //true
+    console.log(set.delete(5)) //false */
+
+    /*  //has 判断有没有
+     console.log(set.has(NaN)) //true */
+
+    /*  console.log(set.size) //=>10
+     console.log(set.clear()); //clear 清空类数组
+     console.log(set.size)//=>0 */
+
+
+    /* let ary = [NaN, NaN, {}, {}, 1, 1, 2, 3, null, null, [],
+        [], undefined, undefined
+    ];
+    let arr = ([...new Set(ary)]); //=> [NaN, {}, {}, 1, 2, 3, null, [], [], undefined]
+    console.log(arr);
+
+    console.log(Object.is(NaN, NaN)); //=>true
+    console.log(Object.is({}, {})); //=> false
+
+    for (let item of arr) {
+        console.log(item) // 每一项的值
+    }
+
+    for (let key of arr.keys()) {
+        console.log(key) // 每一项索引
+    }
+
+    for (let [index, item] of arr.entries()) {
+        console.log(index, item) //每一项的索引和值
+    } */
+</script>
+
+</html>

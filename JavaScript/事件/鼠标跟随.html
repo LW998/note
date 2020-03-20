@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标跟随</title>
+    <link rel="stylesheet" href="reset.min.css">
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<style>
+    .container {
+        width: 462px;
+        margin: 20px auto;
+        width: 550px;
+        height: 169px;
+        position: relative;
+    }
+
+    .imgBox {
+        display: flex;
+    }
+
+    .imgBox li {
+        margin-right: 18px;
+        width: 120px;
+        height: 169px;
+        border: 1px solid #000;
+    }
+
+    .imgBox li img {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .imgBox li:nth-last-child() {
+        margin-right: 0px
+    }
+
+    .container .mark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 270px;
+        height: 382px;
+    }
+
+    .container .mark img {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<body>
+    <section class="container">
+        <ul class="imgBox">
+            <li><img src="images/10.png" alt="" data-img="images/10.png"></li>
+            <li><img src="images/11.png" alt="" data-img="images/11.png"></li>
+            <li><img src="images/12.png" alt="" data-img="images/12.png"></li>
+            <li><img src="images/13.png" alt="" data-img="images/13.png"></li>
+        </ul>
+        <!-- <div class="mark">
+            <img src="images/10.png" alt="">
+        </div> -->
+    </section>
+</body>
+<script>
+    let $con = $('.container'),
+        $imgList = $('.container>.imgBox>li'),
+        $mark = null;
+    $imgList.on('mouseenter', function () {
+        let srcStr = $(this).children('img').attr('data-img');
+        if (!$mark) {
+            $mark = $(`<div class="mark">
+            <img src="${srcStr}" alt="">
+        </div>`)
+            $con.append($mark);
+        }
+    }).on('mouseleave', function () {
+        if ($mark) {
+            $mark.remove();
+            $mark = null;
+        }
+    }).on('mousemove', function (ev) {
+        let {
+            top: conTop,
+            left: conLeft
+        } = $con.offset(),
+            curL = ev.pageX - conLeft + 20,
+            curT = ev.pageY - conTop + 20;
+        $mark.css({
+            left: curL,
+            top: curT
+        })
+    })
+</script>
+
+</html>

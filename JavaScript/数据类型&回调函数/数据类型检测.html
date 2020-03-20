@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据类型检测</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let _type = (function () {
+        var _obj = {
+                isNumeric: "Number",
+                isArray: "Array",
+                isBoolean: "Boolean",
+                isDate: "Date",
+                isFunction: "Function",
+                isNull: "Null",
+                isUndefined: "Undefined",
+                isString: "String",
+                isSymbol: "Symbol",
+                isPlainObject: "Object",
+                isRegExp: "RegExp",
+                isWindow: "Window"
+            },
+            _toString = _obj.toString,
+            _type = {};
+        for (var key in _obj) {
+            if (!_obj.hasOwnProperty(key)) break;
+            _type[key] = (function () {
+                var reg = new RegExp("^\\[object " + _obj[key] + "\\]$");
+                return function anonymous(val) {
+                    console.log(this.toString.call(val), val);
+                    return reg.test(_toString.call(val));
+                }
+            })();
+        }
+        return _type;
+    })();
+    console.log(_type);
+    console.log(_type.isNumeric(1));
+</script>
+
+</html>

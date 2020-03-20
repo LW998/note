@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路由</title>
+</head>
+<style>
+    .active {
+        color: red;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- 默认将router-link渲染成a标签-->
+        <!-- to:路由地址 -->
+        <!-- tag:修改默认标签名 -->
+        <router-link to="/home" tag="button">首页</router-link>
+        <router-link to="/list" tag="button">列表</router-link>
+
+        <!-- 路由对应的组件显示的位置 -->
+        <router-view></router-view>
+    </div>
+
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+
+<script>
+    Vue.use(VueRouter)
+    //3.定义组件
+    let home = {
+        template: "<h1>HOME</h1>"
+    };
+    let list = {
+        template: "<h1>List</h1>"
+    }
+    //4.加入路由映射表 （路径跟路由的匹配）
+    let routers = [{
+        path: "/home",
+        component: home
+    }, {
+        path: "/list",
+        component: list
+    }];
+
+    //1.创建router
+    //只要创建vue-router实例，页面的地址就会多加一个#/
+    //路由默认使用hash方式
+    let router = new VueRouter({
+        //5.加入路由关系
+        routers, //简写形式 routers:routers
+        //修改默认选中问题
+        linkActiveClass: "active"
+    })
+    let vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        //2.注入 路由router
+        router, //简写形式 router:router
+    });
+</script>

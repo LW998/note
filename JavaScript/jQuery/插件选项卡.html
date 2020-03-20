@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选项卡</title>
+    <link rel="stylesheet" href="reset.min.css">
+</head>
+<style>
+    .tabBox {
+        margin: 20px auto;
+        width: 360px;
+    }
+
+    .tabBox .option {
+        display: flex;
+        background-color: #efeff1;
+        border: 1px solid #dbdee1;
+    }
+
+    .tabBox .option li {
+        display: block;
+        padding: 0 13px;
+        height: 35px;
+        line-height: 35px;
+        margin-left: -1px;
+    }
+
+    .tabBox .option li a {
+        text-decoration: none;
+        color: #000;
+        font-size: 16px;
+    }
+
+    .tabBox .option li:hover a {
+        color: #ff8400;
+    }
+
+    .tabBox .option li.active {
+        border-top: 3px solid #ff8400;
+        height: 34px;
+        line-height: 30px;
+        border-left: 1px solid #dbdee1;
+        border-right: 1px solid #dbdee1;
+        margin-bottom: -1px;
+        background-color: #fff;
+        padding: 0 12px;
+        margin-top: -1px;
+    }
+
+    .tabBox .option li:first-child.active {
+        border-top: 3px solid #ff8400;
+        height: 34px;
+        line-height: 30px;
+        margin-bottom: -1px;
+        border-top: 3px solid #ff8400;
+        border-left: 1px solid #fff;
+        border-right: 1px solid #dbdee1;
+        background-color: #fff;
+        padding: 0 12px;
+        margin-top: -1px;
+    }
+
+    .tabBox .con {
+        padding-top: 10px;
+        height: 220px;
+        font-size: #000;
+        display: none;
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    .tabBox .con.active {
+        display: block;
+    }
+</style>
+
+<body>
+    <div class="tabBox" id="tabBox">
+        <ul class="option">
+            <li class="active"><a href="#">图片</a></li>
+            <li><a href="#">专栏</a></li>
+            <li><a href="#">热点</a></li>
+        </ul>
+        <div class="con active">暮江平不动，春花满正开。流波将月去，潮水带星来。</div>
+        <div class="con">陶尽门前土，屋上无片瓦。十指不沾泥，鳞鳞居大厦。</div>
+        <div class="con">清溪流过碧山头，空水澄鲜一色秋。隔断红尘三十里，白云红叶两悠悠。</div>
+    </div>
+
+    <div class="tabBox" id="tabBox2">
+        <ul class="option">
+            <li class="active"><a href="#">图片</a></li>
+            <li><a href="#">专栏</a></li>
+            <li><a href="#">热点</a></li>
+            <li><a href="#">趣图</a></li>
+            <li><a href="#">新闻</a></li>
+        </ul>
+        <div class="con active">暮江平不动，春花满正开。流波将月去，潮水带星来。</div>
+        <div class="con">陶尽门前土，屋上无片瓦。十指不沾泥，鳞鳞居大厦。</div>
+        <div class="con">清溪流过碧山头，空水澄鲜一色秋。隔断红尘三十里，白云红叶两悠悠。</div>
+        <div class="con">清溪流过碧山头，空水澄鲜一色秋。</div>
+        <div class="con">隔断红尘三十里，白云红叶两悠悠。</div>
+    </div>
+</body>
+<script>
+    /*let tabBox = document.querySelector('#tabBox'),
+        childAry = [...tabBox.children],
+        option = null,
+        optionList = null,
+        conList = null;
+    //检测当前元素中是否包括某一个class类名
+    let hasClass = (ele, str) => ele.className.trim().split(/ +/).indexOf(str) >= 0;
+    //给当前元素添加样式类名
+    let addClass = (ele, str) => {
+        let isExit = hasClass(ele, str);
+        if (isExit) return; //当前元素的样式类名中已经包含Str了
+        ele.className += ` ${str}`;
+    }
+    let removeClass = (ele, str) => {
+        let isExit = hasClass(ele, str);
+        if (!isExit) return; //当前元素的样式类名中不存在这个样式类，不需要做任何 操作
+        let ary = ele.className.trim().split(/ +/);
+        ary = ary.filter(item => item !== str);
+        ele.className = ary.join(' ');
+    }
+    option = childAry.filter(item => hasClass(item, 'option'));
+    option = option.length > 0 ? option[0] : null;
+    conList = childAry.filter(item => hasClass(item, 'con'));
+    optionList = [...option.children].filter(item => item.tagName === 'LI');
+    let lastIndex = 0;
+    optionList.forEach((item, index) => {
+        item.onmouseover = function anonymous() {
+            if (lastIndex === index) return;
+            // console.log(this, item);
+            addClass(this, 'active');
+            removeClass(optionList[lastIndex], 'active');
+            addClass(conList[index], 'active');
+            removeClass(conList[lastIndex], 'active');
+            lastIndex = index;
+        }
+    })*/
+</script>
+
+<script src="tab-plugin.min.js"></script>
+
+<script>
+    new tabPlugin(tabBox, {
+        lastIndex: 2,
+        eventType: 'click'
+    });
+    new tabPlugin(tabBox2, {
+        lastIndex: 1,
+        changeEnd: function (curLi, curCon, index, lastIndex) {
+            // console.log(curLi, curLi, index, lastIndex);
+        }
+    });
+</script>
+
+</html>

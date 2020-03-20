@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>symbol</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*  let s1 = Symbol(1),
+        s2 = Symbol(1);
+    console.log(s1, s2);//Symbol(1) Symbol(1)
+    console.log(s1 === s2)//false
+    console.log(Object.is(s1, s2));
+    const c1 = 1;
+    const c2 = 1;
+    // c1 = 2; //报错
+    console.log(c1, c2) //1 1
+    console.log(c1 === c2);//true
+    console.log(Object.is(c1, c2)); //true */
+
+    let name = Symbol('name'),
+        va = Symbol('va'),
+        b = {};
+    let obj = {
+        a: 'AA'
+    };
+    obj[name] = 'liwei';
+    obj[va] = 'vaa';
+    obj[b] = 'bbb';
+    console.log(obj); //{a: "AA", [object Object]: "bbb", Symbol(name): "liwei", Symbol(va): "vaa"}
+    console.log(obj[name]); //liwei
+    console.log(obj[va]); //vaa
+
+    for (let key in obj) {
+        console.log(key); // a [object Object]
+    }
+    console.log(Object.keys(obj)); //["a", "[object Object]"]
+    console.log(Object.getOwnPropertySymbols(obj)); //[Symbol(name), Symbol(va)]
+</script>
+
+</html>

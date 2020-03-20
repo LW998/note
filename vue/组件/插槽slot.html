@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插槽</title>
+</head>
+
+<body>
+    <div id="app">
+        <box>
+            <h1>标题1</h1>
+            <!-- 组件中的标签需要加上 slot="name" 属性-->
+            <h2 slot="zs" v-text="zs"></h2>
+            <h2 slot="ls">李四</h2>
+            <h2 slot="ww"><i>王五</i></h2>
+            <!-- 如果子组件标签中加了slot="name" 没有用name属性取出来将会不显示在页面上 -->
+            <h2 slot="wlh">王力宏</h2>
+        </box>
+    </div>
+
+    <template id="temp1">
+        <div>
+            <!-- 把子组件标签中的内容插入到slot的位置  -->
+            <!-- 用name="slot名字" 显示子组件标签中所有slot="name" 的内容 -->
+            一：
+            <slot name="zs"></slot>
+            二：
+            <slot name="ls"></slot>
+            三：
+            <slot name="ww"></slot>
+            <!-- slot 默认名字 ：default 跟直接写slot一样的效果 -->
+            <slot name="default"></slot>
+            <slot></slot>
+            <!-- 如果出现子组件标签中没有定义name,name直接显示标签里面的内容 -->
+            <slot name="lw">
+                <h3>李威</h3>
+            </slot>
+        </div>
+    </template>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let box = {
+        template: "#temp1"
+    }
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            zs: "张三"
+        },
+        components: {
+            box,
+        }
+    })
+</script>

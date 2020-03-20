@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app_one">
+        <form @submit.prevent="onSubmit">
+            <input type="text" v-model="tod.title" />
+            <input type="checkbox" v-model="tod.completed" />
+            <input type="submit" value="提交" />
+        </form>
+        <template v-for="t in todos">
+            <h1>{{t.userId}}</h1>
+            <p>{{t.title}}</p>
+        </template>
+    </div>
+    <div id="app_two">
+
+    </div>
+</body>
+<script src="app.js"></script>
+
+</html>

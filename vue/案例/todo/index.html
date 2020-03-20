@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        .sel {
+            color: #999;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="text-center">你有{{num}}件事未完成的事情</h2>
+                            <input type="text" class="form-control" v-model="title" @keyup.enter="addTodo">
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <!-- cur=item 记录当前点击的输入框 -->
+                                <li class="list-group-item" v-for="item in filterList" @dblclick="cur=item">
+                                    <!-- 如果双击的值等于cur就让他显示文本input -->
+                                    <input type="text" v-show="cur===item" v-focus="cur===item" v-model="item.title"
+                                        @keyup.enter="cur=''" @blur="cur=''">
+                                    <!-- 当设置cur=''时 ，cur就不等于item了，会显示文本 -->
+                                    <!-- 如果双击的值不等于cur就让他显示文本span -->
+                                    <span v-show="cur!==item">
+                                        <input type="checkbox" v-model="item.isSelected">
+                                        <span v-text="item.title" :class="{sel:item.isSelected}"></span>
+                                    </span>
+                                    <button class="btn btn-xs btn-danger pull-right"
+                                        @click="remove(item)">&bigotimes;</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            <ul class="nav nav-pills">
+                                <li role="presentation" :class="{active:hash==='all'}"><a href="#all">全部</a></li>
+                                <li role="presentation" :class="{active:hash==='finish'}"><a href="#finish">已完成</a></li>
+                                <li role="presentation" :class="{active:hash==='unFinish'}"><a href="#unFinish">未完成</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            todoList: [{
+                title: "约会",
+                isSelected: false
+            }, {
+                title: "看电影",
+                isSelected: false
+            }],
+            title: "", //记录输入框中输入的值
+            cur: "", //记录双击的span
+            hash: "all"
+        },
+        computed: {
+            num() {
+                return this.todoList.filter(item => !item.isSelected).length
+            },
+            filterList() {
+                //依赖hash
+                //记录在 localStorage 本地存储 只要不是清除浏览器缓存就会永久缓存
+                //存储的时候必须是一个字符串
+                localStorage.setItem("todo", JSON.stringify(this.todoList))
+
+                if (this.hash === "all") return this.todoList;
+                if (this.hash === "finish") return this.todoList.filter(item => item.isSelected);
+                if (this.hash === "unFinish") return this.todoList.filter(item => !item.isSelected);
+            }
+        },
+        methods: {
+            addTodo() {
+                if (this.title.length !== 0) {
+                    this.todoList.unshift({
+                        title: this.title,
+                        isSelected: false
+                    });
+                    this.title = ""
+                }
+            },
+            remove(item) {
+                this.todoList = this.todoList.filter(val => val !== item);
+            },
+
+        },
+        directives: {
+            focus(el, binds) {
+                if (binds.value) {
+                    el.focus();
+                }
+            },
+
+        },
+        created() {
+            //只要data初始完成就会执行
+            //从本地存储中获取给todoList赋值
+            if (localStorage.getItem("todo")) {
+                this.todoList = JSON.parse(localStorage.getItem("todo"));
+            }
+            //防止第一次或者刷新页面的时候没有hashchange时间而导致hash没有默认值的情况
+            this.hash = location.hash.replace(/#(\w+)/, "$1") || "all";
+            //监听hashchange事件，动态改变data中的hash
+            window.addEventListener('hashchange', () => {
+                this.hash = location.hash.replace(/#(\w+)/, "$1")
+            })
+        },
+    })
+</script>

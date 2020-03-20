@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件嵌套</title>
+</head>
+
+<body>
+    <div id="app">
+        <parent></parent>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let son = {
+        template: "<h2>{{name}}</h2>",
+        data() {
+            return {
+                name: "vue"
+            }
+        },
+    }
+    let parent = {
+        template: "<div><h1>{{name}}</h1><son></son></div>",
+        data() {
+            return {
+                name: "VUE"
+            }
+        },
+        components:{
+            //如果在局部组件中要使用其他局部组件需要先注册
+            son,
+        }
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        components: {
+            parent,
+        }
+    })
+</script>

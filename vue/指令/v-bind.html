@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-bind</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-bind 动态绑定属性名 可以直接省略-->
+        <!-- 如果想让属性变成动态的值可以在前面加上v-bind -->
+        <div :class="className">
+            <input type="text" v-for="item in list" :value="item">
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            className: 'box',
+            list: ['vue', 'js', 'node', 'react']
+        }
+    })
+</script>

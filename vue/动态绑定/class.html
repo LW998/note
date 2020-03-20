@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class</title>
+</head>
+<style>
+    .red {
+        color: red;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div :class="box"></div>
+        <!-- 动态绑定类名是一个对象的时候 根据对象后的值转化为布尔后(true|false)来确认用哪个作为class,如果两个都为true则有两个class -->
+        <div :class="{box1:false}"></div>
+        <div :class="{box1:false,box2:true}"></div>
+
+        <!-- 动态绑定类名是一个数组的时候  数组的每一项都是他的class-->
+        <div :class="['box1','box2']"></div>
+        <!-- 可以通过索引取出class -->
+        <div :class="['box1','box2'][0]"></div>
+
+        <input type="text" v-model="val" @keyup.enter="val1=val">
+        <h2 :class="{red:val1==item}" v-for="item in arr" v-text="item"></h2>
+
+
+        <div :class="classList">11</div>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            box: 'box',
+            val: "",
+            val1: "",
+            arr: ["js", "css", "vue", "node", "react"],
+            classList: ['box1', 'box2']
+
+        }
+    });
+</script>

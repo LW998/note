@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <link rel="stylesheet" href="css/reset.css">
+</head>
+<!-- <script src="js/animate.js"></script> -->
+
+<style>
+    .container {
+        margin: 50px auto;
+        width: 912px;
+        height: 290px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .container .wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+    }
+
+    .container .wrapper .slide {
+        float: left;
+        width: 912px;
+        height: 290px;
+        overflow: hidden;
+    }
+
+    .container .wrapper .slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .container .focus {
+        position: absolute;
+        padding: 4px;
+        height: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        /*translateX(-50%)水平位移50%，让他在不固定宽度的情况下实现水平居中*/
+        bottom: 10px;
+        z-index: 999;
+        background: rgba(0, 0, 0, .5);
+        border-radius: 10px;
+        /*让他为盒子高度的一半可以把盒子修改成椭圆*/
+        font-size: 0;
+    }
+
+    .container .focus li {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin: 0 4px;
+        display: inline-block;
+        /*父级元素添加font-size: 0可以消除空格加间距*/
+        background-color: #ffffff;
+        cursor: pointer;
+    }
+
+    .container .focus li.active {
+        background-color: tomato;
+    }
+
+    .container .arrow {
+        display: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 26px;
+        height: 45px;
+        background: url("images/per.png") no-repeat;
+        opacity: 0.5;
+    }
+
+    .container .arrow:hover {
+        opacity: 1;
+    }
+
+    .container .arrow.arrowLeft {
+        left: 5px;
+        background-position: 0 -2px;
+    }
+
+    .container .arrow.arrowLeft:hover {
+        left: 5px;
+        background-position: -50px -2px;
+    }
+
+    .container .arrow.arrowRight {
+        right: 5px;
+        background-position: -24px -2px;
+    }
+
+    .container .arrow.arrowRight:hover {
+        right: 5px;
+        background-position: -74px -2px;
+    }
+</style>
+
+<body>
+    <section class="container" id="container">
+        <div class="wrapper">
+            <!-- <div class="slide"><img src="images/1.jpg" alt=""></div>
+            <div class="slide"><img src="images/2.jpg" alt=""></div>
+            <div class="slide"><img src="images/3.jpg" alt=""></div>
+            <div class="slide"><img src="images/4.jpg" alt=""></div> -->
+        </div>
+        <ul class="focus">
+            <!-- <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li> -->
+        </ul>
+        <a href="javascript:;" class="arrow arrowLeft"></a>
+        <a href="javascript:;" class="arrow arrowRight"></a>
+    </section>
+    <section class="container" id="container2">
+        <div class="wrapper">
+            <!-- <div class="slide"><img src="images/1.jpg" alt=""></div>
+            <div class="slide"><img src="images/2.jpg" alt=""></div>
+            <div class="slide"><img src="images/3.jpg" alt=""></div>
+            <div class="slide"><img src="images/4.jpg" alt=""></div> -->
+        </div>
+        <ul class="focus">
+            <!-- <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li> -->
+        </ul>
+        <a href="javascript:;" class="arrow arrowLeft"></a>
+        <a href="javascript:;" class="arrow arrowRight"></a>
+    </section>
+
+</body>
+<!-- <script src="js/banner.js"></script> -->
+<script src="banner-plugin.js"></script>
+<script>
+    // let con = document.getElementById('container');
+    new Banner({
+        ele: '#container',
+        url: 'json/banner.json',
+        defaultIndex: 1,
+        interval: 3000,
+        speed: 1000,
+        isFocus: true,
+        isArrow: true,
+        moveEnd: () => {
+
+        }
+    });
+    new Banner({
+        ele: '#container2',
+        url: 'json/banner.json',
+        defaultIndex: 0,
+        interval: 2000,
+        speed: 200,
+        isFocus: true,
+        isArrow: true,
+        moveEnd: (_this) => {
+            // console.log(_this.changeFocus)
+        }
+    });
+</script>
+<script>
+</script>
+
+</html>

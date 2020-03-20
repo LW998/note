@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <input type="text" id="inp"> -->
+    <div id='app'>
+        <input type="text" v-model="name">
+        <input type="text" v-model="age">
+        <p>{{name}}</p>
+        <p>{{age}}</p>
+    </div>
+</body>
+<script>
+    /* let obj = {},
+        data = {
+            name: '123'
+        };
+    Object.defineProperty(obj, 'name', {
+        get() { //取obj的name属性会触发
+            return data["name"];
+        },
+        set(value) { //给obj的name赋值会触发
+            data["name"] = value; //改变data的结果
+            inp.value = value; //将值赋予输入框
+        }
+    })
+    inp.value = obj.name; //页面一加载调用get方法
+    inp.addEventListener('input', function () { //等待输入框的变化
+        obj.name = this.value; //当值变化时调用set方法
+        console.log(obj.name);
+    }) */
+
+    let data = {
+            name: "liwei",
+            age: 21
+        },
+        app = document.querySelector('#app'),
+        inputs = app.querySelectorAll('input'),
+        nodeList = [...app.children].filter(item => item.nodeName !== 'INPUT'),
+        cloneList = nodeList.map(item => item.cloneNode(true));
+
+    for (let item of inputs) {
+        if (item.getAttribute('v-model')) {
+            item.value = data[item.getAttribute('v-model')];
+            item.oninput = function () {
+                data[this.getAttribute('v-model')] = this.value;
+            }
+        }
+    }
+
+    let reg = /\{\{(\w+)\}\}/
+    nodeList.forEach(item => {
+        if (reg.test(item.innerHTML)) {
+            item.innerHTML = item.innerHTML.replace(reg, (...[, $1]) => data[$1]);
+        }
+    });
+
+
+
+    Object.defineProperties(data, {
+        name: {
+            get() {
+                return data["name"];
+            },
+            set(val) {
+                //this:data
+                // console.log(this);
+                for (let item of inputs) {
+                    if (item.getAttribute('v-model') === "name") {
+                        item.value = val;
+                    }
+                }
+                cloneList.forEach((item, index) => {
+                    nodeList[index].innerHTML = item.innerHTML.replace(/\{\{name\}\}/g, () => val)
+                })
+            }
+        },
+        age: {
+            get() {
+                return data["age"];
+            },
+            set(val) {
+                for (let item of inputs) {
+                    if (item.getAttribute('v-model') === "age") {
+                        item.value = val;
+                    }
+                }
+                cloneList.forEach((item, index) => {
+                    nodeList[index].innerHTML = item.innerHTML.replace(/\{\{age\}\}/g, () => val)
+                })
+            }
+        }
+    });
+    data.name = "lw";
+    data.age = 21;
+    console.log(data)
+</script>
+
+</html>

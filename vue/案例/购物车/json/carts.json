@@ -1,0 +1,29 @@
+[{
+    "isSelected": true,
+    "productCover": "img/1.jpg",
+    "productName": "深入浅出Node.js",
+    "productInfo": "学习Node.js",
+    "productPrice": 57.88,
+    "productCount": 8
+}, {
+    "isSelected": false,
+    "productCover": "img/2.jpg",
+    "productName": "Vue.js前端开发",
+    "productInfo": "学习Vue.js",
+    "productPrice": 54.76,
+    "productCount": 9
+}, {
+    "isSelected": true,
+    "productCover": "img/3.jpg",
+    "productName": "React.js实战",
+    "productInfo": "学习React.js",
+    "productPrice": 49.77,
+    "productCount": 7
+}, {
+    "isSelected": false,
+    "productCover": "img/4.jpg",
+    "productName": "疯狂Ajax讲义",
+    "productInfo": "学习Ajax",
+    "productPrice": 54.59,
+    "productCount": 5
+}]

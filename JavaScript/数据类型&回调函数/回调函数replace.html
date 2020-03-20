@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>replace</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 重写replace
+    ~ function () {
+        //替换字符串
+        function handle(str, val1, val2) {
+            let index = str.indexOf(val1);
+            return str.substring(0, index) + val2 + str.substring(index + val1.length);
+        }
+
+        function myRe(reg, callback) {
+            let _this = this.substring(0),
+                isGlobal = reg.global,
+                arr = reg.exec(this);
+            while (arr) {
+                if (typeof callback === 'function') {
+                    //arr的结果是数组(执行回调函数，把捕获的结果传递给他);
+                    //接收回调函数执行的返回值
+                    let res = callback.apply(null, arr),
+                        //大正则匹配的内容
+                        big = arr[0];
+                    //用返回值替换字符串中当前正则匹配的内容。
+                    _this = handle(_this, big, res);
+                    console.log(_this);
+                }
+                arr = reg.exec(this);
+                //不设置global只执行一次
+                if (!isGlobal) break;
+            }
+            return _this;
+        }
+        String.prototype.myRe = myRe;
+    }();
+
+    let str = "{0}年{1}月{2}日",
+        arr = ['2020', '02', '09'];
+    str = str.myRe(/\{(\d)\}/g, function (context, $1) {
+        return '@';
+    })
+    console.log(str);
+</script>
+
+</html>

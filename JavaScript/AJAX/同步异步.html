@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /* let xhr = new XMLHttpRequest();
+    xhr.open('get', '../1.js', true);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 1) {
+            console.log(1);
+        }
+        if (xhr.readyState === 2) {
+            console.log(2);
+        }
+        if (xhr.readyState === 3) {
+            console.log(3);
+        }
+        if (xhr.readyState === 4) {
+            console.log(4);
+        }
+    }
+    xhr.send();
+
+    setTimeout(() => {
+        console.log('111');
+    }, 0);
+    //=>111 2 3 4 */
+
+    //ajax异步send前后执行监听都无影响，
+    //至于setTimeout中的函数与ajax是同时运行的，只要ajax在setTimeout的时间内执行就会先输出状态监听绑定的东西
+
+    /*  let xhr = new XMLHttpRequest();
+    xhr.open('get', '../1.js', true);
+    xhr.send();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 1) {
+            console.log(1);
+        }
+        if (xhr.readyState === 2) {
+            console.log(2);
+        }
+        if (xhr.readyState === 3) {
+            console.log(3);
+        }
+        if (xhr.readyState === 4) {
+            console.log(4);
+        }
+    }
+
+    setTimeout(() => {
+        console.log('111');
+    }, 0);
+
+    //=>111 2 3 4 */
+
+
+
+    /* let xhr = new XMLHttpRequest();
+    xhr.open('get', '../1.js', false);
+    //状态为1 2 3的时候由于ajax占领着主队列，没有空余线程运行这些程序，所以只有当状态码为4（完成）的时候执行状态码为4的方法
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 1) {
+            console.log(1);
+        }
+        if (xhr.readyState === 2) {
+            console.log(2);
+        }
+        if (xhr.readyState === 3) {
+            console.log(3);
+        }
+        if (xhr.readyState === 4) {
+            console.log(4);
+        }
+    }
+    xhr.send();
+
+    setTimeout(() => {
+        console.log('111');
+    }, 0);
+
+    //=>4 111 */
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('get', '../1.js', false);
+    xhr.send();
+    //send 之前是1，由于同步所以要等send执行完后再执行下面的，状态为4，而下面的方法还未绑定，所以不会监听这些状态
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 1) {
+            console.log(1);
+        }
+        if (xhr.readyState === 2) {
+            console.log(2);
+        }
+        if (xhr.readyState === 3) {
+            console.log(3);
+        }
+        if (xhr.readyState === 4) {
+            console.log(4);
+        }
+    }
+    setTimeout(() => {
+        console.log('111');
+    }, 0);
+    //=>111
+</script>
+
+</html>

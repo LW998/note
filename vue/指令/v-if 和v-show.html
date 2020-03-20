@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-if & v-show</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-show ="值" 将值转化成布尔类型进行判断 如果是true就是显示，否则影藏  操作的是display-->
+        <div v-show="isShow">李威</div>
+
+        <!-- v-if跟v-show一样也是判断值的布尔类型，为false会将元素remove了 -->
+        <!-- 频繁操作使用v-show -->
+        <!-- <div v-if="isShow">李威</div> -->
+        <button @click="isShow=!isShow">显示</button>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            isShow: true
+        }
+    })
+</script>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件的生命周期</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{msg}}</h1>
+        <parent ref="parent"></parent>
+        <brother></brother>
+    </div>
+
+    <template id="t1">
+        <div>
+            <h2 ref="h2">{{msg}}</h2>
+            <son></son>
+        </div>
+    </template>
+
+    <template id="t2">
+        <div>
+            <h3>{{msg}}</h3>
+        </div>
+    </template>
+
+    <template id="t3">
+        <div>
+            <h4>{{msg}}</h4>
+        </div>
+    </template>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let son = {
+        template: "#t3",
+        data() {
+            return {
+                msg: "孙子组件"
+            }
+        },
+        created() {
+
+            console.log("son created");
+        },
+        beforeMount() {
+
+            console.log("son beforeMount");
+        },
+        mounted() {
+            this.msg = "son组件"
+            console.log("son mounted");
+        },
+        beforeUpdate() {
+
+            console.log("son beforeUpdate");
+        },
+        updated() {
+
+            console.log("son updated");
+        },
+    }
+    let parent = {
+        template: "#t1",
+        data() {
+            return {
+                msg: "子组件"
+            }
+        },
+        components: {
+            son,
+        },
+        created() {
+
+            console.log("parent created");
+        },
+        beforeMount() {
+
+            console.log("parent beforeMount");
+        },
+        mounted() {
+            this.msg = "parent 组件"
+            console.log("parent mounted");
+        },
+        beforeUpdate() {
+
+            console.log("parent beforeUpdate");
+        },
+        updated() {
+
+            console.log("parent updated");
+        },
+
+    };
+    let brother = {
+        template: "#t2",
+        data() {
+            return {
+                msg: "子组件兄弟"
+            }
+        },
+        created() {
+
+            console.log("brother created");
+        },
+        beforeMount() {
+
+            console.log("brother beforeMount");
+        },
+        mounted() {
+            this.msg = "brother 组件"
+            console.log("brother mounted");
+        },
+        beforeUpdate() {
+
+            console.log("brother beforeUpdate");
+        },
+        updated() {
+
+            console.log("brother updated");
+        },
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            msg: "Vue",
+        },
+        components: {
+            parent,
+            brother
+        },
+        created() {
+            console.log("vm created");
+        },
+        beforeMount() {
+
+            console.log("vm beforeMount");
+        },
+        mounted() {
+            this.msg = "created";
+            this.$nextTick(() => {
+                console.log(this.$refs.parent.$refs.h2.innerHTML)
+            })
+            console.log(this.$refs.parent.$refs.h2.innerHTML)
+            console.log("vm mounted");
+        },
+        beforeUpdate() {
+
+            console.log("vm beforeUpdate");
+        },
+        updated() {
+
+            console.log("vm updated");
+        },
+    })
+
+    //执行顺序:vm created--->vm beforeMount--->parent created--->parent beforeMount--->son created--->son beforeMount--->
+    //brother created--->brother beforeMount--->son mounted-->parent mounted--->brother mounted--->vm mounted
+    //在执行son mounted的时候页面显示文字
+
+    //当数据修改时上述过程不变 然后继续执行 vm beforeUpdate-->parent beforeUpdate-->son beforeUpdate-->brother beforeUpdate
+    //-->brother updated-->son updated-->parent updated-->vm updated-->this.$nextTick(()
+
+    //组件的生命周期是单独的，子组件发送改变不会触发父组件的beforeUpdate ，updated
+</script>

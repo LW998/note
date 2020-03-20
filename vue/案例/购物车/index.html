@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+    <style>
+        .container .row .minusBtn {
+            outline: none;
+            width: 30px;
+        }
+
+        .container .row .plusBtn {
+            width: 30px;
+            height: 30px;
+        }
+
+        .btn:focus,
+        /*清除btn按钮点击出现的边框*/
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        input[type='number']::-webkit-outer-spin-button,
+        input[type='number']::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0;
+        }
+
+        .couInp {
+            text-align: center;
+            width: 50px;
+            height: 30px;
+            border: none;
+            border-top: 1px solid #999;
+            border-bottom: 1px solid #999;
+        }
+
+        .table tr:not(:last-of-type) {
+            text-align: center;
+        }
+
+        .table tr:not(:last-of-type) td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table tr td:nth-of-type(2) {
+            text-align: left;
+            vertical-align: baseline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <table class="table table-bordered  table-hover">
+                    <caption style="caption-side: top;" class="h1 text-danger text-center">购物车</caption>
+                    <tr>
+                        <th>全选<input type="checkbox" v-model="all"></th>
+                        <th>商品</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>小计</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr v-for="(item,index) in products">
+                        <td><input type="checkbox" v-model="item.isSelected"></td>
+                        <td><img :src="item.productCover" alt="" width="100px">
+                            <span v-text="item.productName" style="margin-left: 10%;"></span></td>
+                        <td>¥{{item.productPrice|toFixed}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="minusBtn" @click="minus(index)">-</button>
+                                <input type="number" class="couInp" v-model="item.productCount" min="1"
+                                    @keyup="KeyupNum($event,index)" @keydown="KeydownNum($event,index)">
+                                <button class="plusBtn" @click="plus(index)">+</button>
+                            </div>
+                        </td>
+                        <td>¥{{item.productPrice*item.productCount|toFixed}}</td>
+                        <td><button class="btn btn-danger" @click="remove(index)">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">总价格 ¥{{computedTotal|toFixed}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../../node_modules/vue/dist/vue.js"></script>
+<script src="../../node_modules/axios/dist/axios.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        created() {
+            //生命周期函数
+            //只要数据初始化完成就会触发，一般在这里请求数据
+            this.getData();
+
+        },
+        data: {
+            products: [],
+        },
+        filters: {
+            toFixed(value) {
+                return Number(value).toFixed(2);
+            },
+        },
+        methods: {
+            /* getData() {
+                axios.get("json/carts.json").then(res => {
+                    this.products = res.data;
+                })
+            } */
+            async getData() {
+                this.products = (await axios.get("json/carts.json")).data;
+            },
+            // checkOnce() {
+            //     this.all = this.products.every(item => item.isSelected)
+            // },
+            // checkAll() {
+            //     this.products.forEach(item => {
+            //         item.isSelected = this.all ? true : false
+            //     })
+            // },
+            remove(index) {
+                this.products.splice(index, 1);
+            },
+            //计算总共的个数
+            // computedTotal() {
+            //     let total = null;
+            //     this.products.forEach(item => {
+            //         total += item.isSelected ? item.productPrice * item.productCount : 0;
+            //     })
+            //     return total;
+            // },
+            //键盘按下事件
+            KeydownNum(ev, index) {
+                let code = ev.which || ev.keyCode;
+                let len = this.products[index].productCount.length;
+
+                if (!/^((3[7-9])|(9[6-9])|(10[0-5])|40|13|8)$/.test(code)) {
+                    window.event.returnValue = false;
+                }
+                if (len === 0) {
+                    if (/^(8|13)$/.test(code)) {
+                        window.event.returnValue = false;
+                    }
+                }
+            },
+            //键盘抬起
+            KeyupNum(ev, index) {
+                let len = this.products[index].productCount.length,
+                    num = Number(this.products[index].productCount);
+                let code = ev.which || ev.keyCode;
+                this.products[index].productCount = num === 0 ? 1 : num
+                if (len === 0) {
+                    this.products[index].productCount = 1;
+                }
+            },
+            //点击减少
+            minus(index) {
+                let num = this.products[index].productCount;
+                this.products[index].productCount = num > 1 ? num -= 1 : num
+            },
+            //点击添加
+            plus(index) {
+                let num = this.products[index].productCount;
+                this.products[index].productCount = num += 1
+            }
+        },
+        computed: {
+            all: {
+                get() {
+                    return this.products.every(item => item.isSelected)
+                },
+                set(val) {
+                    this.products.forEach(item => {
+                        item.isSelected = val;
+                    })
+                }
+            },
+            //如果只需要get属性可以写成函数形式
+            computedTotal() {
+                let total = null;
+                this.products.forEach(item => {
+                    total += item.isSelected ? item.productPrice * item.productCount : 0;
+                })
+                return total;
+            },
+            /* computedTotal: {
+                get() {
+                    let total = null;
+                    this.products.forEach(item => {
+                        total += item.isSelected ? item.productPrice * item.productCount : 0;
+                    })
+                    return total;
+                }
+            } */
+        },
+    })
+</script>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+    //三个状态
+    //pending(准备状态：初始化成功，开始执行异步的任务)
+    //fulfilled(成功状态)
+    //rejected(失败状态)
+    new Promise((resolve, reject) => {
+        //执行一个异步操作(创建Promise实例的时候会立即把当前函数体中的异步操作执行)
+        //Promise本身是同步的，但可以管理异步操作
+        //resolve：当异步操作执行成功，执行的操作
+        //reject：当异步操作执行失败，执行的操作
+        setTimeout(() => {
+            resolve(100);
+        }, 1000)
+    }).then((n) => {
+        //第一个函数是传递给resolve
+        console.log(n);
+    }, (n) => {
+        //第二个函数是传递给reject
+        console.log(n);
+    });
+    */
+
+    //---------------------------------------------------------------
+    /*let val = null,
+        xhr = new XMLHttpRequest();
+    xhr.open('get', '../1.js', true);
+    xhr.onreadystatechange = () => {
+        console.log(xhr.readyState, xhr.status);
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            val = xhr.responseText;
+            console.log(val);
+        }
+    };
+    xhr.send(null);
+    console.log(val);//=>如果使用异步ajax请求，不等ajax操作完成，就把val输出，结果为null
+    */
+    //--------------------------------------------------------------------
+
+    //promise是把所有异步操作成功或者失败后要做的事完全独立出来
+    let pro = new Promise((resolve, reject) => {
+        let val = null,
+            xhr = new XMLHttpRequest();
+        xhr.open('get', '../2.js', true);
+        xhr.onreadystatechange = () => {
+            console.log(xhr.readyState, xhr.status);
+            if (xhr.readyState === 4 && xhr.status == 200) {
+                //=>成功
+                val = xhr.responseText;
+                resolve(val);
+            }
+            if (xhr.status !== 200) {
+                //=>失败
+                reject();
+            }
+        };
+        xhr.send(null);
+    });
+    pro.then((res) => {
+        console.log(res);
+        //=>数据绑定
+        return 100;
+    }, () => {
+        console.log('fall')
+    }).then((res) => {
+        //当第一个then中的函数执行完，会执行第二个，参数和第一个一致
+        console.log(res); //=>0
+        //上一个then返回的值就是本次then的参数;
+    }, () => {
+
+    }).then(() => {
+        //当第二个then中的函数执行完，会执行第三个，参数和第一个一致
+    }, () => {
+
+    });
+</script>
+
+</html>

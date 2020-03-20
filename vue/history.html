@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>history</title>
+</head>
+<!-- vue中的路由两种模式 hash和history
+hash开发的时候使用
+history 直接将url变了，需要后台配合 上线的时候使用
+history:BOM 操作浏览器的历史记录-->
+
+<body>
+    <div id="app">
+
+    </div>
+    <a href="test.html">跳转</a>
+    <button onclick="back()">前进</button>
+    <!-- <button onclick="window.history.go(0)">刷新</button> -->
+    <button onclick="fn()">点击</button>
+</body>
+
+</html>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+
+        }
+    });
+
+    function back() {
+        window.history.forward()
+    }
+
+
+    function fn() {
+        // 第三个参数url地址必须同源
+        //pushState 在历史记录中多加一条记录，并且url地址栏显示的是当前新加的记录，可以刷新后返回和前进
+        history.pushState(null, null, "http://127.0.0.1:5500/test.html");
+
+        //replaceState 在历史记录中替换当前的地址，无法返回和前进
+        // history.replaceState(null, null, "http://127.0.0.1:5500/test.html")
+        console.log(window.history);
+    }
+    // go(n)  n>0 前进n页   n<0 后退n页
+    // back() 回退一页 ==> go(-1)
+    // forward() 前进一页 ==>go(1)
+</script>

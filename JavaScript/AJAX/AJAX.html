@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax</title>
+</head>
+
+<body>
+
+</body>
+<!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
+<script src="AJAX.js"></script>
+<script>
+    ajax({
+        url: 'http://jsonplaceholder.typicode.com/users',
+        method: 'get',
+        data: {
+            a: 1,
+            b: 2
+        },
+        cache: true,
+        success: (result) => {
+            console.log(result);
+        },
+        error: (result) => {
+            console.log(result)
+        }
+    });
+
+    // let xhr = new XMLHttpRequest();
+    // xhr.open('GET', 'http://jsonplaceholder.typicode.com/users');
+    // xhr.onreadystatechange = () => {
+    //     console.log(xhr.readyState, xhr.status);
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
+    //         console.log(JSON.parse(xhr.responseText));
+    //     }
+    // }
+    // xhr.send(null);
+</script>
+
+</html>

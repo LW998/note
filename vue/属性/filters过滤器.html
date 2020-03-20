@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 值 | 过滤器 过滤器是个函数
+        把 | 前面的值  将前面的值按照过滤器中定义的方式过滤-->
+        <div>{{0.126456120|toFixed(3)}}</div>
+        <p>{{1|addZero}}</p>
+        <p>{{2|addZero}}</p>
+        <!-- 如果需要传参数 过滤器第一个参数是 | 前面的值 -->
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    //全局过滤器
+    Vue.filter("toFixed",(value,n)=>value.toFixed(n))
+    //会去组件中找过滤器，如果没有就用全局的
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            a: 100
+        },
+        filters: {
+            // value:| 前面的值
+            //n :手动传递的参数
+            toFixed(value, n) {
+                return value.toFixed(n);
+            },
+            addZero(value) {
+                return value < 10 ? "0" + value : value
+            }
+        }
+    })
+</script>

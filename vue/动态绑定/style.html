@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>style</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 对象表示形式 -->
+        <div :style="{width:'100px',height:'100px',backgroundColor:'blue'}"></div>
+        <!-- style绑定的要么是一个对象，要么是多个对象的数组 -->
+        <div :style="style1">style1</div>
+        <div :style="style2">style2</div>
+        <!-- 如果需要多个样式可以把样式对象放到数组里 -->
+        <div :style="[style1,style2]">style1,style2</div>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            style1: {
+                color: "red"
+            },
+            style2: {
+                backgroundColor: "green"
+            }
+        }
+    })
+</script>

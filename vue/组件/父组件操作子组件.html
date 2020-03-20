@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>父组件操作子组件</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="hidden">点一下</button>
+        <child ref="child"></child>
+    </div>
+</body>
+<template id="temp1">
+    <div>
+        <h2 v-show="flg">子组件</h2>
+        <h3 ref="childH3">哈哈哈</h3>
+    </div>
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let child = {
+        template: "#temp1",
+        data() {
+            return {
+                flg: {
+                    type: Boolean
+                }
+            }
+        },
+        methods: {
+            hidden() {
+                this.flg = !this.flg;
+            }
+        },
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        components: {
+            child,
+        },
+        methods: {
+            hidden() {
+                //在这里拿到子组件的方法hidden执行
+                this.$refs.child.hidden();
+
+                //改变子组件中元素的样式
+                this.$refs.child.$refs.childH3.style.color = "red"
+            }
+        },
+
+    })
+</script>

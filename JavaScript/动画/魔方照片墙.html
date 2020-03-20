@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+</head>
+<style>
+    body,
+    html {
+        background-color: #000;
+    }
+
+    .cubeBox {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        height: 500px;
+        margin-left: -250px;
+        margin-top: 125px;
+        background-size: cover;
+    }
+
+    .cubeBox .cube {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -110px 0 0 -110px;
+        width: 220px;
+        height: 220px;
+
+    }
+
+    .cubeBox .cube li {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .cubeBox .cube li img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+    }
+
+    .cubeBox .cube li.cubImg img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+    }
+
+    .cubeBox .cube .mark {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        filter: blur(.4px);
+        background-color: rgba(5, 100, 80, 0.2);
+        border: 10px solid rgba(125, 255, 255, 0.25);
+        box-shadow: inset 10px 50px 50px 10px rgba(0, 255, 255, 0.5);
+
+    }
+
+    .cubeBox {
+        perspective: 1000;
+    }
+
+    .cubeBox .cube {
+        transform-style: preserve-3d;
+        animation: move 10s infinite linear;
+    }
+
+    .cubeBox .cube:hover li.cubImg:nth-child(1) {
+        transform: translateZ(220px);
+    }
+
+    .cubeBox .cube:hover li.cubImg:nth-child(2) {
+        transform: translateZ(-220px) rotateY(180deg);
+    }
+
+    .cubeBox .cube:hover li.cubImg:nth-child(3) {
+        transform: translateX(220px) rotateY(90deg);
+    }
+
+    .cubeBox .cube:hover li.cubImg:nth-child(4) {
+        transform: translateX(-220px) rotateY(-90deg);
+    }
+
+    .cubeBox .cube:hover li.cubImg:nth-child(5) {
+        transform: translateY(-220px) rotateX(90deg);
+    }
+
+    .cubeBox .cube:hover li.cubImg:nth-child(6) {
+        transform: translateY(220px) rotateX(-90deg);
+    }
+
+
+    .cubeBox .cube li.cubImg:nth-child(1) {
+        transform: translateZ(110px);
+        transition: transform 3s linear;
+    }
+
+    .cubeBox .cube li.cubImg:nth-child(2) {
+        transform: translateZ(-110px) rotateY(180deg);
+        transition: transform 3s linear;
+    }
+
+    .cubeBox .cube li.cubImg:nth-child(3) {
+        transform: translateX(110px) rotateY(90deg);
+        transition: transform 3s linear;
+    }
+
+    .cubeBox .cube li.cubImg:nth-child(4) {
+        transform: translateX(-110px) rotateY(-90deg);
+        transition: transform 3s linear;
+    }
+
+    .cubeBox .cube li.cubImg:nth-child(5) {
+        transform: translateY(-110px) rotateX(90deg);
+        transition: transform 3s linear;
+    }
+
+    .cubeBox .cube li.cubImg:nth-child(6) {
+        transform: translateY(110px) rotateX(-90deg);
+        transition: transform 3s linear;
+    }
+
+
+    .cubeBox .smCube {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -55px 0 0 -55px;
+        width: 110px;
+        height: 110px;
+    }
+
+    .cubeBox .smCube li {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .cubeBox .smCube li img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;
+    }
+
+    .cubeBox .smCube li.smImg img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;
+    }
+
+    .cubeBox .smCube .mark {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        filter: blur(.4px);
+        background-color: rgba(5, 100, 80, 0.2);
+        border: 5px solid rgba(125, 255, 255, 0.25);
+        box-shadow: inset 5px 25px 25px 5px rgba(0, 255, 255, 0.5);
+
+    }
+
+    .cubeBox .smCube {
+        transform-style: preserve-3d;
+        animation: move 10s infinite linear;
+    }
+
+    .cubeBox .smCube li.smImg:nth-child(1) {
+        transform: translateZ(55px);
+    }
+
+    .cubeBox .smCube li.smImg:nth-child(2) {
+        transform: translateZ(-55px) rotateY(180deg);
+    }
+
+    .cubeBox .smCube li.smImg:nth-child(3) {
+        transform: translateX(55px) rotateY(90deg);
+    }
+
+    .cubeBox .smCube li.smImg:nth-child(4) {
+        transform: translateX(-55px) rotateY(-90deg);
+    }
+
+    .cubeBox .smCube li.smImg:nth-child(5) {
+        transform: translateY(-55px) rotateX(90deg);
+    }
+
+    .cubeBox .smCube li.smImg:nth-child(6) {
+        transform: translateY(55px) rotateX(-90deg);
+    }
+
+    @keyframes move {
+        0% {
+            transform: rotateY(0deg) rotateZ(135deg) rotateX(135deg);
+        }
+
+        100% {
+            transform: rotateY(360deg) rotateZ(135deg) rotateX(135deg);
+        }
+    }
+</style>
+
+<body>
+    <div class="cubeBox">
+        <ul class="cube">
+            <li class="cubImg">
+                <div class="mark"><img src="img/1.jpg" alt=""></div>
+            </li>
+            <li class="cubImg">
+                <div class="mark"><img src="img/2.jpg" alt=""></div>
+            </li>
+            <li class="cubImg">
+                <div class="mark"><img src="img/3.jpg" alt=""></div>
+            </li>
+            <li class="cubImg">
+                <div class="mark"><img src="img/4.jpg" alt=""></div>
+            </li>
+            <li class="cubImg">
+                <div class="mark"><img src="img/5.jpg" alt=""></div>
+            </li>
+            <li class="cubImg">
+                <div class="mark"><img src="img/6.jpg" alt=""></div>
+            </li>
+        </ul>
+        <ul class="smCube">
+            <li class="smImg">
+                <div class="mark"><img src="img/2.jpg" alt=""></div>
+            </li>
+            <li class="smImg">
+                <div class="mark"><img src="img/1.jpg" alt=""></div>
+            </li>
+            <li class="smImg">
+                <div class="mark"><img src="img/4.jpg" alt=""></div>
+            </li>
+            <li class="smImg">
+                <div class="mark"><img src="img/5.jpg" alt=""></div>
+            </li>
+            <li class="smImg">
+                <div class="mark"><img src="img/6.jpg" alt=""></div>
+            </li>
+            <li class="smImg">
+                <div class="mark"><img src="img/3.jpg" alt=""></div>
+            </li>
+        </ul>
+    </div>
+
+</body>
+<script>
+    var images = new Array()
+
+    function preLoadImg() {
+        for (i = 0; i < preLoadImg.arguments.length; i++) {
+            images[i] = new Image()
+            images[i].src = preLoadImg.arguments[i]
+        }
+    }
+    preLoadImg(
+        "img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg", "img/6.jpg")
+</script>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全局组件</title>
+</head>
+
+<body>
+    <div id="app">
+        <v-box></v-box>
+    </div>
+
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // Vue.component("组件名",{})
+    //组件名需要和标签名一致，如果使用驼峰命名法，那么标签需要在大写的字母前加 -
+    //一般使用驼峰命名组件名，使用组件用 -
+    Vue.component("vBox", {
+        //组件是独立的 生命周期是独立的，数据也是独立的
+        template: "<div><h1>全局组件</h1><p>{{msg}}</p></div>",
+        //组件中的数据必须是函数
+        data(){
+            return {
+                msg:"独立的全局组件"
+            }
+        }
+    })
+    // vBox代表template里的html结构
+    let vm = new Vue({
+        el: '#app',
+        data: {
+
+        }
+    })
+</script>

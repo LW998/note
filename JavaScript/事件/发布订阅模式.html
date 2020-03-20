@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="Subscribe.js"></script>
+<script>
+    let sub = new Subscribe();
+    let fn1 = function fn1(x, y) {
+        console.log(1, x, y);
+    }
+    let fn2 = function fn2() {
+        console.log(2);
+    }
+    let fn3 = function fn3() {
+        sub.remove(fn1);
+        sub.remove(fn2);
+        console.log(3);
+    }
+    let fn4 = function fn4() {
+        console.log(4);
+    }
+    let f = 1;
+    sub.add(fn1);
+    sub.add(fn2);
+    sub.add(fn3);
+    sub.add(fn4);
+    setInterval(() => {
+        sub.fire(100, 200);
+    }, 1000)
+</script>
+
+</html>

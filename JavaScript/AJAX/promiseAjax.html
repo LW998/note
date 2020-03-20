@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+    <script src="ajaxPromise.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    ajp.defaults.baseURL = 'http://jsonplaceholder.typicode.com';
+
+    // ajp.get('/users').then(res => {
+    //     console.log(res);
+    // })
+
+    ajp.post('/users', {
+        name: 'a',
+        a: 1
+    }).then(res => {
+        console.log(res);
+    })
+</script>
+
+</html>

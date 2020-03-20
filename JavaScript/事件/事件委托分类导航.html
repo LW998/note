@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件委托</title>
+    <link rel="stylesheet" href="reset.min.css">
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<style>
+    html,
+    body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .menuBox {
+        margin: 20px auto;
+        width: 700px;
+        height: 287px;
+        border: 1px solid #000;
+        display: flex;
+    }
+
+    .navBox {
+        width: 200px;
+        background-color: lightblue;
+    }
+
+    .navBox ul li:last-child {
+        border-bottom: none;
+    }
+
+    .navBox ul li:first-child {
+        border-top: none;
+    }
+
+    .navBox ul li {
+        height: 30px;
+        line-height: 30px;
+        border: 1px solid slategray;
+        border-left: none;
+    }
+
+    .navBox ul li a {
+        color: #333;
+        display: block;
+        font-size: 14px;
+        height: 100%;
+        padding: 0 10px;
+    }
+
+    .navBox ul li.active {
+        background-color: firebrick;
+    }
+
+    .detailBox {
+        width: 500px;
+        height: 100%;
+        font-size: 20px;
+        background-color: #eeeeee;
+        display: none;
+    }
+</style>
+
+<body>
+    <section class="menuBox">
+        <nav class="navBox">
+            <ul>
+                <li><a href="#" target="_blank">导航1</a></li>
+                <li><a href="#" target="_blank">导航2</a></li>
+                <li><a href="#" target="_blank">导航3</a></li>
+                <li><a href="#" target="_blank">导航4</a></li>
+                <li><a href="#" target="_blank">导航5</a></li>
+                <li><a href="#" target="_blank">导航6</a></li>
+                <li><a href="#" target="_blank">导航7</a></li>
+                <li><a href="#" target="_blank">导航8</a></li>
+                <li><a href="#" target="_blank">导航9</a></li>
+            </ul>
+        </nav>
+        <div class="detailBox">
+            导航1内容
+        </div>
+    </section>
+</body>
+<script>
+    let $detailBox = $('.detailBox'),
+        $navList = $('.navBox>ui>li'),
+        t = null;
+    $(document.body).on('mouseover', function (ev) {
+        let target = ev.target,
+            tag = target.tagName,
+            $target = $(target),
+            $pars = $target.parents(); //获取当前事件源的祖先元素
+        //如果事件源是navBox中的a或者LI让detailBox显示
+        //祖先元素中是否包含navBox
+        let flag = $pars.filter('.navBox').length > 0 ? true : false;
+        if (tag === 'A') {
+            $target = $target.parent('LI');
+            target = $target[0];
+            tag = target.tagName;
+        }
+        //判断是否为navBox中的a和li
+        if (tag === 'LI' && flag) {
+            let val = $target.text().match(/\d+/);
+            $target.addClass('active');
+            $detailBox.css('display', 'block');
+            $detailBox.html(`导航${val}内容`)
+            return;
+        }
+        // else if (tag === 'A' && flag) {
+        //     let val = $target.text().match(/\d+/);
+        //     $target.parent().addClass('active');
+        //     return;
+        // }
+        $detailBox.css('display', 'none');
+    }).on('mouseout', function (ev) {
+        let target = ev.target,
+            tag = target.tagName,
+            $target = $(target),
+            $pars = $target.parents();
+        if (tag === 'A') {
+            $target = $target.parent('LI');
+            target = $target[0];
+            tag = target.tagName;
+        }
+        let queryWay = function queryWay(ev) {
+            let curL = ev.pageX - $detailBox.offset().left,
+                curT = ev.pageY - $detailBox.offset().top,
+                curR = curL + $detailBox.outerWidth(),
+                curB = curT + $detailBox.outerHeight();
+            if (ev.pageX > curL && ev.pageX < curR && ev.pageY > curT && ev.pageY < curB) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        console.log(queryWay(ev));
+        if (tag === 'LI' && $pars.filter('.navBox').length > 0) {
+            $target.removeClass('active');
+        } else if (queryWay(ev)) {
+            $target.addClass('active');
+        }
+        // else if (tag === 'A' && $pars.filter('.navBox').length > 0) {
+        //     $target.parent().removeClass('active');
+        //     return;
+        // }
+    })
+
+    $detailBox.on('mouseover', function (ev) {
+        ev.stopPropagation();
+    })
+</script>
+
+</html>

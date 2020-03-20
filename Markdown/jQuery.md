@@ -225,7 +225,7 @@ $tabBOX.get(-1)//真实项目建议使用这个，因为支持负数
 
 #### JQ选择器 $()
 
-![11](C:\Users\李威\Desktop\11.PNG)
+![11](D:\javascript\11.PNG)
 
 
 

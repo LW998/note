@@ -1,0 +1,176 @@
+@import "reset";
+@import "font";
+@import "swiper";
+@import "common";
+
+html {
+    font-size: 100px;
+}
+
+html,
+body {
+    overflow-x: hidden;
+    //阻止横向滚动条
+}
+
+.mainBox {
+    max-width: 640px;
+    margin: 0 auto;
+    background-color: #f4f4f4;
+}
+
+//头部
+.headerBox {
+    padding: 0 .2rem;
+    height: 1rem;
+    background-color: @blue;
+    display: flex;
+    align-items: center;
+
+    h1 {
+        flex: 1;
+        font-size: 0;
+
+        i {
+            font-size: .8rem;
+            color: #fff;
+        }
+    }
+
+    a {
+        margin-left: .32rem;
+        width: .44rem;
+        height: 100%;
+        line-height: 1rem;
+
+        &.weather {
+            background: url('../images/cloud.gif') no-repeat center center;
+            background-size: 100%;
+        }
+
+        &.person,
+        &.navMenu {
+            font-size: .44rem;
+            color: #fff;
+        }
+    }
+}
+
+//导航区
+.navBox {
+    padding: .16rem 0;
+    display: none;
+
+    a {
+        float: left;
+        width: percentage(1/6);
+        height: .64rem;
+        line-height: .64rem;
+        text-align: center;
+        font-size: .32rem;
+        color: @text;
+    }
+}
+
+//轮播图区
+.bannerBox {
+    height: 3.4rem;
+    overflow: hidden;
+    position: relative;
+    display: none;
+
+    .swiper-slide {
+        position: relative;
+        height: 100%;
+
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        p {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            box-sizing: border-box;
+            padding: 0 .2rem;
+            width: 100%;
+            height: .6rem;
+            line-height: .6rem;
+            font-size: .28rem;
+            color: #FFF;
+            background: rgba(0, 0, 0, .5);
+            .text-clip;
+        }
+    }
+
+    .swiper-pagination {
+        position: absolute;
+        left: auto;
+        right: 0;
+        bottom: 0;
+        width: 1rem;
+        height: .6rem;
+        color: rgba(255, 255, 255, .5);
+        line-height: .6rem;
+        z-index: 10;
+        font-size: .28rem;
+
+        .swiper-pagination-current {
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+}
+
+// 消息区
+.messageBox {
+    display: none;
+    position: relative;
+    margin: .16rem 0;
+    background-color: #fff;
+    height: .8rem;
+
+    .liveFlag {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1rem;
+        height: .8rem;
+
+        &:after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: .74rem;
+            height: .4rem;
+            margin-top: -.2rem;
+            margin-left: -.37rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .3rem;
+            color: #fff;
+            background-color: @red;
+            content: '直播';
+        }
+    }
+
+    .swiper-container {
+        margin-left: 1rem;
+        height: .8rem;
+        overflow: hidden;
+
+        .swiper-slide {
+            height: .8rem;
+            line-height: .8rem;
+            a{
+                display: block;
+                .text-clip;
+                font-size: .28rem;
+                color: @text;
+            }
+        }
+    }
+}

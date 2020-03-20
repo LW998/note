@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.min.css">
+</head>
+<script>
+    // window.addEventListener('load', () => {
+    //     // window.addEventListener('reset',()=>{
+
+    //     // })
+    //     let container = document.querySelector('.container'),
+    //         winW = document.documentElement.clientWidth;
+    //     container.style.transform = `scale(${winW/750})`;
+    // })
+</script>
+<style>
+    /* .container {
+        width: 750px;
+        /！* 控制缩放的位置为左上角 *！/
+        transform-origin: top left;
+        margin: 0 auto;
+    }
+
+    header {
+        display: flex;
+        height: 200px;
+        border: 2px solid antiquewhite;
+    }
+
+    header h1 {
+        display: block;
+        width: 300px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        box-sizing: border-box;
+        border: 1px solid chocolate;
+    }
+
+    header ul {
+        width: 450px;
+        display: flex;
+    }
+
+    header ul li {
+        width: 33%;
+        font-size: 20px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+    } */
+</style>
+<script>
+    window.addEventListener('load', () => {
+        let HTML = document.documentElement,
+            winW = HTML.clientWidth;
+        HTML.style.fontSize = `${winW / 750 * 100 }px`;
+    })
+</script>
+<style>
+    html {
+        font-size: 100px;
+    }
+
+    /*Rem是相对单位，相对于根元素（html）的字体大小设定的单位*/
+    .container {
+        /* 控制缩放的位置为左上角 */
+        margin: 0 auto;
+    }
+
+    header {
+        display: flex;
+        height: 2rem;
+        border: .02rem solid antiquewhite;
+    }
+
+    header h1 {
+        display: block;
+        width: 3rem;
+        height: 2rem;
+        line-height: 2rem;
+        font-size: .26rem;
+        text-align: center;
+        box-sizing: border-box;
+        border: .01rem solid chocolate;
+    }
+
+    header ul {
+        width: 4.5rem;
+        display: flex;
+    }
+
+    header ul li {
+        width: 1.5rem;
+        font-size: .2rem;
+        height: 2rem;
+        line-height: 2rem;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>响应式测试</h1>
+            <ul>
+                <li>首页</li>
+                <li>布局</li>
+                <li>首页</li>
+            </ul>
+        </header>
+    </div>
+</body>
+
+</html>

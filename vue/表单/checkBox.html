@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkbox</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="checkbox" value="apple1" v-model="arr" @change="checkOne"> apple1
+        <input type="checkbox" value="apple2" v-model="arr" @change="checkOne"> apple2
+        <input type="checkbox" value="apple3" v-model="arr" @change="checkOne"> apple3
+        <input type="checkbox" value="all" v-model="isCheck" @change="checkAll"> all
+        <!-- <div v-text="arr"></div> -->
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            arr: [],
+            isCheck: false
+        },
+        methods: {
+            checkOne() {
+                //all 是否被选中取决于arr的length是否为3
+                this.isCheck = this.arr.length === 3;
+            },
+            checkAll() {
+                this.arr = this.isCheck ? ['apple1', 'apple2', 'apple3'] : []
+            }
+        },
+    })
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sync</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{money}},{{s}}</h1>
+        <!-- 把子组件中的m和父组件中的money绑定，子组件更新父组件也会跟着变更 -->
+        <child :m.sync="money" :s.sync="s"></child>
+    </div>
+
+    <template id="child">
+        <div class="ch">
+            <h2>{{m}},{{s}}</h2>
+            <button @click="getMore">再多点</button>
+        </div>
+    </template>
+</body>
+
+</html>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            money: 100,
+            s: 'VUE'
+        },
+        methods: {
+
+        },
+        components: {
+            child: {
+                template: "#child",
+                props: {
+                    m: {
+                        type: Number
+                    },
+                    s: {
+                        type: String
+                    },
+                },
+                methods: {
+                    getMore() {
+                        this.$emit("update:m", 1000);
+                        this.$emit("update:s", 'vue');
+                    }
+                },
+            }
+        }
+    })
+</script>

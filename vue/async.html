@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /* let f =async function fn(){
+        throw new Error("11")
+        return 1;
+    }
+    f().then(res=>{
+        console.log(res);
+    }).catch(res=>{
+        console.log(res);
+    }) */
+
+    let ff = async function fn() {
+        //await后面跟的是一个promise对象如果不是则把他当做resolve的参数
+        //await直接拿then的结果
+        let a = await new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve(15);
+            },1000)
+        });
+        console.log(a);
+    }
+    ff();
+</script>

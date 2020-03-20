@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QQ音乐</title>
+    <link rel="stylesheet" href="css/reset.min.css">
+    <link rel="stylesheet/less" href="css/index.less">
+    <script src="js/less-2.5.3.min.js"></script>
+    <script src="js/prefixfree.min.js"></script>
+    <script>
+        ~ function anonymous(window) {
+            let computedREM = function computedREM() {
+                let winW = document.documentElement.clientWidth,
+                    desc = 640;
+                if (winW >= desc) {
+                    document.documentElement.style.fontSize = '100px';
+                } else {
+                    document.documentElement.style.fontSize = winW / desc * 100 + 'px';
+                }
+            }
+            computedREM();
+            window.addEventListener('resize', computedREM);
+        }(window);
+    </script>
+</head>
+
+<body>
+    <main class="mainBox">
+        <!-- BG-IMG -->
+        <img src="images/myDream.jpg" alt="" class="bgImg">
+        <div class="bgMark"></div>
+        <audio src="images/C400001KxARP2Ij3hH.m4a" preload="none" id="musicAudio"></audio>
+        <!-- header -->
+        <header class="headerBox">
+            <img src="images/myDream.jpg" alt="" class="pic">
+            <div class="title">
+                <h1>我的梦-My Dream</h1>
+                <h2>张靓颖</h2>
+            </div>
+            <a href="javascript:;" class="playBtn">
+
+            </a>
+        </header>
+        <!-- content -->
+        <section class="contentBox">
+            <div class="wrapper">
+                <!-- <p>我的梦（华为手机主题曲）- 张靓颖</p> -->
+            </div>
+        </section>
+        <!-- footer -->
+        <footer class="footerBox">
+            <div class="progressBox">
+                <span class="already"></span>
+                <div class="progress">
+                    <div class="current">
+                        <i></i>
+                    </div>
+                </div>
+                <span class="duration"></span>
+            </div>
+            <a href="javascript:;" class="downLoadBtn">立即下载</a>
+        </footer>
+    </main>
+</body>
+<script src="js/zepto.min.js"></script>
+<script src="js/index.js"></script>
+
+</html>

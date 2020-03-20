@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    html,
+    body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #box,
+    #box2,
+    #box3 {
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        width: 150px;
+        height: 150px;
+        background: lightcoral;
+        z-index: 0;
+    }
+
+    #box2 {
+        top: 200px;
+        left: 400px;
+        background: lightgreen;
+    }
+
+    #box3 {
+        top: 50px;
+        left: 50px;
+        background: orange;
+    }
+</style>
+
+<body>
+    <div id="box"></div>
+    <div id="box2"></div>
+    <div id="box3"></div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/Subscribe.js"></script>
+<script src="js/dragPlugin.js"></script>
+<script>
+    let drag1 = new Drag(box),
+        drag2 = new Drag(box2),
+        drag3 = new Drag(box3);
+    let changeIndex = function changeIndex(curEle) {
+        [...document.querySelectorAll('div')].forEach(item => {
+            item.style.zIndex = '0';
+        })
+        curEle.style.zIndex = '1';
+    }
+    drag1.subDown.add(changeIndex);
+    drag2.subDown.add(changeIndex);
+    drag3.subDown.add(changeIndex);
+
+    let computedFly = function computedFly(curEle) {
+        let minL = 0,
+            minT = 0,
+            maxL = document.documentElement.clientWidth - curEle.offsetWidth,
+            maxT = document.documentElement.clientHeight - curEle.offsetHeight;
+        let curL = parseFloat(window.getComputedStyle(curEle).left),
+            curT = parseFloat(window.getComputedStyle(curEle).top);
+        // console.log(curL, curT)
+        curL = curL < minL ? minL : (curL > maxL ? maxL : curL);
+        curT = curT < minT ? minT : (curT > maxT ? maxT : curT);
+        console.log(curL, curT)
+        curEle.style.left = curL + 'px';
+        curEle.style.top = curT + 'px';
+
+        //=>第一次开始运动：让LAST-FLY(上一次的位置)以及SPEED-FLY(最新的速度)都为初始当前位置
+        if (!curEle.lastFly) {
+            curEle.lastFly = curEle.offsetLeft;
+            curEle.speedFly = 0;
+            return;
+        }
+        curEle.speedFly = curEle.offsetLeft - curEle.lastFly;
+        curEle.lastFly = curEle.offsetLeft;
+    }
+    drag1.subMove.add(computedFly);
+    drag2.subMove.add(computedFly);
+    drag3.subMove.add(computedFly);
+
+    let stopAnimate = function stopAnimate(curEle, ev) {
+        clearInterval(curEle.flyTimer);
+        curEle.speedFly = undefined;
+        clearInterval(curEle.dropTimer);
+    }
+    drag1.subDown.add(stopAnimate);
+    drag2.subDown.add(stopAnimate);
+    drag3.subDown.add(stopAnimate);
+
+    let flyAnimate = function flyAnimate(curEle, ev) {
+        let minL = 0,
+            maxL = document.documentElement.clientWidth - curEle.offsetWidth;
+
+        //动画运动之前计算运动的方向
+        let speed = curEle.speedFly,
+            dir = 'right';
+        speed < 0 ? dir = 'left' : null;
+        speed = Math.abs(speed);
+
+        //开始按照方向运动
+        curEle.flyTimer = setInterval(() => {
+            //offsetLeft获取的值都会四舍五入,所以在当前LEFT基础上+小于0.5的速度，下一次在获取当前LEFT值的时候还是会被省略到，也就是元素不在运动，此时结束定时器
+            if (speed < 0.5) {
+                clearInterval(curEle.flyTimer);
+                return;
+            }
+
+            //实现指数衰减的运动，一直到速度为零位置
+            speed *= .98;
+            let curL = curEle.offsetLeft;
+            if (dir === 'right') {
+                if (curL >= maxL) {
+                    //向右走到达右边界
+                    curEle.style.left = maxL + 'px';
+                    dir = 'left';
+                    return;
+                }
+                curL += speed;
+            } else {
+                if (curL <= minL) {
+                    //向左走到达左边界
+                    curEle.style.left = minL + 'px';
+                    dir = 'right';
+                    return;
+                }
+                curL -= speed;
+            }
+            curEle.style.left = curL + 'px';
+        }, 17);
+    }
+
+    drag1.add(flyAnimate);
+    drag2.add(flyAnimate);
+    drag3.add(flyAnimate);
+
+    let dropAnimate = function dropAnimate(curEle, ev) {
+        let speed = 9.8,
+            minT = 0,
+            maxT = document.documentElement.clientHeight - curEle.offsetHeight,
+            flag = 0;
+
+        curEle.dropTimer = setInterval(() => {
+            if (flag > 1) {
+                clearInterval(curEle.dropTimer);
+                return;
+            }
+            //实现速度衰减和加速
+            speed += 2;
+            speed *= .98;
+
+            let curT = curEle.offsetTop;
+            curT += speed;
+            if (curT >= maxT) {
+                curEle.style.top = maxT + 'px';
+                speed *= -1;
+                flag++;
+                return;
+            }
+            curEle.style.top = curT + 'px';
+            flag = 0;
+        }, 17);
+    }
+    drag1.add(dropAnimate);
+    drag2.add(dropAnimate);
+    drag3.add(dropAnimate);
+</script>
+
+</html>

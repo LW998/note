@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bg {
+            position: fixed;
+            background-color: #999;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .bg .mask {
+            width: 300px;
+            height: 200px;
+            background-color: #fff;
+            position: absolute;
+            left: 50%;
+            top: 50px;
+            margin-left: -150px;
+        }
+
+        .bg span {
+            float: right;
+            font-size: 30px;
+            cursor: pointer;
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="flg=true">弹出</button>
+        <log v-show="flg" :f.sync="flg"></log>
+    </div>
+    <template id="log">
+        <div class="bg">
+            <div class="mask">
+                <span @click="close">×</span>
+            </div>
+        </div>
+    </template>
+</body>
+
+</html>
+<script src="../../node_modules/vue/dist/vue.js"></script>
+<script>
+    const log = {
+        template: "#log",
+        props: {
+            f: {
+                type: Boolean
+            }
+        },
+        methods: {
+            close() {
+                this.$emit("update:f", false)
+            }
+        },
+    }
+    let vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                flg: false
+            }
+        },
+        components: {
+            log,
+        }
+    })
+</script>

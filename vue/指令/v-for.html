@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-for加在想要循环的元素上 -->
+        <ul>
+            <!-- <li v-for="item in 5" v-text="item"></li> -->
+
+            <!-- <li v-for="item in 'ABCDEFG'" v-text="item"></li> -->
+
+            <!-- <li v-for="(item,index) in [1,2,3]">{{index}}{{item}}</li> -->
+
+            <!-- <li v-for="(value,key) in obj">{{key}}{{value}}</li> -->
+        </ul>
+
+        <ul v-for="item in arr">
+            <li v-for="(value,key) in item">{{key}}:{{value}}</li>
+        </ul>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            obj: {
+                name: "liwei",
+                age: 21
+            },
+            arr: [{
+                name: "aa",
+                age: 21
+            }, {
+                name: 'bb',
+                age: 10
+            }, {
+                name: "cc",
+                age: 20
+            }]
+        }
+    })
+</script>

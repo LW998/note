@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #outer {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        background-color: brown;
+        cursor: pointer;
+    }
+
+    #inner {
+        position: absolute;
+        top: 300px;
+        left: 30px;
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        background-color: aquamarine;
+    }
+</style>
+
+<body>
+    <div id="outer">
+        <div id="inner">
+        </div>
+    </div>
+</body>
+<script>
+    window.onclick = function () {
+        console.log('window');
+    };
+    document.onclick = function () {
+        console.log('document');
+    };
+    document.documentElement.onclick = function () {
+        console.log('html');
+    };
+    document.body.onclick = function () {
+        console.log('body');
+    };
+    outer.onclick = function () {
+        console.log('outer');
+    };
+    inner.onclick = function (ev) {
+        ev = ev || window.event;
+        ev.stopPropagation = function () {
+            ev.cancelBubble = true; //=>低版本阻止冒泡传播
+        };
+        ev.stopPropagation();
+        console.log('inner');
+    };
+</script>
+
+</html>

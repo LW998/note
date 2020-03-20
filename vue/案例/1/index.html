@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in lists">
+                <input type="checkbox" v-model="item.is" @change="checkAll(index)">
+                <a href="javascript:;" v-text="item.name" style="text-decoration: none; color: #000;"
+                    @click="item.isShow=!item.isShow"></a>
+                <ul v-show="item.isShow">
+                    <li v-for="(value,no) in item.list">
+                        <input type="checkbox" @change="check($event,index,no)">
+                        <a href="javascript:;" v-text="value" style="text-decoration: none; color: #000;"></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
+<script src="../../node_modules/vue/dist/vue.js"></script>
+<script src="../../node_modules/axios/dist/axios.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        created() {
+            this.getData();
+        },
+        data: {
+            lists: []
+        },
+        methods: {
+            async getData() {
+                this.lists = (await axios.get("json/List.json")).data
+            },
+            check(ev, index, no) {
+                let target = ev.target;
+                if (target.checked) {
+                    this.lists[index].listSelect.push(this.lists[index].list[no]);
+                } else {
+                    // for (let i = 0, len = this.lists[index].listSelect.length; i < len; i++) {
+                    //     if (this.lists[index].listSelect[i] === this.lists[index].list[no]) {
+                    //         this.lists[index].listSelect.splice(i, 1);
+                    //         i--;
+                    //     }
+                    // }
+                    this.lists[index].listSelect = this.lists[index].listSelect.filter(item => this.lists[index]
+                        .list[no] != item);
+                }
+                this.lists[index].is = this.lists[index].listSelect.length === this.lists[index].list.length
+            },
+            checkAll(index) {
+                console.log(this.lists[index].listSelect)
+                if(this.lists[index].is){
+                    this.lists[index].listSelect=[];
+                }else{
+                    this.lists[index].listSelect=this.lists[index].list.slice();
+                }
+                //this.lists[index].listSelect = this.lists[index].is ? [] : this.lists[index].list.slice()
+            }
+        },
+    })
+</script>

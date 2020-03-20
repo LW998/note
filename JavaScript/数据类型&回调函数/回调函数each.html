@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>each</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let _type = (function () {
+        var _obj = {
+            isNumeric: "Number",
+            isArray: "Array",
+            isBoolean: "Boolean",
+            isDate: "Date",
+            isFunction: "Function",
+            isNull: "Null",
+            isUndefined: "Undefined",
+            isString: "String",
+            isSymbol: "Symbol",
+            isPlainObject: "Object",
+            isRegExp: "RegExp",
+            isWindow: "Window"
+        };
+        var _toString = _obj.toString,
+            _type = {};
+        for (var key in _obj) {
+            if (!_obj.hasOwnProperty(key)) break;
+            _type[key] = (function () {
+                var reg = new RegExp("^\\[object " + _obj[key] + "\\]$");
+                return function anonymous(val) {
+                    return reg.test(_toString.call(val));
+                }
+            })();
+        }
+        return _type;
+    })();
+
+    console.log(_type.isNumeric(1));
+</script>
+<script>
+    /*
+     *_each:遍历数组、类数组、对象中的每一项
+     * 参数：
+     *      obj:需要迭代的数组、类数组、普通对象
+     *      callback:回调函数(每遍历数组中的一项就把回调函数执行一次，
+     而且把当前遍历的内容和索引[属性值和属性名]传递给回调函数;接收回调函数的返回值，
+     如果是false，则结束当前循环，如果是其他值，让返回值替换成数组的当前项，如果没有返回值则什么都不处理...)
+     *      context：传递的第三个参数，可以改变this的指向，不传递默认是Window
+     *  返回值：
+     *返回一个新的数组或对象(原来的数组不改变)
+     */
+    function _each(obj, callback, context = window) {
+        //判断是否为数组或者类数组
+        let isLikeArray = _type.isArray(obj) || (("length" in obj) && _type.isNumeric(obj.length));
+        //判断回调函数类型，如果不是函数类型，让他等于匿名空函数
+        typeof callback !== "function" ? callback = Function.prototype : null;
+
+        //数组、类数组处理
+        if (isLikeArray) {
+            //克隆数组
+            let arr = [...obj];
+            for (let i = 0; i < arr.length; i++) {
+                let item = arr[i],
+                    //改变this指向传递当前项的值和当前项的索引，接收回调函数返回值。
+                    res = callback.call(context, item, i);
+                //返回值为false退出当前循环
+                if (res === false) break;
+                //返回值为空跳出当前循环，继续下一轮循环
+                if (typeof res === 'undefined') continue;
+                //替换当前项
+                arr[i] = res;
+            }
+            //返回替换后的数组
+            return arr;
+        }
+        //对象处理
+        let opp = {
+            ...obj
+        };
+        for (key in opp) {
+            if (!opp.hasOwnProperty(key)) break;
+            let value = opp[key],
+                //改变this指向传递当前项的属性值和属性名，接收回调函数返回值。
+                res = callback.call(context, value, key);
+            //返回值为false退出当前循环
+            if (res === false) break;
+            //返回值为空跳出当前循环，继续下一轮循环
+            if (typeof res === 'undefined') continue;
+            //替换当前项
+            opp[key] = res;
+        }
+        return opp;
+    }
+
+    let obj = {
+            name: "李威",
+            age: 21,
+            height: 170
+        },
+        ob = {
+            name: "李",
+            age: 2,
+            height: 1
+        };
+    let obj2 = _each(obj, function (value, key) {
+        if (key === 'name') {
+            return "李威2"
+        }
+    }, ob)
+    console.log(obj, obj2);
+
+
+
+    /*function fn() {
+        let arr = _each(arguments, (item, index) => {
+            console.log(item, index);
+            if (index >= 2) return false;
+            return item * 10;
+        });
+        console.log(arguments, arr);
+    }
+    fn(1, 2, 3, 4);*/
+</script>
+
+</html>

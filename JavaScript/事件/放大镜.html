@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+    <title>放大镜</title>
+    <link rel="stylesheet" href="reset.min.css">
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <style>
+        .magnifierBox {
+            margin-top: 50px;
+            transform: translateX(10%);
+        }
+
+        .magnifierBox .smallBox {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magnifierBox .smallBox img {
+            display: block;
+            width: auto;
+        }
+
+        .magnifierBox .smallBox .mark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            background: rgb(247, 171, 171);
+            opacity: 0.3;
+            filter: alpha(opacity=30);
+            cursor: move;
+        }
+
+        .magnifierBox .bigBox img {
+            position: absolute;
+            width: auto;
+            top: 0;
+            left: 0;
+        }
+
+        .magnifierBox .bigBox {
+            position: fixed;
+            overflow: hidden;
+            width: 500px;
+            height: 500px;
+        }
+
+        .magnifierBox .smallBox .mark,
+        .magnifierBox .bigBox {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="magnifierBox">
+        <div class="smallBox">
+            <img src="images/small.jpg" alt="">
+            <div class="mark"></div>
+        </div>
+        <div class="bigBox">
+            <img src="images/big.jpg" width="1250px" height="735px" alt="">
+        </div>
+    </section>
+</body>
+<script>
+    $(function () {
+        var $magnifierBox = $('.magnifierBox'),
+            $smallBox = $magnifierBox.find('.smallBox'),
+            $mark = $smallBox.find('.mark'),
+            $smallImg = $smallBox.find('img'),
+            $bigBox = $('.bigBox'),
+            $bigImg = $bigBox.find('img'),
+            smImgObj = {
+                width: $smallImg.outerWidth(),
+                height: $smallImg.outerHeight()
+            },
+            bigImgObj = {
+                width: parseFloat($bigImg.attr('width')),
+                height: parseFloat($bigImg.attr('height'))
+            },
+            bigBoxObj = {
+                width: parseFloat($bigBox.css('width')),
+                height: parseFloat($bigBox.css('height')),
+            };
+
+        $smallBox.css({
+            width: smImgObj.width,
+            height: smImgObj.height
+        })
+        $bigBox.css({
+            left: $smallBox.css('width'),
+            top: 0
+        })
+        $mark.css({
+            width: smImgObj.width * (bigBoxObj.width / bigImgObj.width),
+            height: smImgObj.height * (bigBoxObj.height / bigImgObj.height)
+        })
+
+        $smallBox.on('mouseenter', function (ev) {
+            $mark.add($bigBox).css('display', 'block');
+            //刚进入到盒子中也把mark计算出来
+            computedMark(ev);
+        }).on('mouseleave', function () {
+            $mark.add($bigBox).css('display', 'none');
+        }).on('mousemove', function (ev) {
+            //鼠标在smallBox中移动随时控制mark跟着移动。
+            //JQ中的ev已经是兼容所有处理器了，只要按照标准浏览器使用即可
+            computedMark(ev);
+        });
+        //计算mark的位置
+        function computedMark(ev) {
+            var offsetObj = $smallBox.offset(),
+                markObj = {
+                    left: $mark.outerWidth(),
+                    top: $mark.outerHeight()
+                },
+                smallObj = {
+                    left: $smallBox.outerWidth(),
+                    top: $smallBox.outerHeight()
+                },
+                curL = ev.pageX - offsetObj.left - markObj.left / 2,
+                curT = ev.pageY - offsetObj.top - markObj.top / 2;
+            //边界判断
+            var minL = 0,
+                minT = 0,
+                maxL = smallObj.left - markObj.left,
+                maxT = smallObj.top - markObj.top;
+            curL = curL > maxL ? maxL : (curL < minL ? minL : curL);
+            curT = curT > maxT ? maxT : (curT < minT ? minT : curT);
+
+            $mark.css({
+                left: curL,
+                top: curT
+            });
+            $bigImg.css({
+                left: -curL * (bigBoxObj.width / parseFloat($smallBox.css('width'))) * (smallObj.left /
+                    markObj.left),
+                top: -curT * (bigBoxObj.height / parseFloat($smallBox.css('height'))) * (smallObj.top /
+                    markObj.top)
+            })
+        }
+
+    });
+</script>
+
+</html>

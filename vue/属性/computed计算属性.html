@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <input type="checkbox" v-model="isAll"> -->
+        <input type="text" v-model="n"> +
+        <input type="text" v-model="m"> =
+        <input type="text" v-model="x">
+        {{o}}
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            is: true,
+            obj: {
+                a: 1
+            },
+            m: 1,
+            n: 20
+        },
+        computed: {
+            //计算属性不能重复在data中
+            isAll: {
+                get() {
+                    //只要获取就会触发
+                    //return 的就是获取的值
+                    return this.is;
+                },
+                set(val) {
+                    //val 设置的值
+                    // console.log(val)
+                    // this.isAll = this.is
+                }
+            },
+            x: {
+                get() {
+                    //第一次获取的时候依赖的没有发生改变也会默认执行一次
+                    //只要是依赖的值(必须有get和set的date中的值)发送改变了，就会重新计算自己的值
+
+                    // return Number(this.n) + Number(this.m);
+                    setTimeout(() => {
+                        this.m++
+                    },1000);
+                    return Number(this.n) + Number(this.m)
+                }
+            },
+            o: {
+                get() {
+                    //如果没有初始化obj.a , obj.a就没有 get和set 否则改变不了o
+                    return this.obj.a + 1;
+                }
+            }
+        },
+    })
+    vm.isAll = false
+</script>

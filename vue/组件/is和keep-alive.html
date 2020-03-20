@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>is</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="radio" v-model="sel" value="com1">com1
+        <input type="radio" v-model="sel" value="com2">com2
+
+        <!-- component  vue提供的标签 -->
+        <!-- <component is="com1"></component>
+        <component is="com2"></component> -->
+
+        <!-- keep-alive设置组件不被销毁 -->
+        <keep-alive>
+            <component :is="sel"></component>
+        </keep-alive>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let com1 = {
+        template: `<h2>我是com1</h2>`,
+        created() {
+            console.log("com1 created")
+        },
+        beforeDestroy() {
+            console.log("com1 destroy")
+        },
+    };
+    let com2 = {
+        template: `<h2>我是com2</h2>`,
+        created() {
+            console.log("com2 created")
+        },
+        beforeDestroy() {
+            console.log("com2 destroy")
+        },
+    };
+    // 第一次点击com1 执行 com1 created ,然后点com2 执行 com2 created --> com1 destroy 再点com1 执行 com1 created --> com2 destroy
+    //先执行创建再销毁上一个组件
+    //如果加上 keep-alive 标签就不会执行destroy，会点哪个执行哪个的created
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            sel: ""
+        },
+        components: {
+            com1,
+            com2
+        }
+    });
+</script>

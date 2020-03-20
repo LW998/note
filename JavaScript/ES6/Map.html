@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let map=new Map([[true,true],[[],[]],[undefined,1],[null,0]]);
+    console.log(map);
+    console.log(map.set(NaN,NaN)); //末尾新增后的对象
+    console.log(map.get([])); //undefined
+    console.log(map.get(null)); //0
+    console.log(map.has(null)) //true
+
+    // map.forEach((item,key,c)=>{
+    //     console.log(item,key,c) //属性值，属性名，当前map所有的值
+    // })
+
+    for(let key of map.keys()){
+        console.log(key) //属性名
+    }
+
+    for(let [key,value] of map.entries()){
+        console.log(key,value); //属性名 属性值
+    }
+</script>
+</html>

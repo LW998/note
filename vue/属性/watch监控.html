@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>watch</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="val">
+        <p v-text="obj.name"></p>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            val: "李威",
+            obj: {
+                name: "李威"
+            }
+        },
+        watch: {
+            //watch 监控的是data中的属性
+            //val是被监控的属性，写成一个函数的形式
+            //只要被监控属性的值发生改变就会触发这个函数
+            //每次执行默认传递两个参数，新值和旧值
+
+            /*  val(newVal, oldVal) {
+                 //第一次默认不会执行
+                 console.log(newVal, oldVal);
+             } */
+            val: {
+                handler(newVal, oldVal) {
+                    console.log(newVal, oldVal);
+                },
+                //如果想让他第一次执行一次
+                immediate: true
+                //第一次会输出 李威 undefined
+            },
+            //如果监控的是对象，里面的值发生改变是监控不到的
+            obj: {
+                //对象属性handler里面的新值和旧值  内存里面都是改变后的值
+                handler(newVal, oldVal) {
+                    console.log(newVal, oldVal);
+                },
+                //深度监控
+                deep: true
+            }
+        },
+    });
+</script>

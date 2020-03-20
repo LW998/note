@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>局部组件</title>
+</head>
+
+<body>
+    <div id="app">
+        <component1></component1>
+        <component2></component2>
+    </div>
+
+</body>
+
+</html>
+<!--
+    1.定义组件
+    2.注册组件
+    3.使用组件
+ -->
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    //1.定义组件
+    let component1 = {
+        template: "<div><h2 @click='fn'>局部组件{{v}}</h2></div>",
+        data() {
+            return {
+                v: 1
+            }
+        },
+        methods: {
+            fn(){
+                console.log(this);
+            }
+        },
+    };
+
+    let vm = new Vue({
+        el: "#app",
+        data: {
+
+        },
+        components: {
+            //2.注册组件
+            //component1, 这样写相当于属性名和属性值一致
+            component1,
+            component2: {
+                template: "<div><h2>局部组件{{v}}</h2></div>",
+                data() {
+                    return {
+                        v: 2
+                    }
+                },
+            }
+
+        }
+    })
+</script>

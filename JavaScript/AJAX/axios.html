@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <title>axios</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*  let promise = axios.get('http://jsonplaceholder.typicode.com/users'
+        // {
+        //     params: {
+        //         name: 'aa',
+        //         g: 1
+        //     }
+        // }
+    );
+    //获取的结果是个对象，
+    //data：从服务器获取的响应主体内容
+    //headers：响应头信息
+    //request：创建的ajax实例
+    //config:基于axios发送请求后做的配置项
+    promise.then(res => {
+        console.log(res.data); //=>
+    }).catch(msg => {
+        console.log(msg); //=>请求失败的原因
+    }) */
+
+
+    /* axios.post('json/data.json',
+        //  {
+        // name: 'aa',
+        // g: 1
+        // }
+    ).then(res => {
+        console.log(res);
+    }).catch(msg => {
+        console.log(msg); //=>请求失败的原因
+    }) */
+
+    //连续发送多次请求
+    /* axios.get('json/data.json').then(res => {
+        let {
+            data,
+            headers: {
+                date,
+                etag
+            }
+        } = res;
+        console.log(data, date);
+        return axios.get('json/shop.json');
+    }).then(res => {
+        let {
+            data
+        } = res;
+        console.log(data);
+        return axios.head('json/data.json')
+    }).then(res => {
+        let {
+            headers: {
+                date
+            }
+        } = res;
+        console.log(date);
+    }) */
+
+    //sendAry存放三个ajax请求的promise实例
+    /* let sendAry = [
+        axios.get('json/shop.json'),
+        axios.get('json/data.json'),
+        axios.head('json/data.json')
+    ]
+
+    let wrap = axios.spread(() => {});
+    axios.all(sendAry).then(axios.spread((resA, resB, resC) => {
+        //resA,resB,resC三次请求的结果
+        console.log(resA.data, resB.data, resC.headers.date);
+    }));
+ */
+    /* axios.all(sendAry).then(
+        res => {
+            let {
+                0: {
+                    data
+                },
+                1: {
+                    data: data1
+                },
+                2: {
+                    headers: {
+                        date
+                    }
+                }
+            } = res;
+            console.log(data, data1, date);
+        }
+    ) */
+
+    //初始化常用配置项默认请求url、响应拦截器、默认状态码
+    axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5e609110b261f976d93ed461/example';
+    axios.interceptors.response.use(res => res.data);
+    axios.defaults.validateStatus = status => /^(2|3)\d{2}$/.test(status);
+    axios.defaults.transformRequest = data => {
+        //data：请求主体中需要传递给服务器的内容
+        let str = ``;
+        for (let key in data) {
+            if (data.hasOwnProperty(key)) {
+                str += `${key}=${data[key]}&`;
+            }
+        }
+        return str.substring(0, str.length - 1);
+    }
+    /*
+        //设置请求中基于请求主体向发送内容的格式，默认是RAW，项目中常用的是UrlEncoded格式
+        axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        //设置最大请求时间
+        // axios.defaults.timeout = 3000;
+        axios.defaults.headers = {
+            //自定义请求头，给请求头添加name属性
+            name: "ZiDingYi"
+        } */
+    axios.get('/shop').then(res => {
+        console.log(res);
+        //post 三个参数（url,data,config）
+        return axios.post('/upload', {
+            data: {
+                name: 'aaa',
+                a: 100
+            }
+        }, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                name: "ZiDingYi"
+            }
+        })
+    }).then(res => {
+        console.log(res);
+    })
+</script>
+
+</html>

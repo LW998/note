@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <child></child>
+        <child>
+            <!-- slot-scope接收子组件中传递的数据 -->
+            <template slot-scope="langue">
+              <span v-for="item in langue.data">{{item}} - </span>
+              <!-- <span>{{langue.data.join(' - ')}}</span> -->
+            </template>
+        </child>
+    </div>
+
+    <template id="temp">
+        <div>
+            <!-- :data 把子组件中的数据传给父组件 data可以随意命名 -->
+            <slot :data="langue">
+                <ul>
+                    <li v-for="item in langue" v-text="item"></li>
+                </ul>
+            </slot>
+        </div>
+    </template>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        components: {
+            child: {
+                template: "#temp",
+                data() {
+                    return {
+                        langue: ['java', 'javaScript', 'C', 'C#', 'Python']
+                    }
+                },
+            }
+        }
+    })
+</script>

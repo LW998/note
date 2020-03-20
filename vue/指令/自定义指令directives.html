@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令</title>
+</head>
+<style>
+    .box {
+        width: 200px;
+        height: 200px;
+        background-color: royalblue;
+        cursor: move;
+        position: absolute;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div v-red>红色</div>
+        <div v-color="'blue'">蓝色</div>
+
+        <div v-drag class="box">
+            <img src="1.png" alt="" style="width: 100%;height: 100%;">
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        //自动义指令，定义的时候不用 v- 使用需要加上
+        directives: {
+            red(el) {
+                //只要使用 v-red 就会执行这个函数
+                //el:当前元素
+                el.style.color = "red"
+            },
+            color(el, binds) {
+                //binds:绑定的数据
+                //binds.value使用指令的时候赋的值
+                // console.log(arguments)
+                el.style.color = binds.value;
+            },
+            drag(el) {
+                el.onmousedown = function (e) {
+                    //this:el
+                    this.L = e.clientX - this.offsetLeft;
+                    this.T = e.clientY - this.offsetTop;
+                    document.onmousemove = (e) => {
+                        //this:el
+                        this.style.left = e.clientX - this.L + "px";
+                        this.style.top = e.clientY - this.T + "px";
+                    }
+                    document.onmouseup = () => {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    }
+                    //图片不允许拖动，需要去除默认行为
+                    e.preventDefault();
+                }
+            }
+        }
+    })
+</script>

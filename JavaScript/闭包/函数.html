@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /* function fn() {
+        var n = 10;
+        this.n = 20;
+        console.log(n);
+    }
+    fn.prototype.aa = function () {
+        n = 2;
+        console.log('aa');
+        console.log(this);
+        return this.n;
+    }
+    fn.bb = function () {
+        console.log('bb');
+    }
+
+    fn();
+    let f = new fn();
+    console.log(f.aa()); */
+
+    /*  function A(x) {
+         this.x = x;
+     }
+     A.prototype.x = 1;
+
+     function B(x) {
+         this.x = x;
+     }
+     B.prototype = new A();
+     A();
+     var a = new A(2),
+         b = new B(3);
+     // delete b.x;
+     console.log(a.x, b.x, A.prototype, B.prototype, x);
+     console.dir(A);
+     console.dir(B); */
+
+
+    function Foo() {
+        getName = function () {
+            console.log(1);
+        };
+        return this;
+    }
+    Foo.getName = function BBB() {
+        console.log(2);
+    };
+    Foo.prototype.getName = function AAA() {
+        console.log(3);
+    };
+    var getName = function () {
+        console.log(4);
+    };
+
+    function getName() {
+        console.log(5);
+    }
+
+    Foo.getName(); //=>2 把Foo当做一个对象，找Foo的私有方法执行
+    getName(); //=>4 执行全局下的GET-NAME
+    Foo().getName(); //=>1 先把FOO当做普通函数执行,执行返回的结果(this=window)在调取GET-NAME执行
+    getName(); //=>1 执行的依然是全局下的GET-NAME
+
+    new Foo.getName(); //=>A:(Foo.getName) =>new A()  =>2
+    new Foo().getName(); //=>B:new Foo() =>B(Foo的实例).getName() =>3
+    new new Foo().getName(); //=>C:new Foo() =>new (C[Foo的实例].getName() =>D:C.getName )=>new D(); =>3 
+    // (先计算new Foo()创建一个实例f，然后new f.getName()，
+    //先找到f.getName，在把这个函数new一下，最后其实相当于把f.getName当做一个类，返回这个类的一个实例)
+</script>
+
+</html>

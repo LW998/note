@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jq动画</title>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="reset.css">
+</head>
+<style>
+    #box {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: lightcoral;
+        opacity: 1;
+    }
+</style>
+
+<body>
+    <div id="box" class="box"></div>
+</body>
+<script>
+    let $box = $('#box');
+    //支持的运动模式linear/ease/ease-in/ease-out/ease-in-out,默认linear匀速
+    //=>stop:结束正在运行的动画，继续执行下一个新的动画
+    //=>finish:同stop一样也是结束正在运行的动画，与stop的区别是stop立即结束，从哪停就从哪开始
+    //finish是等动画完成再结束，从上一个动画的结束位置作为起始位置继续执行动画
+    /*$box.stop().animate({
+        top: 300,
+        left: 500
+    }, 1200, () => {
+        $box.css({
+            background: 'lightblue',
+            borderRadius: '50px'
+        })
+    })*/
+
+    //快捷动画
+    //1.show/hide/toggle
+    //2.fadeIn/fadeOut/fadeToggle
+    //3.slideUp/slideDown/slideToggle
+    //可指定具体的时间，只可以指定'slow'/'fast'
+    $box.stop().animate({
+        top: 300,
+        left: 500
+    }, 5000)
+    setTimeout(() => {
+        $box.stop().slideToggle(1000)
+    }, 1000)
+</script>
+
+</html>

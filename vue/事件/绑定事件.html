@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定事件</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- fn不写()会默认传事件对象 -->
+        <div @click="fn">1111</div>
+        <!-- 写上()后的事件对象需要自己传 $event -->
+
+        <div v-on:click.self="fn($event)">222
+            <i @click.stop="fn">iii</i>
+            <i @click.once="fn">ii2</i>
+        </div>
+        <!--事件修饰符
+            .stop  阻止冒泡
+            .prevent  阻止默认行为
+            .capture  捕获阶段发生
+            .self     自己作为事件源的时候才会发生
+            .once     只执行一次
+            .passive  一般在移动端的滚动事件中使用（不阻止默认行为），能够提升移动端的性能
+        -->
+        <input type="text" v-on:keyup.enter="get" v-model="a">
+        <!--按键修饰符（按键时发生）
+            .enter
+            .tab
+            .delete (捕获“删除”和“退格”键)
+            .esc
+            .space
+            .up
+            .down
+            .left
+            .right
+         -->
+
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.min.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            a: 1
+        },
+        methods: {
+            //函数放在这里
+            fn(ev) {
+                console.log(ev);
+            },
+            get() {
+                //this:当前vue实例vm
+                // console.log(this);
+                this.a += 100;
+            }
+        }
+    })
+</script>
+
+</html>

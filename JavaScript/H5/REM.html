@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式</title>
+</head>
+<style>
+    html {
+        font-size: 100px;
+    }
+
+    .box1 {
+        /* margin: .2rem; */
+        width: 1rem;
+        height: 1rem;
+        background-color: orangered;
+    }
+
+    .box2 {
+        /* margin: .2rem; */
+        width: 2rem;
+        height: 2rem;
+        background-color: orchid;
+    }
+
+    .box3 {
+        width: 3rem;
+        height: 3rem;
+        background-color: royalblue;
+    }
+
+    div[class*='box'] {
+        margin: .2rem;
+    }
+</style>
+
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+</body>
+
+</html>

@@ -7,11 +7,11 @@
 </head>
 
 <body>
-    <div class="clearfix box">class="clearfix box"</div>
+    <div class="clearfix box" id="aa">class="clearfix box"</div>
     <div myIn="1">myIn="1"</div>
     <div name="aa">name="aa"</div>
     <a myIn="2"> myIn="2"</a>
-    <div class="box">class="box...."</div>
+    <div class="box12">class="box...."</div>
     <div myIn="1">myIn="1"</div myIn="1">
     <div class="filters box">class="filters box"</div>
     <div myIn="2">myIn="2"</div>
@@ -23,11 +23,12 @@
         let elements = document.getElementsByTagName('*'),
             arr = [];
         elements = Array.from(elements);
+        console.log(elements);
         elements.forEach(item => {
+            // console.log(item.id);
             let itemVal = item.getAttribute(property);
-            console.log(itemVal);
+            // console.log(itemVal);
             if (property === 'class') {
-                console.log(1);
                 new RegExp("\\b" + value + "\\b").test(itemVal) ? arr.push(item) : null;
                 return;
             }

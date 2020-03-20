@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="btnF">点击</button>
+        <child ref="child"></child>
+    </div>
+
+    <template id="temp">
+        <div>
+            <h2>父组件</h2>
+            <son></son>
+        </div>
+    </template>
+
+    <template id="temp1">
+        <div>
+            <h2>子组件</h2>
+            <button @click="btnC">点击</button>
+        </div>
+    </template>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            msg: "你好"
+        },
+        methods: {
+            btnF() {
+                console.log(this.$children[0].name)
+                console.log(this.$refs.child.name)
+            }
+        },
+        components: {
+            child: {
+                template: "#temp",
+                data() {
+                    return {
+                        name: 'child'
+                    }
+                },
+                methods: {
+
+                },
+                components: {
+                    son: {
+                        template: '#temp1',
+                        methods: {
+                            btnC() {
+                                //访问父组件$parent
+                                console.log(this.$parent.name);
+
+                                //访问根组件$root
+                                console.log(this.$root.msg);
+                            }
+                        }
+                    },
+
+                }
+            }
+        }
+    })
+</script>

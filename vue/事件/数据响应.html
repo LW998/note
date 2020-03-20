@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据响应</title>
+
+</head>
+
+<body>
+    <div id="app">
+        {{a.s}}
+        {{arr}}
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.min.js"></script>
+<script>
+    //vue会循环data中的数据（数据劫持）依次增加get和set方法
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            a: {
+                s: '', //1.随便添加一个值
+            },
+            arr: [1, 2, 3, 4, 5]
+        }
+    });
+    //使用变量 先要初始化，否则新加的属性不会导致页面刷新
+    vm.$set(vm.a, 's', 1); //2.给对象添加响应式的数据变化
+    vm.a = {
+        s: 2
+    } //3.替换源对象
+
+    //改变数组中的某一项是监控不到的
+    //改变原数组的方法 pop push shift unshift sort reserve splice
+    //数组变化才能监控
+    vm.arr = vm.arr.map(item => item *= 3);
+</script>
+
+</html>

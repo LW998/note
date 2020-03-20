@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //=>ES6中类的创建
+    class fn {
+        //等价于之前的构造函数体
+        constructor(n, m) {
+            this.x = n + m;
+        }
+        //直接写的方法就是加在原型上的 fn.prototype.getX=function()
+        getX() {
+            console.log(this.x)
+            console.log(this)
+
+        }
+        //给实例设置的私有属性
+        y = 500;
+        //这样设置static的：把当前fn当做普通对象设置键值对
+        static queryX() {
+            console.log("私有属性")
+        }
+        static z = 300;
+    }
+    //也可以单独写在外面
+    fn.prototype.getY = function () {
+        console.log(this.y)
+    }
+    //给Fn添加公有属性
+    fn.prototype.y = 200;
+    //调用
+    let f = new fn(10, 20);
+    f.getX(); //=>30
+    f.getY(); //=>500
+    fn.queryX(); //=> 私有属性
+    // fn(); //=>报错，class创建的类只能new执行，不能当做普通函数执行
+
+
+    /*  //ES6中的类
+     class Fn {
+         constructor(n, m) {
+             //等价于传统ES5中的function
+             this.x = n;
+             this.y = m;
+         }
+         //相当于给原型上设置方法(只能写方法，不能写属性)
+         getX() {
+             console.log(this.x);
+             return this.y;
+         }
+         //把Fn当做一个普通对象设置的私有方法和属性（和实例无关）
+         static A() {
+             console.log(this.x, this.y);
+         }
+         static C = 200;
+     }
+     //给Fn添加公有属性
+     Fn.prototype.B = 100;
+     let f = new Fn(1, 2);
+     console.log(Fn.prototype, f.getX()); */
+</script>
+
+</html>

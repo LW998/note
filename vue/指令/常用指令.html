@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 小胡子语法 可以写表达式 赋值 取值 三元运算符 -->
+        <!-- {{msg}} -->
+
+        <!-- 所有指令都以v-开头，value属性默认情况下会被vue忽略 selected checked都变成无意义的-->
+        <!-- v-model会将msg的值赋予输入框，输入框的值会影响数据 -->
+        <input type="text" v-model="msg">
+
+        <!-- v-text 防止{{}}出现在页面上-->
+        <!-- <div v-text="msg"></div> -->
+
+        <!-- v-once 只绑定一次 当数据再次发生变化也不会导致页面刷新-->
+        <!-- <div v-once>{{msg}} {{msg}}</div> -->
+
+        <!-- v-html 把html字符串当做html渲染-->
+        <div v-html="p"></div>
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.min.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app', //能管理的元素用的是querySelector
+        data: { //data中的数据会被vm所代理
+            msg: "hello vue",
+            p: '<h1>hello</h1>'
+        }
+    });
+</script>
+
+</html>

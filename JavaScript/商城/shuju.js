@@ -40,7 +40,7 @@ let filtersModel = (function ($) {
             }).join('')}
         </li>`
         });
-        $typeBox.html(str);
+        $typeBox.html(str); 
         //选择区
         str = `你的选择：`;
         _select.sort((A, B) => A.type - B.type);

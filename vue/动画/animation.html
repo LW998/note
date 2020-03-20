@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>animation</title>
+    <link rel="stylesheet" href="css/animation.css">
+</head>
+
+<body>
+    <div id="app">
+        <button @click="flag=!flag">切换</button>
+        <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+            <div v-show="flag">
+                <h1>Animation</h1>
+            </div>
+        </transition>
+        <!-- 多个元素设置动画需要transition-group，并且每个元素都需要有key属性 -->
+        <transition-group enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+            <div v-for="(item,index) in list" v-show="flag" :key="index"><h1 v-text="item"></h1></div>
+        </transition-group>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            flag: true,
+            list: ["one", "two", "three"]
+        }
+    })
+</script>

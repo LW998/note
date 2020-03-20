@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>animation</title>
+</head>
+<style>
+    .dec {
+        /* border: 5px solid #f35626;
+        color: #f35626;
+        background-image: linear-gradient(87deg, #f35626 0%, #feab3a 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: hue 30s infinite linear;
+        font-weight: normal;
+        text-transform: uppercase;
+        padding: 20px;
+        text-align: center;
+        transform: translateX(50%);
+        position: relative;
+        left: -50%;
+        display: inline-block; */
+        border: 2px solid #f35626;
+        line-height: 25px;
+        padding: 15px;
+        font-weight: 700;
+        color: #f35626;
+        cursor: pointer;
+        animation: hue 60s infinite linear;
+        background-image: linear-gradient(87deg, #f35626 0%, #feab3a 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: inline-block;
+    }
+
+    @keyframes hue {
+        0% {
+            filter: hue-rotate(0deg);
+        }
+
+        100% {
+            filter: hue-rotate(-360deg);
+        }
+    }
+</style>
+
+<body>
+    <div class="colorBox">
+        <a class="dec">测试ABCDEFGHIJKLMn</a>
+    </div>
+</body>
+
+</html>

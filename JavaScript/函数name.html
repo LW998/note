@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let fn = function () {
+
+    }
+    console.log(fn.name);
+
+    let f = fn.bind(null);
+    console.log(f.name); //bound fn
+
+    //通过构造函数方式创建的函数名字都是anonymous
+    //传一个参数就是函数体
+    // let f1 = new Function("var a=1;a++;console.log(a)");
+    //传两个参数 第一个是形参，第二个是函数体
+    let f1 = new Function("a,b", "a=1;b=2;console.log(a+b)");
+    f1(); //2
+    console.log(f1) //ƒ anonymous(a,b) {a=1;b=2;console.log(a+b)}
+    console.log(f1.name) //anonymous
+
+    let a = "[1,2,3,4,5]"
+    b = new Function('return ' + a);
+    console.log(b());
+</script>
+
+</html>
