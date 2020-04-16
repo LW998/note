@@ -12,8 +12,11 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
     "less": "^3.10.3",
+    "qs": "^6.9.3",
+    "socket.io": "^2.3.0",
     "swiper": "^5.3.1"
   }
 }

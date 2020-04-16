@@ -15,9 +15,9 @@
                 <a href="javascript:;" v-text="item.name" style="text-decoration: none; color: #000;"
                     @click="item.isShow=!item.isShow"></a>
                 <ul v-show="item.isShow">
-                    <li v-for="(value,no) in item.list">
-                        <input type="checkbox" @change="check($event,index,no)">
-                        <a href="javascript:;" v-text="value" style="text-decoration: none; color: #000;"></a>
+                    <li v-for="value in item.list">
+                        <input type="checkbox" v-model="value.sel" @change="checkOnce(index)">
+                        <a href="javascript:;" v-text="value.val" style="text-decoration: none; color: #000;"></a>
                     </li>
                 </ul>
             </li>
@@ -42,31 +42,14 @@
             async getData() {
                 this.lists = (await axios.get("json/List.json")).data
             },
-            check(ev, index, no) {
-                let target = ev.target;
-                if (target.checked) {
-                    this.lists[index].listSelect.push(this.lists[index].list[no]);
-                } else {
-                    // for (let i = 0, len = this.lists[index].listSelect.length; i < len; i++) {
-                    //     if (this.lists[index].listSelect[i] === this.lists[index].list[no]) {
-                    //         this.lists[index].listSelect.splice(i, 1);
-                    //         i--;
-                    //     }
-                    // }
-                    this.lists[index].listSelect = this.lists[index].listSelect.filter(item => this.lists[index]
-                        .list[no] != item);
-                }
-                this.lists[index].is = this.lists[index].listSelect.length === this.lists[index].list.length
+            checkOnce(index) {
+                this.lists[index].is = this.lists[index].list.every(item => item.sel)
             },
             checkAll(index) {
-                console.log(this.lists[index].listSelect)
-                if(this.lists[index].is){
-                    this.lists[index].listSelect=[];
-                }else{
-                    this.lists[index].listSelect=this.lists[index].list.slice();
-                }
-                //this.lists[index].listSelect = this.lists[index].is ? [] : this.lists[index].list.slice()
-            }
+                this.lists[index].list.forEach(item => {
+                    item.sel = this.lists[index].is ? true : false
+                })
+            },
         },
     })
 </script>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面A</title>
+</head>
+
+<body>
+    <iframe id='f' src="http://127.0.0.1:1002/postMessage/b.html" frameborder="0" style="display: none;"></iframe>
+    <script>
+        f.onload = function () {
+            f.contentWindow.postMessage('Message', 'http://127.0.0.1:1002/');
+        }
+        //监听B传递过来的信息
+        window.onmessage = function (ev) {
+            console.log(ev.data);
+        }
+    </script>
+</body>
+
+</html>

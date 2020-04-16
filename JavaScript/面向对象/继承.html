@@ -12,8 +12,9 @@
 </body>
 
 <script>
-    /*  //原型链继承:让子类的原型指向父类的实例
-    //存在的问题:1.父类A的私有属性也会被B继承，A的公有属性变成B的公有属性
+    /* //原型链继承:让子类的原型指向父类的实例
+    //存在的问题:
+    //1.父类A的私有属性也会被B继承，A的公有属性变成B的公有属性
     //2.子类可以通过  B.__proto__.getX=  重写父类的方法，父类的实例会受到影响
     //3.子类B的原型上之前有的方法都没有了
     function A() {
@@ -54,28 +55,28 @@
     let f = new B();
     console.log(f.x, f.y, f.getX); //100 200 undefined */
 
+    /*
+        //组合继承：父类的私有变成子类的私有，父类的公变成子类的公有
+        function A() {
+            this.x = 100;
+        };
+        A.prototype = {
+            constructor: A,
+            getX: function () {
+                console.log(this.x);
+            }
+        };
 
-    /*  //组合继承：父类的私有变成子类的私有，父类的公变成子类的公有
-     function A() {
-         this.x = 100;
-     };
-     A.prototype = {
-         constructor: A,
-         getX: function () {
-             console.log(this.x);
-         }
-     };
-
-     function B() {
-         //给子类添加父类的私有属性和方法
-         A.call(this);
-         this.y = 200;
-     }
-     //继承方法
-     //创建了一个空的对象指向父类A的原型，这样子类B中就没有父类的私有属性和方法了
-     B.prototype = Object.create(A.prototype);
-     let f = new B();
-     console.log(f.x, f.y, f.getX);//(undefined(不添加私有属性) || 100) 200 ƒ () {} */
+        function B() {
+            //给子类添加父类的私有属性和方法
+            A.call(this);
+            this.y = 200;
+        }
+        //继承方法
+        //创建了一个空的对象指向父类A的原型，这样子类B中就没有父类的私有属性和方法了
+        B.prototype = Object.create(A.prototype);
+        let f = new B();
+        console.log(f.x, f.y, f.getX); //(undefined(不添加私有属性) || 100) 200 ƒ () {} */
 
     /* Object.create:
      *  1.创建一个空对象
@@ -98,10 +99,10 @@
     class B extends A {
         constructor() {
             //子类必须加super
-            super(100);
+            super(2000);
             //类似于call:相当于把父类的constructor执行了，并让方法中的this是子类的实例，
             //super中传递的实参都是给父类constructor的
-            this.y = 100;
+            this.y = 200;
         }
         getY() {
             console.log(this.y);
@@ -109,6 +110,8 @@
     }
     let f = new B();
     console.dir(f)
+    f.getX();
+    f.getY();
 </script>
 
 </html>

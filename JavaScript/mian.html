@@ -70,7 +70,7 @@
 
     //---------------------------------------------------------------------------------------
 
-    /*function Foo() {
+   /*  function Foo() {
         Foo.a = function () {
             console.log(1);
         }
@@ -89,9 +89,9 @@
     }
     Foo.a(); //=>4
     //先把Foo执行生成私有属性域，obj为Foo的实例可以调取原型上的方法，当私有域中有方法时优先调用私有域中的方法
-    let obj = new Foo();
+    let obj = new Foo();//=>1111
     obj.a(); //=>2
-    Foo.a(); //=>1*/
+    Foo.a(); //=>1 */
 
 
     //----------------------------------------------------------------------------------
@@ -126,7 +126,7 @@
 
     //-------------------------------------------------------------------------------
 
-    /*let ary1 = ["A1", "B2", "A2", "C1", "B1", "D1", "C2", "D2"],
+   /*  let ary1 = ["A1", "B2", "A2", "C1", "B1", "D1", "C2", "D2"],
         ary2 = ["D", "C", "B", "A"],
         C = ary1.slice();
     let arr = [],
@@ -143,14 +143,15 @@
                 arr.push(item1);
                 C.splice(j, 1);
                 j--;
+                console.log(C);
             }
         }
         arr.push(item2);
     }
     console.timeEnd('a');
-    console.log(arr);
+    console.log(arr); */
 
-    console.time('b');
+   /*  console.time('b');
     for (let i = 0; i < ary2.length; i++) {
         let item2 = ary2[i];
         console.log(1);
@@ -164,12 +165,12 @@
         ary1.splice(n + 1, 0, item2);
     }
     console.timeEnd('b');
-    console.log(ary1);*/
+    console.log(ary1); */
 
 
     //-------------------------------------------------------------------------------
 
-    /*var b = 10;
+    /*  var b = 10;
     (function b() {
         b = 20;
         console.log(b); //=>b这个函数本身
@@ -191,8 +192,8 @@
         b = 20;
         console.log(b); //=>20
     })()
-    console.log(b); //=>10*/
-
+    console.log(b); //=>10
+ */
     //---------------------------------------------------------------------------------
 
     /*1.{}=={}两个对象比较，比较的是堆内存地址
@@ -241,13 +242,13 @@
     //--------------------------------------------------------------------------
 
     //Array.prototype.push方法源码
-    /*function pu(val) {
-        this[this.length] = val;
-        //=>this.length会自动累加1，浏览器自动处理，数组原理
-        return this.length;
-    }*/
+    /*    function pu(val) {
+           this[this.length] = val;
+           //=>this.length会自动累加1，浏览器自动处理，数组原理
+           return this.length;
+       } */
 
-    /*let obj = {
+    /* let obj = {
         3: 4,
         4: 5,
         length: 2,
@@ -255,82 +256,82 @@
     }
     obj.push(1); //=>  obj[obj.length]=1 => obj[2]=1 =>obj.length=3
     obj.push(2); //=>  obj[obj.length]=2 => obj[3]=2 =>obj.length=4
-    console.log(obj); //=>{2: 1, 3: 2, 4: 5, length: 4, push: ƒ}*/
+    console.log(obj); //=>{2: 1, 3: 2, 4: 5, length: 4, push: ƒ} */
 
     //------------------------------------------------------------------------
 
-    /*let ary = [1, 56, 2, 23, 15, 45, 12, 24];
+    /*     let ary = [1, 56, 2, 23, 15, 45, 12, 24];
 
-    function bubble(ary) {
-        for (let i = 0; i < ary.length - 1; i++) {
-            let flag = 1;
-            for (let j = 0; j < ary.length - 1 - i; j++) {
-                ary[j] > ary[j + 1] ? [ary[j], ary[j + 1]] = [ary[j + 1], ary[j]] : null;
-                flag = 0;
-            }
-            if (flag) {
-                return ary;
-            }
-        }
-        return ary;
-    }
-
-    function insert(ary) {
-        let handler = [];
-        handler.push(ary[0]);
-        for (let i = 1; i < ary.length; i++) {
-            let A = ary[i];
-            for (let j = handler.length - 1; j >= 0; j--) {
-                let B = handler[j];
-                if (A > B) {
-                    handler.splice(j + 1, 0, A);
-                    break;
+        function bubble(ary) {
+            for (let i = 0; i < ary.length - 1; i++) {
+                let flag = 1;
+                for (let j = 0; j < ary.length - 1 - i; j++) {
+                    ary[j] > ary[j + 1] ? [ary[j], ary[j + 1]] = [ary[j + 1], ary[j]] : null;
+                    flag = 0;
                 }
-                if (j === 0) {
-                    handler.unshift(A);
+                if (flag) {
+                    return ary;
                 }
             }
-        }
-        return handler;
-    }
-
-    function quick(ary) {
-        if (ary.length <= 1) {
             return ary;
         }
-        let minIn = Math.floor(ary.length / 2),
-            minVal = ary.splice(minIn, 1)[0],
-            leftAry = [],
-            rightAry = [];
-        for (let i = 0; i < ary.length; i++) {
-            let item = ary[i];
-            item < minVal ? leftAry.push(item) : rightAry.push(item);
+
+        function insert(ary) {
+            let handler = [];
+            handler.push(ary[0]);
+            for (let i = 1; i < ary.length; i++) {
+                let A = ary[i];
+                for (let j = handler.length - 1; j >= 0; j--) {
+                    let B = handler[j];
+                    if (A > B) {
+                        handler.splice(j + 1, 0, A);
+                        break;
+                    }
+                    if (j === 0) {
+                        handler.unshift(A);
+                    }
+                }
+            }
+            return handler;
         }
-        return quick(leftAry).concat(minVal, quick(rightAry));
-    }
-    console.log(bubble(ary));
-    console.log(insert(ary));
-    console.log(quick(ary));
-    console.log(ary);*/
+
+        function quick(ary) {
+            if (ary.length <= 1) {
+                return ary;
+            }
+            let minIn = Math.floor(ary.length / 2),
+                minVal = ary.splice(minIn, 1)[0],
+                leftAry = [],
+                rightAry = [];
+            for (let i = 0; i < ary.length; i++) {
+                let item = ary[i];
+                item < minVal ? leftAry.push(item) : rightAry.push(item);
+            }
+            return quick(leftAry).concat(minVal, quick(rightAry));
+        }
+        console.log(bubble(ary));
+        console.log(insert(ary));
+        console.log(quick(ary));
+        console.log(ary); */
 
     //---------------------------------------------------------------------------
-    /*let obj = {
-        1: 222,
-        2: 123,
-        5: 111
-    };
+    /*   let obj = {
+          1: 222,
+          2: 123,
+          5: 111
+      };
 
-    //let arr = new Array(12).fill(null).map((item, index) => obj[index + 1] || null)
+      //let arr = new Array(12).fill(null).map((item, index) => obj[index + 1] || null)
 
-    let arr = new Array(12).fill(null);
-    Object.keys(obj).forEach(item => {
-        arr[item - 1] = obj[item];
-    });
-    console.log(arr);*/
+      let arr = new Array(12).fill(null);
+      Object.keys(obj).forEach(item => {
+          arr[item - 1] = obj[item];
+      });
+      console.log(arr); */
 
     //-------------------------------------------------------------------------------
 
-    /*let ary = [1, 2, 3, 4, 5, 6, 7, 8];
+    /*   let ary = [1, 2, 3, 4, 5, 6, 7, 8];
 
     function rotate(n) {
         if (n === 0 || n < 0 || n === this.length) return;
@@ -345,28 +346,28 @@
         return this;
     }
     Array.prototype.rotate = rotate;
-    console.log(ary.rotate(6))*/
-
+    console.log(ary.rotate(6))
+ */
     //-------------------------------------------------------------------------------
     //柯理化函数:函数执行生成闭包保存数据，利用了闭包的保存机制
-    ~ function () {
-        function myBind(context = window, ...outArg) {
-            _this = this;
-            return function (...innerArg) {
-                _this.call(context, ...outArg.concat(innerArg))
-            }
-        }
-        Function.prototype.myBind = myBind;
-    }();
-    let obj = {
-        name: '名字'
-    }
+    /*  ~ function () {
+         function myBind(context = window, ...outArg) {
+             _this = this;
+             return function (...innerArg) {
+                 _this.call(context, ...outArg.concat(innerArg))
+             }
+         }
+         Function.prototype.myBind = myBind;
+     }();
+     let obj = {
+         name: '名字'
+     }
 
-    function fn(...arg) {
-        console.log(this, arg)
-    }
+     function fn(...arg) {
+         console.log(this, arg)
+     }
 
-    document.body.onclick = fn.myBind(null, 100, 200);
+     document.body.onclick = fn.myBind(null, 100, 200); */
 
     /*
         function currying(fn, length) {

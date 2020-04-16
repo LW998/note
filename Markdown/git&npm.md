@@ -14,25 +14,56 @@ $git reflog
 $git status
 //从暂存区删除
 $git rm <file>
+//回滚
+$gir rm --cached 文件名
+//把上一个暂存区的内容撤回到工作区
+$git checkout .
 
 //历史版本回退
 $git reset --hard 版本号前7位
 ```
 
 ```shell
-//创建远程仓库
+//链接远程仓库
 $git remote add mingzi https://github.com/....
 //查看仓库
 $git remote -v
-//上传远程仓库
+//移除远程仓库链接
+$git remote rm mingzi
+//更新链接通道
+$git remote update mingzi
+//上传远程仓库master分支
 $git push mingzi master
-//下拉远程仓库
+//下拉远程仓库master分支
 $git pull mingzi master
+
+//真实项目克隆远程仓库
+$git clone https://github.com/.... bieming[可以不设置，默认远程仓库名]
 ```
 
 ```shell
-//真实项目克隆远程仓库
-$git clone https://github.com/.... bieming[可以不设置，默认远程仓库名]
+//多分支
+//查看分支
+$git branch
+//创建分支
+$git branch dev-A
+//切换到分支
+$git checkout dev-A
+//创建并切换到分支
+$git checkout -b dev-A
+//删除分支
+$git branch -D dev-A
+
+//工作区和暂存区还有未提交到历史区的内容，可以先暂存起来
+//暂存文件
+$git stash
+//还原暂存内容(需切换master分支)
+$git stash pop
+
+//合并分支(在哪个分支上就是把那个分支合并到那个分支上)
+$git merge dev-A
+//同步信息(dev-A分支更新master分支)
+$git merge master
 ```
 
 ### NPM

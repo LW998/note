@@ -10,7 +10,7 @@
 为了防止全局安装出现版本冲突，我们一般都把webpack安装在本地项目中
 
 ```shell
-$npm i webpack webpack-cli --save-dev
+npm i webpack webpack-cli --save-dev
 ```
 
 **webpack打包**
@@ -80,7 +80,7 @@ $ npx webpack --config (新的文件名)
 > 不仅能打包还能启动服务
 
 ```shell
-$ npm i webpack-dev-server
+npm i webpack-dev-server --save-dev
 ```
 
 
@@ -134,7 +134,7 @@ $ npm run serve
 ## html-webpack-plugin
 
 ```shell
-$ npm i html-webpack-plugin
+ npm i html-webpack-plugin --save-dev
 ```
 
 >webpack.config.js配置
@@ -172,7 +172,7 @@ plugins: [
 ## webpack中的加载器loader （处理样式）
 
 ```shell
-$  npm i css-loader style-loader less less-loader
+npm i css-loader style-loader less less-loader --save-dev
 ```
 
 ```javascript
@@ -180,9 +180,186 @@ $  npm i css-loader style-loader less less-loader
 require('./index.css')
 ```
 
-> 处理浏览器兼容的loader
+> 处理浏览器兼容自动加前缀的loader
 
 ```shell
-$npm i postcss-loader
+npm i autoprefixer postcss-loader --save-dev
+```
+
+```javascript
+//使用加载器loader处理规则
+module: {
+    rules: [{
+        //通过正则表达式匹配当前加载器处理那些文件
+        test: /\.(css|less)$/i,
+        //控制使用哪一个加载器
+        //顺序从下到上执行
+        use: [
+            //把编译好的css插入到页面的head中(内嵌式样式)
+            "style-loader",
+            //编译@import/url()这种语法的
+            "css-loader",
+            //设置前缀
+            {
+                loader: "postcss-loader",
+                options: {
+                    ident: "postcss",
+                    plugins: [
+                        require('autoprefixer')
+                    ]
+                }
+            },
+            //编译less
+            "less-loader",
+        ]
+    }]
+}
+```
+
+## mini-css-extract-plugin 抽离css内容
+
+```shell
+npm i mini-css-extract-plugin optimize-css-assets-webpack-plugin uglifyjs-webpack-plugin --save-dev
+```
+
+> webpack.config.js
+
+```javascript
+//抽离css插件
+let MiniCssExtractPlugin = require('mini-css-extract-plugin');
+//压缩css插件
+let OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+//压缩JS插件
+let UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
+
+//配置优化规则
+optimization: {
+    //=>压缩优化
+    minimizer: [
+        //压缩CSS
+        new OptimizeCssAssetsWebpackPlugin(),
+        //配置后production环境不再自动压缩JS,需要引入UglifyjsWebpackPlugin压缩JS
+        new UglifyjsWebpackPlugin({
+            //是否使用缓存
+            cache: true,
+            //是否并发编译
+            parallel: true,
+            //启动源码映射(方便调试)
+            sourceMap: true
+        }),
+    ]
+},
+    plugins:[ new MiniCssExtractPlugin({ //=>抽取CSS
+        //指定输出的文件名
+        filename: 'main.min.css',
+    })
+            ]
+```
+
+## 基于babel实现ES6的转换和ESLint语法检测
+
+```shell
+npm i babel-loader @babel/core @babel/preset-env @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators @babel/plugin-transform-runtime --save-dev
+```
+
+```shell
+处理兼容ES7语法
+npm i --save @babel/runtime @babel/polyfill
+```
+
+```shell
+检测语法规范
+npm i eslint eslint-loader --save-dev
+```
+
+## 暴露全局loader
+
+```shell
+npm i expose-loader --save-dev
+```
+
+```javascript
+//内联加载器
+import jquery from 'expose-loader?$!jquery';
+console.log(window.$)
+```
+
+> webpack.config.js
+
+```javascript
+new webpack.ProvidePlugin({ //=>向每一个模块中注入全局变量
+            '$': 'jquery'
+        })
+```
+
+## 图片处理
+
+```shell
+npm i file-loader url-loader html-withimg-loader --save-dev
+```
+
+```javascript
+import img1 from './static/2.jpg';
+let img2 = require('./static/2.jpg');
+//在webpack打包编译的环境下需要先把图片导入进来，然后使用(相对地址需要导入，绝对地址不用)
+let img = new Image();
+img.src = img1;
+document.body.appendChild(img);
+```
+
+> webpack.config.js
+
+```javascript
+module: {
+    rules: [{
+        // //图片处理
+        test: /\.(jpg|png|jpeg|gif|ico|webp|bmp)$/i,
+        use: [{
+            loader: 'url-loader',
+            options: {
+                //只要是图片是小于200kb的，在处理的时候直接给转化成BASE64
+                limit: 200 * 1024,
+            }
+        }]
+    }, {
+        //处理HTML文件中导入的img图片
+        test: /\.(html|htm|xml)$/i,
+        use: ["html-withimg-loader"]
+    }}
+            }]
+}
+```
+
+## 实现文件分目录发布
+
+```javascript
+output: {publicPath: './'}
+module: {
+    rules: [{
+        // //图片处理
+        test: /\.(jpg|png|jpeg|gif|ico|webp|bmp)$/i,
+        use: [{
+            loader: 'url-loader',
+            options: {
+                // //只要是图片是小于200kb的，在处理的时候直接给转化成BASE64
+                limit: 1 * 1024,
+                //控制打包后图片所在的目录
+                outputPath: 'images'
+            },
+        }]
+    }]
+}
+```
+
+## 处理VUE
+
+```shell
+npm i vue-loader vue-template-compiler --save-dev
+```
+> webpack.config.js
+
+```javascript
+let VueLoaderPlugin = require('vue-loader/lib/plugin');
+
 ```
 

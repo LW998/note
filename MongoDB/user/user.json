@@ -1,0 +1,36 @@
+[{
+        "name": "张三",
+        "age": 10,
+        "hobbies": ["吃饭", "睡觉"],
+        "email": "zhangsan@qq.com",
+        "password": "123456"
+    },
+    {
+        "name": "李四",
+        "age": 15,
+        "hobbies": ["睡觉", "玩游戏"],
+        "email": "lisi@qq.com",
+        "password": "111116"
+    },
+    {
+        "name": "王五",
+        "age": 78,
+        "hobbies": ["敲代码", "玩游戏"],
+        "email": "wangwu@qq.com",
+        "password": "465123"
+    },
+    {
+        "name": "赵六",
+        "age": 23,
+        "hobbies": ["吃饭", "敲代码"],
+        "email": "zhaoliu@qq.com",
+        "password": "456123"
+    },
+    {
+        "name": "王麻子",
+        "age": 55,
+        "hobbies": ["吃饭", "睡觉", "敲代码"],
+        "email": "wangmazi@qq.com",
+        "password": "111111"
+    }
+]

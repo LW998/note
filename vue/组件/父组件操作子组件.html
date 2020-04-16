@@ -33,7 +33,7 @@
             }
         },
         methods: {
-            hidden() {
+            hid() {
                 this.flg = !this.flg;
             }
         },
@@ -48,8 +48,8 @@
         },
         methods: {
             hidden() {
-                //在这里拿到子组件的方法hidden执行
-                this.$refs.child.hidden();
+                //在这里拿到子组件的方法hid执行
+                this.$refs.child.hid();
 
                 //改变子组件中元素的样式
                 this.$refs.child.$refs.childH3.style.color = "red"

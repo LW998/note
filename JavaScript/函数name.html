@@ -14,7 +14,7 @@
     let fn = function () {
 
     }
-    console.log(fn.name);
+    console.log(fn.name); //fn
 
     let f = fn.bind(null);
     console.log(f.name); //bound fn
@@ -24,7 +24,7 @@
     // let f1 = new Function("var a=1;a++;console.log(a)");
     //传两个参数 第一个是形参，第二个是函数体
     let f1 = new Function("a,b", "a=1;b=2;console.log(a+b)");
-    f1(); //2
+    f1(); //3
     console.log(f1) //ƒ anonymous(a,b) {a=1;b=2;console.log(a+b)}
     console.log(f1.name) //anonymous
 

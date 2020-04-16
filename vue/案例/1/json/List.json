@@ -2,24 +2,82 @@
     "name": "A",
     "isShow": true,
     "is": false,
-    "list": [1, 2, 3, 4, 5, 6],
-    "listSelect": []
+    "list": [{
+        "val": 1,
+        "sel": false
+    }, {
+        "val": 2,
+        "sel": false
+    }, {
+        "val": 3,
+        "sel": false
+    }, {
+        "val": 4,
+        "sel": false
+    }, {
+        "val": 5,
+        "sel": false
+    }]
 }, {
     "name": "B",
     "isShow": false,
     "is": false,
-    "list": [10, 20, 30, 40, 50, 60],
+    "list": [{
+        "val": 10,
+        "sel": false
+    }, {
+        "val": 20,
+        "sel": false
+    }, {
+        "val": 30,
+        "sel": false
+    }, {
+        "val": 40,
+        "sel": false
+    }, {
+        "val": 50,
+        "sel": false
+    }],
     "listSelect": []
 }, {
     "name": "C",
     "isShow": false,
     "is": false,
-    "list": [100, 200, 300, 400, 500, 600],
+    "list": [{
+        "val": 100,
+        "sel": false
+    }, {
+        "val": 200,
+        "sel": false
+    }, {
+        "val": 300,
+        "sel": false
+    }, {
+        "val": 400,
+        "sel": false
+    }, {
+        "val": 500,
+        "sel": false
+    }],
     "listSelect": []
 }, {
     "name": "D",
     "isShow": false,
     "is": false,
-    "list": ["01", "02", "03", "04"],
-    "listSelect": []
+    "list": [{
+        "val": "01",
+        "sel": false
+    }, {
+        "val": "02",
+        "sel": false
+    }, {
+        "val": "03",
+        "sel": false
+    }, {
+        "val": "04",
+        "sel": false
+    }, {
+        "val": "05",
+        "sel": false
+    }]
 }]

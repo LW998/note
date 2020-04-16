@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面B</title>
+</head>
+
+<body>
+    <script>
+        //监听A页面发送过来的信息
+        window.onmessage=function(ev){
+            console.log(ev.data);
+            //ev.source:A页面
+            //接收到信息后回复给A页面
+            ev.source.postMessage(ev.data+'ok',ev.origin);
+        }
+    </script>
+</body>
+
+</html>

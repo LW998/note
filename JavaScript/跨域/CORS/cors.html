@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../../node_modules/axios/dist/axios.js"></script>
+    <script>
+        axios.defaults.baseURL = 'http://127.0.0.1:8080';
+        //跨域访问需要发送cookie
+        axios.defaults.withCredentials = true;
+        //默认请求头
+        axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        //响应拦截器
+        axios.interceptors.response.use(function onFulfilled(response) {
+                return response.data;
+            }),
+            function onRejected(reason) {
+                return Promise.reject(reason);
+            };
+        axios.defaults.validateStatus = status => /^(2|3)\d{2}$/.test(status);
+        axios.defaults.transformRequest = data => {
+            //data：请求主体中需要传递给服务器的内容
+            let str = ``;
+            for (let key in data) {
+                if (data.hasOwnProperty(key)) {
+                    str += `${key}=${data[key]}&`;
+                }
+            }
+            return str.substring(0, str.length - 1);
+        }
+        axios.get('/getMatchList', {
+            params: {
+                page: 1,
+                limit: 10,
+            }
+        }).then(res => {
+            console.log(res)
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script src="js/axios.min.js"></script>
+    <script src="js/md5.min.js"></script>
+    <!-- <script src="js/axios_default.js"></script> -->
+    <script>
+        axios.defaults.baseURL = 'http://localhost:8082';
+        //响应拦截器,拦截只显示data中的信息
+        axios.interceptors.response.use(result => result.data);
+        //处理POST和PUT请求主体中的数据转为url-encodeed格式
+        axios.defaults.transformRequest = data => {
+            let str = ``;
+            if (data && typeof data === 'object') {
+                for (let key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        str += `${key}=${data[key]}&`
+                    }
+                }
+                data = str.substring(0, str.length - 1)
+            }
+            return data;
+        }
+        // axios.get(`/getUser`, {
+        //     params: {
+        //         userId: 10,
+        //     }
+        // }).then(res => {
+        //     console.log(res);
+        // });
+
+        //axios的POST请求默认传递的是RAW格式：'{"name":"xxxx"}'
+        axios.post('/register', {
+            //请求主体中的内容
+            name: '哈哈哈',
+            password: hex_md5("000000"),
+            phone: '12345678911',
+            sex: 0,
+            bio: 'xxxxxxxxxxxxxxxxxxx'
+        }).then(result => {
+            console.log(result);
+        })
+    </script>
+</body>
+
+</html>

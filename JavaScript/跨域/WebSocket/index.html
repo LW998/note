@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id='btn'>点击</button>
+    <script src="../../node_modules/socket.io-client/dist/socket.io.js"></script>
+    <script>
+        let socket = io('http://127.0.0.1:8000');
+        //连接成功处理
+        socket.on('connect', function () {
+            //监听服务器端消息
+            socket.on('message', function (msg) {
+                console.log('服务器返回数据:' + msg);
+            });
+            //监听服务器端关闭连接
+            socket.on('disconnect', function () {
+                console.log('连接已断开！');
+            });
+        });
+        //发送消息给服务器端
+        btn.onclick = function () {
+            socket.send('哈哈哈');
+        }
+    </script>
+</body>
+
+</html>

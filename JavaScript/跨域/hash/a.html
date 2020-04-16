@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A</title>
+</head>
+
+<body>
+    <iframe id="f" src="http://127.0.0.1:1002/hash/b.html" frameborder="0" style="display: none;"></iframe>
+    <script>
+        f.onload = function () {
+            let count = 0;
+            if (count === 0) {
+                f.src = 'http://127.0.0.1:1002/hash/b.html#msg=hash';
+                count++;
+                return;
+            }
+        }
+        function func(res) {
+            console.log(res);
+        }
+    </script>
+</body>
+
+</html>

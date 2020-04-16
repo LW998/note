@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <iframe id="f" src="http://127.0.0.1:1002/name/b.html" frameborder="0" style="display: none;"></iframe>
+    <script>
+        let count = 0;
+        f.onload = function () {
+            if (count === 0) {
+                //需要我们把地址重新指向同源中
+                f.src = 'http://127.0.0.1:1001/name/proxy.html';
+                count++;
+                return;
+            }
+            //f.contentWindow:子页面
+            console.log(f.contentWindow.name)
+        }
+    </script>
+</body>
+
+</html>
