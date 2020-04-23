@@ -20,11 +20,21 @@ let goodsData = async (req, res) => {
         type,
         page
     } = req.query;
-    let sql = 'select image,title,price,mlsDiscountPrice from goods where type=? limit ?,?';
+    if (type === undefined || page === undefined) {
+        res.send({
+            'status': 'fail',
+            'data': [],
+            'msg': "传入的参数不正确"
+        })
+        return;
+    }
+    let sql = 'select image,title,price,mlsDiscountPrice,iid from goods where type=? limit ?,?';
     let begin = ((Number(page) - 1) * 20);
     let sqlArr = [type, begin, 20];
     let result = await config.SqlConnect(sql, sqlArr);
+    let status = result.length !== 20 ? 'fail' : 'success'
     res.send({
+        'status': status,
         'data': result
     })
 }

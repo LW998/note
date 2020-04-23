@@ -2,11 +2,14 @@ var express = require('express');
 const bodyParser = require('body-parser');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-const config = require('./utils/config'),
-  session = require('express-session');
+const config = require('./utils/config');
+const {
+  detail
+} = require('./utils/mongoConfig');
 
 var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/home');
+
 
 var app = express();
 
@@ -32,6 +35,20 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.get('/detail', (req, res) => {
+  let {
+    iid
+  } = req.query;
+  detail.find({
+    iid: iid
+  }).select("result iid -_id").then(result => {
+    res.send({
+      "iid": result[0].iid,
+      "result": result[0].result
+    });
+  })
+})
 
 //设置session
 
@@ -63,4 +80,4 @@ app.use('/home', homeRouter);
 
 
 
-server.listen(8000)
+server.listen(8000, '0.0.0.0')

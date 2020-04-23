@@ -42,15 +42,21 @@ const popSchema = mongoose.Schema({
     acm: String
 });
 
+const detailSchema = mongoose.Schema({
+    iid: String,
+    result:Array
+})
 
 
 
 const pop = mongoose.model('Pop', popSchema)
 const news = mongoose.model('New', popSchema)
 const sell = mongoose.model('Sell', popSchema)
+const detail=mongoose.model('Detail',detailSchema)
 
 module.exports = {
     pop,
     news,
-    sell
+    sell,
+    detail
 }
