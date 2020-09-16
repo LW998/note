@@ -64,6 +64,10 @@ $git stash pop
 $git merge dev-A
 //同步信息(dev-A分支更新master分支)
 $git merge master
+
+
+//首次把分支信息上传
+$git push -u origin dev-A
 ```
 
 ### NPM

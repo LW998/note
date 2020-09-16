@@ -13,7 +13,7 @@
     body {
         height: 500%;
     }
-
+    
     .dialogMark {
         position: fixed;
         top: 0;
@@ -23,7 +23,7 @@
         background: rgba(0, 0, 0, .2);
         z-index: 1000;
     }
-
+    
     .dialogBox {
         position: fixed;
         width: 300px;
@@ -31,7 +31,7 @@
         height: 400px;
         z-index: 1001;
     }
-
+    
     .dialogBox h3 {
         height: 40px;
         line-height: 40px;
@@ -41,7 +41,7 @@
         -webkit-user-select: none;
         position: relative;
     }
-
+    
     .dialogBox h3 i {
         position: absolute;
         right: 10px;
@@ -57,12 +57,12 @@
         font-family: "微软雅黑";
         cursor: pointer;
     }
-
+    
     .dialogBox .con {
         height: 359px;
         width: 100%;
     }
-
+    
     .active {
         background-color: wheat !important;
     }
@@ -82,52 +82,52 @@
 <script src="drag发布订阅.js"></script>
 <script>
     /* $(function () {
-        let $dialogBox = $('.dialogBox'),
-            $dialogMark = $('.dialogMark'),
-            $title = $dialogBox.find('.title'),
-            $closeBtn = $dialogBox.find('i');
-        let winW = document.documentElement.clientWidth,
-            winH = document.documentElement.clientHeight,
-            boxW = $dialogBox[0].offsetWidth,
-            boxH = $dialogBox[0].offsetHeight;
-        $dialogBox.css({
-            top: (winH - boxH) / 2,
-            left: (winW - boxW) / 2
-        })
-        $closeBtn.on('click', function () {
-            $dialogBox.stop().fadeOut(200, () => {
-                $dialogMark.stop().fadeOut(100);
+            let $dialogBox = $('.dialogBox'),
+                $dialogMark = $('.dialogMark'),
+                $title = $dialogBox.find('.title'),
+                $closeBtn = $dialogBox.find('i');
+            let winW = document.documentElement.clientWidth,
+                winH = document.documentElement.clientHeight,
+                boxW = $dialogBox[0].offsetWidth,
+                boxH = $dialogBox[0].offsetHeight;
+            $dialogBox.css({
+                top: (winH - boxH) / 2,
+                left: (winW - boxW) / 2
+            })
+            $closeBtn.on('click', function () {
+                $dialogBox.stop().fadeOut(200, () => {
+                    $dialogMark.stop().fadeOut(100);
+                });
+            })
+            let drag = new Drag($dialogBox[0], {
+                selector: '.title',
+                dragStart: function () {
+                    $(this.dragTarget).addClass('active')
+                },
+                dragging: function () {
+                    let minL = 0,
+                        minT = 0,
+                        maxL = winW - boxW,
+                        maxT = winH - boxH;
+                    let {
+                        curL,
+                        curT
+                    } = this;
+                    curL = curL < minL ? minL : (curL > maxL ? maxL : curL);
+                    curT = curT < minT ? minT : (curT > maxT ? maxT : curT);
+                    $(this.ele).css({
+                        left: curL,
+                        top: curT
+                    })
+                },
+                dragEnd: function () {
+                    $(this.dragTarget).removeClass('active')
+                }
             });
-        })
-        let drag = new Drag($dialogBox[0], {
-            selector: '.title',
-            dragStart: function () {
-                $(this.dragTarget).addClass('active')
-            },
-            dragging: function () {
-                let minL = 0,
-                    minT = 0,
-                    maxL = winW - boxW,
-                    maxT = winH - boxH;
-                let {
-                    curL,
-                    curT
-                } = this;
-                curL = curL < minL ? minL : (curL > maxL ? maxL : curL);
-                curT = curT < minT ? minT : (curT > maxT ? maxT : curT);
-                $(this.ele).css({
-                    left: curL,
-                    top: curT
-                })
-            },
-            dragEnd: function () {
-                $(this.dragTarget).removeClass('active')
-            }
-        });
-    });*/
+        });*/
 </script>
 <script>
-    $(function () {
+    $(function() {
         let $dialogBox = $('.dialogBox'),
             $dialogMark = $('.dialogMark'),
             $title = $dialogBox.find('.title'),
@@ -140,7 +140,7 @@
             top: (winH - boxH) / 2,
             left: (winW - boxW) / 2
         })
-        $closeBtn.on('click', function () {
+        $closeBtn.on('click', function() {
             $dialogBox.stop().fadeOut(200, () => {
                 $dialogMark.stop().fadeOut(100);
             });

@@ -18,7 +18,9 @@
         </transition>
         <!-- 多个元素设置动画需要transition-group，并且每个元素都需要有key属性 -->
         <transition-group enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
-            <div v-for="(item,index) in list" v-show="flag" :key="index"><h1 v-text="item"></h1></div>
+            <div v-for="(item,index) in list" v-show="flag" :key="index">
+                <h1 v-text="item"></h1>
+            </div>
         </transition-group>
     </div>
 </body>

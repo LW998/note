@@ -4,9 +4,9 @@ mongoose.connect('mongodb://localhost/supermail', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
-    // console.log('数据库连接成功');
+    console.log('数据库连接成功');
 }).catch(err => {
-    // console.log(err, '数据库连接失败');
+    console.log(err, '数据库连接失败');
 })
 
 const detailSchema = mongoose.Schema({

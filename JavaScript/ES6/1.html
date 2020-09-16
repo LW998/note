@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      /*       function findIndex(arr, target) {
+          let temp = {}
+          for (let i = 0; i < arr.length; i++) {
+            let dif = target - arr[i]
+            console.log(dif, temp[dif], 2222222222222222)
+            if (temp[dif] !== undefined) {
+              console.log('temp[dif]: ', temp[dif])
+              return [temp[dif], i]
+            }
+            temp[arr[i]] = i
+            console.log(temp, 111111111)
+          }
+        }
+        console.log(findIndex([1, 2, 3, 5, 8, 9, 6, 70], 8)) */
+
+      /*     function back(num) {
+            let arr = [],
+              res = 0
+            while (num !== 0) {
+              res = num % 10
+              num = (num / 10) | 0
+              arr.push(res)
+            }
+            for (let i = 0, len = arr.length; i < len / 2; i++) {
+              console.log(i)
+              if (arr[i] !== arr[len - 1 - i]) {
+                return false
+              }
+            }
+            return true
+          }
+          console.log(back(12378721)) */
+
+      /*     function bubble(ary, num) {
+            let len = ary.length;
+            num = num > len ? len : num
+            console.log(num);
+            for (let i = 0; i < num - 1; i++) {
+              let flag = 1
+              for (let j = 0; j < len - 1 - i; j++) {
+                ary[j] > ary[j + 1] ?
+                  ([ary[j], ary[j + 1]] = [ary[j + 1], ary[j]]) :
+                  null
+                flag = 0
+              }
+              if (flag) {
+                return ary.slice(-num).toString()
+              }
+            }
+            return ary.slice(-num).toString()
+          }
+
+          console.log(bubble([155, 8, 6, 3, 1, 4, 7, 0, 2, 30], 3)) */
+
+      /*     function ToNumber(str) {
+        let map = {
+            'I': 1,
+            'V': 5,
+            'X': 10,
+            'L': 50,
+            'C': 100,
+            'D': 500,
+            'M': 1000
+          },
+          sum = 0
+        for (let i = 0; i < str.length; i++) {
+          map[str[i]] < map[str[i + 1]] ? sum -= map[str[i]] : sum += map[str[i]]
+        }
+        return sum
+      }
+      console.log(ToNumber('CMXCIX')); */
+      /*
+      function toRome(num) {
+        let G = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
+          S = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"],
+          B = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"],
+          Q = ["", "M", "MM", "MMM"]
+        return Q[num / 1000 | 0] + B[num % 1000 / 100 | 0] + S[num % 100 / 10 | 0] + G[num % 10]
+      }
+      console.log(toRome(999)); */
+
+      /*  function Node(val, next) {
+          this.val = val || 0 //初始化的值
+          this.next = next || null //下一个链表
+        }
+
+        const mergeTwoLists = (l1, l2) => {
+          //初始化链表
+          const newListNode = new Node()
+          //开始递归
+          const recursion = (tempListNode, l1, l2) => {
+            if (!l1 && !l2) {
+              return
+            }
+            if (!l1 || !l2) {
+              tempListNode.next = l1 || l2
+              return
+            }
+            tempListNode.next = new Node()
+            tempListNode = tempListNode.next
+
+            if (l1.val >= l2.val) {
+              tempListNode.val = l2.val
+              l2 = l2.next
+            } else {
+              tempListNode.val = l1.val
+              l1 = l1.next
+            }
+
+            recursion(tempListNode, l1, l2)
+          }
+          recursion(newListNode, l1, l2)
+          return newListNode.next
+        }
+
+        const l1 = {
+          val: 1,
+          next: {
+            val: 2,
+            next: { val: 4, next: null },
+          },
+        }
+
+        const l2 = {
+          val: 1,
+          next: {
+            val: 3,
+            next: { val: 4, next: null },
+          },
+        }
+
+        console.log(mergeTwoLists(l1, l2)) */
+
+      /*  function asyncWay(s, t) {
+          // let obj = {}
+          // for (let i = 0; i < s.length; i++) {
+          //   if (obj[s[i]]) {
+          //     obj[s[i]]++
+          //   } else {
+          //     obj[s[i]] = 1
+          //   }
+          // }
+          // for (let j = 0; j < t.length; j++) {
+          //   if (obj[t[j]]) {
+          //     obj[t[j]]--
+          //   }
+          // }
+          // for (let a in obj) {
+          //   if (obj[a]) {
+          //     return false
+          //   }
+          // }
+          // return true
+          return s.split('').sort().join('') === t.split('').sort().join('')
+        }
+
+        console.log(asyncWay('affcdb', 'abcffd')) */
+
+      function brackets(str) {
+        let a = {}
+        for (let i = 0; i < str.length; i++) {
+          if (str[i] === '{' || str[i] === '[' || str[i] === '(') {
+            a.push(str[i])
+          } else {
+            a.shift()
+          }
+        }
+        return a.length === 0
+      }
+      console.log(brackets('[]{}()(}'))
+    </script>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 module.exports = {
-    PORT: 8080,
+    // PORT: 8080,
     CORS: {
         //允许请求的源
         ALLOW_ORIGIN: '*',

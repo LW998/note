@@ -1,0 +1,12 @@
+{
+        "name": "输入输出",
+        "version": "1.0.0",
+        "description": "测试",
+        "main": "index.js",
+        "scripts": {
+          "test": "echo \"Error: no test specified\" && exit 1"
+        },
+        "keywords": [],
+        "author": "李威",
+        "license": "ISC"
+      }

@@ -37,8 +37,12 @@ let goodsData = async (req, res) => {
         'status': status,
         'data': result
     })
+    console.log(res)
 }
+
+
+
 module.exports = {
     homeData,
-    goodsData
+    goodsData,
 }

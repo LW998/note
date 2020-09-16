@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*         function A() {
+            console.log(1);
+        }
+
+        function fn() {
+            A = function () {
+                console.log(2);
+            }
+            return this;
+        }
+        fn.A = A;
+        fn.prototype = {
+            A: () => {
+                console.log(3);
+            }
+        };
+        A(); //1
+        fn.A(); //1
+        fn().A(); //2
+        new fn.A(); //1
+        new fn().A(); //3
+        // new new fn().A(); //2
+        A(); //2
+        console.log(fn.A) */
+
+        let m = (function () {
+            var str = '';
+            return function (i) {
+                str += i
+                return str
+            }
+        })()
+        console.log(m(1));
+        console.log(m(2));
+        console.log(m(3));
+
+
+
+        // var x = 20;
+        // var y = {
+        //     x: 30,
+        //     z: (function (x) {
+        //         this.x *= x;
+        //         x += 2;
+        //         return function (n) {
+        //             this.x *= n;
+        //             x += 3;
+        //             console.log(x);
+        //         }
+        //     })(x)
+        //     //闭包自执行，全局x=400,z闭包中的x=22
+        // };
+        // var m = y.z;
+        // m(4); //this指向window,全局x=1600,z闭包中的x=25,y中x不变(30)
+        // console.log(y.x, x);
+        // m(5); //this指向window,全局x=8000,z闭包中的x=28,y中x不变(30)
+        // console.log(y.x, x);
+        // y.z(5); //this指向y,y中的x=150,z闭包中的x=31,全局x不变(8000)
+        // console.log(y.x, x);
+        // m(5); //this指向window,全局x=40000,z闭包中的x=34,y中x不变(150)
+        // console.log(y.x, x);
+        // y.z(2); //this指向y,y中的x=300,z闭包中的x=37,全局x不变(40000)
+        // console.log(y.x, x);
+    </script>
+</body>
+
+</html>

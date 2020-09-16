@@ -4,11 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 const config = require('./utils/config');
 const {
-  detail
+    detail
 } = require('./utils/mongoConfig');
 
 var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/home');
+var detailRouter = require('./routes/detail');
 
 
 var app = express();
@@ -19,35 +20,35 @@ var server = http.createServer(app);
 
 //跨域处理
 app.use((req, res, next) => {
-  const {
-    ALLOW_ORIGIN,
-    CREDENTIALS,
-    HEADERS,
-    ALLOW_METHODS
-  } = config.CORS;
-  res.header("Access-Control-Allow-Origin", ALLOW_ORIGIN);
-  res.header("Access-Control-Allow-Credentials", CREDENTIALS);
-  res.header("Access-Control-Allow-Headers", HEADERS);
-  res.header("Access-Control-Allow-Methods", ALLOW_METHODS);
-  if (req.method === 'OPTIONS') {
-    res.send('Current services support cross domain requests!');
-    return;
-  }
-  next();
+    const {
+        ALLOW_ORIGIN,
+        CREDENTIALS,
+        HEADERS,
+        ALLOW_METHODS
+    } = config.CORS;
+    res.header("Access-Control-Allow-Origin", ALLOW_ORIGIN);
+    res.header("Access-Control-Allow-Credentials", CREDENTIALS);
+    res.header("Access-Control-Allow-Headers", HEADERS);
+    res.header("Access-Control-Allow-Methods", ALLOW_METHODS);
+    if (req.method === 'OPTIONS') {
+        res.send('Current services support cross domain requests!');
+        return;
+    }
+    next();
 });
 
 app.get('/detail', (req, res) => {
-  let {
-    iid
-  } = req.query;
-  detail.find({
-    iid: iid
-  }).select("result iid -_id").then(result => {
-    res.send({
-      "iid": result[0].iid,
-      "result": result[0].result
-    });
-  })
+    let {
+        iid
+    } = req.query;
+    detail.find({
+        iid: iid
+    }).select("result iid -_id").then(result => {
+        res.send({
+            "iid": result[0].iid,
+            "result": result[0].result
+        });
+    })
 })
 
 //设置session
@@ -62,7 +63,7 @@ app.get('/detail', (req, res) => {
 // }));
 
 app.use(express.urlencoded({
-  extended: false
+    extended: false
 }));
 app.use(cookieParser());
 
@@ -70,13 +71,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //post请求处理
 app.use(bodyParser.urlencoded({
-  extended: true
+    extended: true
 }));
 
 
 
 app.use('/', indexRouter);
 app.use('/home', homeRouter);
+app.use('/detail', detailRouter);
 
 
 

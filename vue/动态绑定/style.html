@@ -5,7 +5,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>style</title>
+    <style>
+        .con {
+            position: relative;
+            margin: 0 auto;
+            width: 1000px;
+            height: 300px;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .con .wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6000px;
+            list-style: none;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .con .wrap li {
+            float: left;
+            width: 1000px;
+            height: 100%;
+            font-size: 200px;
+            background-color: aqua;
+            box-sizing: border-box;
+        }
+        
+        .con .focus {
+            display: inline-block;
+            position: relative;
+            z-index: 999;
+            top: 270px;
+            padding: 4px;
+            font-size: 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+        }
+        
+        .con .focus li {
+            display: inline-block;
+            margin: 0 4px;
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, .8);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .con .focus li.active {
+            background: lightcoral;
+        }
+        
+        .con:hover .arrow {
+            display: block;
+        }
+        
+        .con .arrow {
+            display: none;
+            position: absolute;
+            top: 50%;
+            margin-top: -22.5px;
+            width: 28px;
+            height: 45px;
+            background: url("./images/pre.png") no-repeat;
+            opacity: 0.5;
+        }
+        
+        .con .arrow:hover {
+            opacity: 1;
+        }
+        
+        .con .arrow.arrowLeft {
+            left: 0;
+        }
+        
+        .con .arrow.arrowRight {
+            right: 0;
+            background-position: -50px 0;
+        }
+    </style>
 </head>
+
 
 <body>
     <div id="app">
@@ -16,6 +99,23 @@
         <div :style="style2">style2</div>
         <!-- 如果需要多个样式可以把样式对象放到数组里 -->
         <div :style="[style1,style2]">style1,style2</div>
+
+        <div class="con" @mouseenter="conHover" @mouseleave="conMoveOut" @click="handleClick($event)">
+            <ul :style="{left:realStep+'px', transition: `left ${speed}ms linear 0ms`}" class="wrap" @transitionend="animationEnd">
+                <li>4</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>1</li>
+            </ul>
+            <div class="focus">
+                <li v-for="(item,index) in list" :key="index" :class="{active:tempIndex===index}"></li>
+            </div>
+            <a href="javascript:;" class="arrow arrowLeft"></a>
+            <a href="javascript:;" class="arrow arrowRight"></a>
+        </div>
+
     </div>
 </body>
 
@@ -30,7 +130,112 @@
             },
             style2: {
                 backgroundColor: "green"
+            },
+            step: 1,
+            speed: 1000,
+            interval: 2000,
+            isRun: false,
+            autoTimer: null,
+            list: [1, 2, 3, 4]
+        },
+        methods: {
+            autoMove() {
+                this.step += 1
+            },
+            conHover() {
+                clearInterval(this.autoTimer);
+            },
+            conMoveOut() {
+                this.autoTimer = setInterval(
+                    this.autoMove, this.interval
+                )
+            },
+            animationEnd() {
+                this.isRun = false;
+            },
+            handleClick(ev) {
+                let target = ev.target,
+                    tarTag = target.tagName,
+                    tarClass = target.className;
+                // console.log(ev)
+                if (tarTag === 'A' && /(^| +)arrow( +|$)/.test(tarClass)) {
+                    if (this.isRun) return;
+                    this.isRun = true;
+                    clearInterval(this.autoTimer);
+                    if (tarClass.indexOf('arrowRight') >= 0) {
+                        this.autoMove();
+                        return;
+                    }
+                    this.step -= 1
+                    return;
+                }
+            },
+            beforeunloadFn(e) {
+                console.log(e)
             }
-        }
+
+        },
+        computed: {
+            realStep() {
+                return -this.step * 1000
+            },
+            tempIndex() {
+                let temp = this.step - 1;
+                this.step === 0 ? temp = this.list.length - 1 : null;
+                this.step === 5 ? temp = 0 : null;
+                return temp;
+            }
+        },
+        beforeUpdate() {
+            // 右边界判断
+            if (this.step > 5) {
+                this.step = 1;
+                this.speed = 0;
+            }
+            //左边界判断
+            if (this.step < 0) {
+                this.step = 4;
+                this.speed = 0;
+            }
+        },
+        updated() {
+            // 右边界判断
+            if (this.step === 1 && this.speed === 0) {
+                // css3的transition动画设置transition-duration的时候，如果两次设置时间过短以后一次设置为主
+                let timer = setTimeout(() => {
+                    clearTimeout(timer);
+                    this.step = 2;
+                    this.speed = 1000;
+                }, 0)
+
+            }
+            //左边界判断
+            if (this.step === 4 && this.speed === 0) {
+                // css3的transition动画设置transition-duration的时候，如果两次设置时间过短以后一次设置为主
+                let timer = setTimeout(() => {
+                    clearTimeout(timer);
+                    this.step = 3;
+                    this.speed = 1000;
+                }, 0)
+            }
+
+        },
+        mounted() {
+            this.autoTimer = setInterval(
+                this.autoMove, this.interval
+            )
+            window.addEventListener('visibilitychange', () => {
+                if (document.visibilityState == 'visible') { //状态判断：显示（切换到当前页面）
+                    // 切换到页面执行事件
+                    this.autoTimer = setInterval(
+                        this.autoMove, this.interval
+                    )
+                } else if (document.visibilityState == 'hidden') { //状态判断：隐藏（离开当前页面）
+                    // 离开页面执行事件
+                    clearInterval(this.autoTimer);
+                }
+            })
+        },
+
     })
 </script>
