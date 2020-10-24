@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .p {
+        width: 160px;
+        height: 80px;
+        padding: 20px;
+        border: 8px solid red;
+        background: yellow;
+        box-sizing: border-box;
+      }
+
+      .p > ul > li {
+        list-style: none;
+      }
+
+      .p > ul > li[c='a'] {
+        color: red;
+      }
+
+      .p > ul > li[c='a'] ~ p {
+        color: green;
+      }
+
+      .p > ul > p:nth-of-type(1) {
+        color: firebrick;
+      }
+
+      .p > ul > p:nth-of-type(1) + span {
+        color: goldenrod;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="p">
+      <ul>
+        <p>hahahah</p>
+        <span>4444</span>
+        <li c="a">1</li>
+        <li>2</li>
+        <p>hahahah</p>
+        <span>4444</span>
+        <p>hah</p>
+        <p>h</p>
+        <li>3</li>
+      </ul>
+    </div>
+    <script>
+      let arr = [1, 2, 3, 4, 58, 16, 12, 3]
+      arr.fill(3, 2, 5)
+      console.log(arr)
+    </script>
+  </body>
+</html>

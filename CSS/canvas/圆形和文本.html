@@ -12,6 +12,19 @@
 
     <script>
         let canvas1 = document.getElementById('canvas1')
+        let ctx = canvas1.getContext('2d');
+
+        // 绘制起始点
+        ctx.moveTo(80, 80);
+        // 设置经过某个位置
+        ctx.lineTo(300, 80);
+        ctx.lineTo(300, 200)
+        ctx.lineTo(80, 200)
+        ctx.lineTo(80, 80)
+        ctx.lineCap = 'round'
+        ctx.strokeStyle = "green";
+        ctx.lineWidth = 10;
+        ctx.stroke()
     </script>
 </body>
 

@@ -281,38 +281,38 @@
        } */
     console.log(ary);
 
-    /*   function insert(ary) {
-          let len = ary.length
-          for (let i = 1; i < len; i++) {
-              let temp = i,
-                  cur = ary[i]
-              while (temp >= 0 && ary[temp - 1] > cur) {
-                  console.log(temp)
-                  ary[temp] = ary[temp - 1]
-                  console.log(ary)
-                  temp--
-              }
-              console.log(i + '轮' + temp)
-              ary[temp] = cur
-          }
-          return ary
-      } */
-
-    function check(arr) {
-        let len = arr.length;
-        for (let i = 0; i < len - 1; i++) {
-            let minIndex = i;
-            for (let j = i + 1; j < len; j++) {
-                if (arr[j] < arr[minIndex]) {
-                    minIndex = j
-                }
+    function insert(ary) {
+        let len = ary.length
+        for (let i = 1; i < len; i++) {
+            let temp = i,
+                cur = ary[i]
+            while (temp >= 0 && ary[temp - 1] > cur) {
+                console.log(temp)
+                ary[temp] = ary[temp - 1]
+                console.log(ary)
+                temp--
             }
-            let temp = arr[i];
-            arr[i] = arr[minIndex];
-            arr[minIndex] = temp;
+            console.log(i + '轮' + temp)
+            ary[temp] = cur
         }
-        return arr
+        return ary
     }
+
+    /*     function check(arr) {
+            let len = arr.length;
+            for (let i = 0; i < len - 1; i++) {
+                let minIndex = i;
+                for (let j = i + 1; j < len; j++) {
+                    if (arr[j] < arr[minIndex]) {
+                        minIndex = j
+                    }
+                }
+                let temp = arr[i];
+                arr[i] = arr[minIndex];
+                arr[minIndex] = temp;
+            }
+            return arr
+        } */
 
     /*     function quick(ary) {
          //4.当ary中小于等于一项时结束递归
@@ -334,8 +334,8 @@
          return quick(leftAry).concat(midVal, quick(rightAry))
        } */
     // console.log(bubble(ary))
-    // console.log(insert(ary))
-    console.log(check(ary));
+    console.log(insert(ary))
+    // console.log(check(ary));
     // console.log(quick(ary))
     // console.log(ary)
 

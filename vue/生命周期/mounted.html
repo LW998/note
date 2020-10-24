@@ -38,9 +38,9 @@
             //渲染DOM是异步的，任然是渲染之前的
             this.$nextTick(() => {
                 //$nextTick: 等待dom渲染完成后再执行
-                this.list = [1, 2, 3, 4,5];
-                this.$nextTick(()=>{
-                    console.log('reNext', this.$refs.p); 
+                this.list = [1, 2, 3, 4, 5];
+                this.$nextTick(() => {
+                    console.log('reNext', this.$refs.p);
                 })
                 console.log('next', this.$refs.p); //渲染之后的dom元素集合
             })

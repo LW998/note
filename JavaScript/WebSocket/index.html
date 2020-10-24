@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .msgVal {
+            position: absolute;
+            width: 500px;
+            /* margin-left: -100px;
+            margin-top: -100px; */
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" name="" id="msg">
+    <button class="send">发送请求</button>
+    <div class="msgVal"></div>
+    <script>
+        var msg = document.getElementById('msg');
+        var msgVal = document.querySelector('.msgVal')
+        var btn = document.querySelector('.send')
+        const socket = new WebSocket('ws://localhost:3000')
+        // 打开连接
+        socket.addEventListener('open', function () {
+            // msgVal.innerHTML = '连接成功'
+        })
+        // 发送数据
+        btn.addEventListener('click', () => {
+            var val = msg.value;
+            socket.send(val);
+            msg.value = ''
+        })
+        // 收到数据
+        socket.addEventListener('message', function (e) {
+            let res = JSON.parse(e.data)
+            let p = document.createElement('p')
+            p.innerHTML = res.msg + '---' + res.time
+            switch (res.type) {
+                case 0:
+                    p.style.color = 'green';
+                    break;
+                case 1:
+                    p.style.color = 'red';
+                    break;
+                case 2:
+                    p.style.color = 'black';
+                    break;
+            }
+            msgVal.appendChild(p)
+        })
+    </script>
+</body>
+
+</html>

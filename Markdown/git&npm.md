@@ -15,7 +15,7 @@ $git status
 //从暂存区删除
 $git rm <file>
 //回滚
-$gir rm --cached 文件名
+$git rm --cached 文件名
 //把上一个暂存区的内容撤回到工作区
 $git checkout .
 

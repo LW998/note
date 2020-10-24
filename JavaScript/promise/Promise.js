@@ -10,7 +10,7 @@ class Promise {
         this.rejectedAry = [];
         let resolveFn = result => {
             //设置定时器是为了把resolve和reject函数执行放到等待队列中
-            //如果没有放到等待队列会是的没有执行下面的then直接执行方法导致报错
+            //如果没有放到等待队列会没有执行下面的then直接执行方法导致报错
             let timer = setTimeout(() => {
                 clearTimeout(timer);
                 if (this.status !== 'pending') return;
